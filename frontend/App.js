@@ -53,6 +53,3 @@ const App = () => {
 };
 
 export default App;
-
-//Hi I was here! And I'm still here..
-//im here as well..
