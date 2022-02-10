@@ -23,7 +23,7 @@ exports = async function(email) {
       {$addToSet: {
           canWritePartitions: projectPartition,
           memberOf: {
-            name: `${callingUser.custom_data.name}'s Project`,
+            name: `${callingUser.custom_data.name}`.charAt(0).toUpperCase() + `${callingUser.custom_data.name}`.slice(1) + "'s Inventory",
             partition: projectPartition,
           }
         }
