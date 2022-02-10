@@ -59,7 +59,7 @@ const TasksProvider = ({ children, projectPartition }) => {
       projectRealm.create(
         "Task",
         new Task({
-          name: newTaskName || "New Task",
+          name: newTaskName || "Not Scanned",
           partition: projectPartition,
         })
       );

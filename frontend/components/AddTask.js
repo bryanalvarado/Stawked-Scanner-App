@@ -19,12 +19,12 @@ export function AddTask({ createTask }) {
       >
         <>
           <Input
-            placeholder="New Task Name"
+            placeholder="Manually enter UPC number "
             onChangeText={(text) => setNewTaskName(text)}
             autoFocus={true}
           />
           <Button
-            title="Create"
+            title="Add to Inventory"
             onPress={() => {
               setOverlayVisible(false);
               createTask(newTaskName);

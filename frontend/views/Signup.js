@@ -3,10 +3,10 @@ import { View, TextInput, Button, Alert, Text } from "react-native";
 import { useAuth } from "../providers/AuthProvider";
 import styles from "../stylesheet";
 
-export function WelcomeView({ navigation }) {
+export function Signup({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { user, signIn } = useAuth();
+  const { user, signUp, signIn } = useAuth();
 
   useEffect(() => {
     // If there is a user logged in, go to the Projects page.
@@ -15,14 +15,14 @@ export function WelcomeView({ navigation }) {
     }
   }, [user]);
 
-  // The onPressSignIn method calls AuthProvider.signIn with the
-  // email/password in state.
-  const onPressSignIn = async () => {
-    console.log("Press sign in");
+  // The onPressSignUp method calls AuthProvider.signUp with the
+  // email/password in state and then signs in.
+  const onPressSignUp = async () => {
     try {
-      await signIn(email, password);
+      await signUp(email, password);
+      signIn(email, password);
     } catch (error) {
-      Alert.alert(`Failed to sign in: ${error.message}`);
+      Alert.alert(`Failed to sign up: ${error.message}`);
     }
   };
 
@@ -39,6 +39,15 @@ export function WelcomeView({ navigation }) {
       </View>
       <View style={styles.inputContainer}>
         <TextInput
+        //   onChangeText={setEmail}
+        //   value={email}
+          placeholder="Nickname"
+          style={styles.inputStyle}
+          autoCapitalize="none"
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <TextInput
           onChangeText={(text) => setPassword(text)}
           value={password}
           placeholder="Password"
@@ -46,12 +55,7 @@ export function WelcomeView({ navigation }) {
           secureTextEntry
         />
       </View>
-      <Button onPress={onPressSignIn} title="Sign In" />
-      <Text style={{textAlignVertical: "center",textAlign: "center",}}>Don't have an account?</Text>
-      <Button
-              title="Sign up"
-              onPress={() => navigation.navigate("Sign-up")}
-            />
+      <Button onPress={onPressSignUp} title="Create User" />
     </View>
   );
 }

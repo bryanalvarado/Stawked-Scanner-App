@@ -25,7 +25,7 @@ export function TaskItem({ task }) {
   // below for demonstration purposes.
   if (task.status !== "" && task.status !== Task.STATUS_OPEN) {
     actions.push({
-      title: "Mark Open",
+      title: "Fully Stocked",
       action: () => {
         setTaskStatus(task, Task.STATUS_OPEN);
       },
@@ -33,7 +33,7 @@ export function TaskItem({ task }) {
   }
   if (task.status !== Task.STATUS_IN_PROGRESS) {
     actions.push({
-      title: "Mark In Progress",
+      title: "Running low",
       action: () => {
         setTaskStatus(task, Task.STATUS_IN_PROGRESS);
       },
@@ -41,7 +41,7 @@ export function TaskItem({ task }) {
   }
   if (task.status !== Task.STATUS_COMPLETE) {
     actions.push({
-      title: "Mark Complete",
+      title: "Out of Stock",
       action: () => {
         setTaskStatus(task, Task.STATUS_COMPLETE);
       },
@@ -72,9 +72,11 @@ export function TaskItem({ task }) {
         </ListItem.Content>
         {
           task.status === Task.STATUS_COMPLETE ? (
-            <Text>&#10004; {/* checkmark */}</Text>
+            <Text>Out of stock</Text>
           ) : task.status === Task.STATUS_IN_PROGRESS ? (
-            <Text>In Progress</Text>
+            <Text>Running low</Text>
+          ) : task.status === Task.STATUS_OPEN ? (
+            <Text>Stocked</Text>
           ) : null
         }
       </ListItem>

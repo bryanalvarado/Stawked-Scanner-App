@@ -28,7 +28,10 @@ export function ManageTeam() {
       await user.functions.addTeamMember(newTeamMember);
       getTeam();
     } catch (err) {
-      Alert.alert("An error occurred while adding a team member", err.message);
+      Alert.alert(
+        "An error occurred while adding a Family member",
+        err.message
+      );
     }
   };
 
@@ -39,12 +42,12 @@ export function ManageTeam() {
       await user.functions.removeTeamMember(email);
       getTeam();
     } catch (err) {
-      Alert.alert("An error occurred while removing a team member", err);
+      Alert.alert("An error occurred while removing a Family member", err);
     }
   };
 
   const openDeleteDialogue = (member) => {
-    Alert.alert("Remove the following member from your team?", member.name, [
+    Alert.alert("Remove the following member from your Family?", member.name, [
       {
         text: "Remove",
         onPress: () => {
@@ -63,7 +66,7 @@ export function ManageTeam() {
   return (
     <View style={styles.manageTeamWrapper}>
       <View style={styles.manageTeamTitle}>
-        <Text h3>My Team</Text>
+        <Text h4>My Family</Text>
       </View>
       {teamMemberList.map((member) => (
         <ListItem
@@ -72,24 +75,23 @@ export function ManageTeam() {
           key={member.name}
         >
           <ListItem.Content>
-              <ListItem.Title>
-                {member.name}
-              </ListItem.Title>
+            <ListItem.Title>{member.name}</ListItem.Title> 
           </ListItem.Content>
         </ListItem>
       ))}
-
-      <Text h4> Add member:</Text>
       <View style={styles.inputContainer}>
         <TextInput
           onChangeText={(text) => setNewTeamMember(text)}
           value={newTeamMember}
-          placeholder="new team member username"
+          placeholder="Family member username"
           style={styles.addTeamMemberInput}
           autoCapitalize="none"
         />
       </View>
-      <Button onPress={() => addTeamMember(newTeamMember)} title="Add Member" />
+      <Button
+        onPress={() => addTeamMember(newTeamMember)}
+        title="Add Family Member"
+      />
     </View>
   );
 }

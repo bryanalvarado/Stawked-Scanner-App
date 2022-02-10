@@ -272,6 +272,8 @@ PODS:
     - React-cxxreact (= 0.64.1)
     - React-jsi (= 0.64.1)
     - React-perflogger (= 0.64.1)
+  - ReactNativeCameraKit (12.0.0):
+    - React-Core
   - RealmJS (10.10.1):
     - GCDWebServer
     - React
@@ -318,6 +320,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - ReactNativeCameraKit (from `../node_modules/react-native-camera-kit`)
   - RealmJS (from `../node_modules/realm`)
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -388,6 +391,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  ReactNativeCameraKit:
+    :path: "../node_modules/react-native-camera-kit"
   RealmJS:
     :path: "../node_modules/realm"
   RNCMaskedView:
@@ -407,7 +412,7 @@ SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: 7b423f9e248eae65987838148c36eec1dbfe0b53
-  FBReactNativeSpec: 1d57e8e28089336bf07105411bd5790fc0c3fdc8
+  FBReactNativeSpec: fd8642ceecebae21b46f7888740da22b0b21ef07
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
@@ -434,6 +439,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 4b99a7f5c6c0abbc5256410cc5425fb8531986e1
   React-runtimeexecutor: ff951a0c241bfaefc4940a3f1f1a229e7cb32fa6
   ReactCommon: bedc99ed4dae329c4fcf128d0c31b9115e5365ca
+  ReactNativeCameraKit: 9a5413e452499bd63e8c13c50de4b34d78a5f1f1
   RealmJS: 2925b36a86fc179b0b58ad48386e43eb95188e9a
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
