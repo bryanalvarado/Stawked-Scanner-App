@@ -8,7 +8,7 @@ exports = async function(email) {
   const callingUser = context.user;
   
   if (memberToRemove._id === callingUser.id) {
-    return {error: "You cannot remove yourself from your team"};
+    return {error: "You cannot remove yourself from your Family"};
   }
   
   const {canWritePartitions} = memberToRemove;
