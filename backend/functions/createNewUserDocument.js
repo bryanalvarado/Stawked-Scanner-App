@@ -8,7 +8,7 @@ exports = async function createNewUserDocument({user}) {
     canReadPartitions: [`user=${user.id}`],
     canWritePartitions: [`project=${user.id}`],
     memberOf: [
-      {"name": "My Project", "partition": `project=${user.id}`}
+      {"name": "My Inventory", "partition": `project=${user.id}`}
     ],
   });
 };

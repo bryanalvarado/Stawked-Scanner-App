@@ -16,7 +16,7 @@ exports = async function(email) {
   const projectPartition = `project=${callingUser.id}`;
 
   if ((canWritePartitions == null) || !canWritePartitions.includes(projectPartition)) {
-    return {error: `User ${email} is not a member of your team`};
+    return {error: `User ${email} is not a member of your Family`};
   }
   
   try {
