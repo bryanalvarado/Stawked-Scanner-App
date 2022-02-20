@@ -5,10 +5,9 @@ import styles from "../stylesheet";
 
 import { Overlay } from "react-native-elements";
 import { ManageTeam } from "../components/ManageTeam";
-import { BarcodeProvider } from "../views/BarcodeView";
 import { useTasks } from "../providers/TasksProvider";
 import { TaskItem } from "../components/TaskItem";
-import { AddTask } from "../components/AddTask";
+import { Barcode } from "./BarcodeView";
 
 export function TasksView({ navigation, route }) {
   const { name } = route.params;
@@ -17,9 +16,10 @@ export function TasksView({ navigation, route }) {
 
   const { tasks, createTask } = useTasks();
   useEffect(() => {
+
     navigation.setOptions({
       headerRight: function Header() {
-        return <AddTask createTask={createTask} />;
+        return <Barcode createTask={createTask} />;
       },
       title: `${name}`.charAt(0).toUpperCase() + `${name}`.slice(1) ,
     });
@@ -38,10 +38,10 @@ export function TasksView({ navigation, route }) {
               title="Manage Family"
               onPress={() => setOverlayVisible(true)}
             />
-            <Button
+            {/* <Button
               title="Go to Barcode Scanner"
               onPress={() => navigation.navigate("Bar-code")}
-            />
+            /> */}
           </View>
           <Overlay
             isVisible={overlayVisible}
@@ -50,12 +50,15 @@ export function TasksView({ navigation, route }) {
             <ManageTeam />
           </Overlay>
         </>
-      ) : (
-        <Button
-          title="Go to Barcode Scanner"
-          onPress={() => navigation.navigate("Bar-code")}
-        />
-      )}
+
+      ) : null} 
+      
+      {/* // ) : (
+      //   <Button
+      //     title="Go to Barcode Scanner"
+      //     onPress={() => navigation.navigate("Bar-code")}
+      //   />
+      // )} */}
     </View>
   );
 }

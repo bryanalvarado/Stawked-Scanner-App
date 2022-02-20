@@ -1,12 +1,13 @@
 // import React in our code
 import React, { useState } from "react";
+import { AddTask } from "../components/AddTask";
+import { useTasks } from "../providers/TasksProvider";
 
 // import all the components we are going to use
 import {
   SafeAreaView,
   Text,
   View,
-  Button,
   Linking,
   TouchableHighlight,
   PermissionsAndroid,
@@ -14,14 +15,17 @@ import {
   StyleSheet,
 } from "react-native";
 
+import { Overlay, Input, Button } from "react-native-elements";
+
 import styles from "../barcodestyle"
 
 // import CameraScreen
 import { CameraScreen } from "react-native-camera-kit";
 
-export function Barcode({ navigation }) {
+export function Barcode({ createTask }) {
   const [qrvalue, setQrvalue] = useState("");
   const [opneScanner, setOpneScanner] = useState(false);
+  const [overlayVisible, setOverlayVisible] = useState(false);
 
   const onOpenlink = () => {
     // If scanned then function to open URL in Browser
@@ -73,6 +77,12 @@ export function Barcode({ navigation }) {
   };
 
   return (
+    <>
+    <Overlay isVisible={overlayVisible}
+        // overlayStyle={{ width: "100%" }}
+        onBackdropPress={() => {
+          setOverlayVisible(false)
+          }}>
     <SafeAreaView style={{ flex: 1 }}>
       {opneScanner ? (
         <View style={{ flex: 1 }}>
@@ -92,7 +102,8 @@ export function Barcode({ navigation }) {
             }
           />
           <TouchableHighlight
-            onPress={home}
+            onPress={() => {
+              setOverlayVisible(false)}}
             style={styles.buttonStyle}>
             <Text style={styles.buttonTextStyle}>
               Close Scanner
@@ -102,7 +113,12 @@ export function Barcode({ navigation }) {
       ) : (
         <View style={styles.container}>
           <Text style={styles.textStyle}>
-            {qrvalue ? "Scanned Result: " + qrvalue : ""}
+            {qrvalue ? (
+            createTask(qrvalue),
+            setQrvalue(""),
+            alert("Item Scanned"),
+            setOverlayVisible(false))
+             : ""}
           </Text>
           {qrvalue.includes("https://") ||
             qrvalue.includes("http://") ||
@@ -113,16 +129,20 @@ export function Barcode({ navigation }) {
               </Text>
             </TouchableHighlight>
           ) : null}
-          <TouchableHighlight
-            onPress={onOpneScanner}
-            style={styles.buttonStyle}>
-            <Text style={styles.buttonTextStyle}>
-              Start Scanning
-            </Text>
-          </TouchableHighlight>
         </View>
       )}
     </SafeAreaView>
+    </Overlay>
+    <Button
+        type="clear"
+        titleStyle={styles.plusButton}
+        title="Scan"
+        onPress={() => {
+          setOverlayVisible(true);
+          onOpneScanner();
+        }}
+      />
+      </>
   );
 };
 
