@@ -16,24 +16,22 @@ import { TasksView } from "./views/TasksView";
 import { Logout } from "./components/Logout";
 const Stack = createStackNavigator();
 
-
 const App = () => {
   return (
     <AuthProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen 
+          <Stack.Screen
             name="Welcome View"
             component={WelcomeView}
-            options={{ title: "Stawked App"}}
-            
+            options={{ title: "Stawked App" }}
           />
           <Stack.Screen
             name="Sign-up"
             component={Signup}
             options={{ title: "Sign up" }}
           />
-          <Stack.Screen 
+          <Stack.Screen
             name="Inventory"
             component={ProjectsView}
             title="ProjectsView"
@@ -49,8 +47,7 @@ const App = () => {
             component={Barcode}
             options={{ title: "Barcode Scanner" }}
           />
-          <Stack.Screen 
-          name="Task List">
+          <Stack.Screen name="Task List">
             {(props) => {
               const { navigation, route } = props;
               const { user, projectPartition } = route.params;
@@ -68,4 +65,3 @@ const App = () => {
 };
 
 export default App;
-//test push Jeff Anjelo
