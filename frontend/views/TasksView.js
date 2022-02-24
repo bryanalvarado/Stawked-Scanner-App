@@ -16,12 +16,11 @@ export function TasksView({ navigation, route }) {
 
   const { tasks, createTask } = useTasks();
   useEffect(() => {
-
     navigation.setOptions({
       headerRight: function Header() {
         return <Barcode createTask={createTask} />;
       },
-      title: `${name}`.charAt(0).toUpperCase() + `${name}`.slice(1) ,
+      title: `${name}`.charAt(0).toUpperCase() + `${name}`.slice(1),
     });
   }, []);
 
@@ -50,9 +49,8 @@ export function TasksView({ navigation, route }) {
             <ManageTeam />
           </Overlay>
         </>
+      ) : null}
 
-      ) : null} 
-      
       {/* // ) : (
       //   <Button
       //     title="Go to Barcode Scanner"

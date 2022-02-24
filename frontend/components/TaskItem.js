@@ -59,26 +59,23 @@ export function TaskItem({ task }) {
         }}
         actions={actions}
       />
-      <ListItem 
-        key={task.id} 
+      <ListItem
+        key={task.id}
         onPress={() => {
           setActionSheetVisible(true);
         }}
-        bottomDivider>
+        bottomDivider
+      >
         <ListItem.Content>
-          <ListItem.Title>
-            {task.name}
-            </ListItem.Title>
+          <ListItem.Title>{task.name}</ListItem.Title>
         </ListItem.Content>
-        {
-          task.status === Task.STATUS_COMPLETE ? (
-            <Text>Out of stock</Text>
-          ) : task.status === Task.STATUS_IN_PROGRESS ? (
-            <Text>Running low</Text>
-          ) : task.status === Task.STATUS_OPEN ? (
-            <Text>Stocked</Text>
-          ) : null
-        }
+        {task.status === Task.STATUS_COMPLETE ? (
+          <Text>Out of stock</Text>
+        ) : task.status === Task.STATUS_IN_PROGRESS ? (
+          <Text>Running low</Text>
+        ) : task.status === Task.STATUS_OPEN ? (
+          <Text>Stocked</Text>
+        ) : null}
       </ListItem>
     </>
   );
