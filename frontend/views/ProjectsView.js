@@ -2,8 +2,6 @@ import React from "react";
 import { View } from "react-native";
 import { useAuth } from "../providers/AuthProvider";
 import { ListItem } from "react-native-elements";
-import { NavigationContainer } from "@react-navigation/native";
-import Tabs from "../navigation/navtabs";
 
 export function ProjectsView({ navigation }) {
   const { projectData } = useAuth();
