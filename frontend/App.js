@@ -13,6 +13,7 @@ import { Barcode } from "./views/BarcodeView";
 import { ProjectsView } from "./views/ProjectsView";
 import { TasksView } from "./views/TasksView";
 
+import Tabs from "./navigation/navtabs";
 import { Logout } from "./components/Logout";
 const Stack = createStackNavigator();
 
