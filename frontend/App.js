@@ -21,6 +21,7 @@ const App = () => {
     <AuthProvider>
       <NavigationContainer>
         <Stack.Navigator>
+          
           <Stack.Screen
             name="Welcome View"
             component={WelcomeView}
@@ -31,6 +32,7 @@ const App = () => {
             component={Signup}
             options={{ title: "Sign up" }}
           />
+          
           <Stack.Screen
             name="Inventory"
             component={ProjectsView}
