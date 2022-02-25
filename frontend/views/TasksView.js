@@ -15,14 +15,14 @@ export function TasksView({ navigation, route }) {
   const [overlayVisible, setOverlayVisible] = useState(false);
 
   const { tasks, createTask } = useTasks();
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: function Header() {
-        return <Barcode createTask={createTask} />;
-      },
-      title: `${name}`.charAt(0).toUpperCase() + `${name}`.slice(1),
-    });
-  }, []);
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     headerRight: function Header() {
+  //       return <Barcode createTask={createTask} />;
+  //     },
+  //     title: `${name}`.charAt(0).toUpperCase() + `${name}`.slice(1),
+  //   });
+  // }, []);
 
   return (
     <View>
@@ -30,17 +30,17 @@ export function TasksView({ navigation, route }) {
         task ? <TaskItem key={`${task._id}`} task={task} /> : null
       )}
 
-      {name === "My Inventory" ? (
+      {/* {name === "My Inventory" ? (
         <>
           <View style={styles.manageTeamButtonContainer}>
             <Button
               title="Manage Family"
               onPress={() => setOverlayVisible(true)}
             />
-            {/* <Button
+            <Button
               title="Go to Barcode Scanner"
               onPress={() => navigation.navigate("Bar-code")}
-            /> */}
+            />
           </View>
           <Overlay
             isVisible={overlayVisible}
@@ -49,14 +49,14 @@ export function TasksView({ navigation, route }) {
             <ManageTeam />
           </Overlay>
         </>
-      ) : null}
+      ) : null} */}
 
-      {/* // ) : (
-      //   <Button
-      //     title="Go to Barcode Scanner"
-      //     onPress={() => navigation.navigate("Bar-code")}
-      //   />
-      // )} */}
+      {/* ) : (
+         <Button
+           title="Go to Barcode Scanner"
+           onPress={() => navigation.navigate("Bar-code")}
+       />
+     )} */}
     </View>
   );
 }

@@ -1,17 +1,21 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { View, TextInput, Button, Alert, Text } from "react-native";
 import { useAuth } from "../providers/AuthProvider";
 import styles from "../stylesheet";
+import { CommonActions } from "@react-navigation/native";
 
 export function WelcomeView({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { user, signIn } = useAuth();
 
+  const nav = useNavigation();
+
   useEffect(() => {
     // If there is a user logged in, go to the Projects page.
     if (user != null) {
-      navigation.navigate("Inventory");
+      nav.reset({ index: 0, routes: [{ name: "Home" }] });
     }
   }, [user]);
 
@@ -47,11 +51,10 @@ export function WelcomeView({ navigation }) {
         />
       </View>
       <Button onPress={onPressSignIn} title="Sign In" />
-      <Text style={{textAlignVertical: "center",textAlign: "center",}}>Don't have an account?</Text>
-      <Button
-              title="Sign up"
-              onPress={() => navigation.navigate("Sign-up")}
-            />
+      <Text style={{ textAlignVertical: "center", textAlign: "center" }}>
+        Don't have an account?
+      </Text>
+      <Button title="Sign up" onPress={() => navigation.navigate("Sign-up")} />
     </View>
   );
 }

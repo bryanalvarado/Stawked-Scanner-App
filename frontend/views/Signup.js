@@ -1,17 +1,19 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { View, TextInput, Button, Alert, Text } from "react-native";
 import { useAuth } from "../providers/AuthProvider";
 import styles from "../stylesheet";
 
-export function Signup({ navigation }) {
+export function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { user, signUp, signIn } = useAuth();
+  const nav = useNavigation();
 
   useEffect(() => {
     // If there is a user logged in, go to the Projects page.
     if (user != null) {
-      navigation.navigate("Inventory");
+      nav.reset({ index: 0, routes: [{ name: "Home" }] });
     }
   }, [user]);
 
@@ -39,8 +41,8 @@ export function Signup({ navigation }) {
       </View>
       <View style={styles.inputContainer}>
         <TextInput
-        //   onChangeText={setEmail}
-        //   value={email}
+          //   onChangeText={setEmail}
+          //   value={email}
           placeholder="Nickname"
           style={styles.inputStyle}
           autoCapitalize="none"
