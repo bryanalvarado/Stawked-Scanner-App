@@ -1,12 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Logout } from "../components/Logout";
+import { ManageTeam } from "../components/ManageTeam";
 
-export function UserSettingsView() {
+export function FamilyView() {
   return (
     <View style={styles.screen}>
-      <Text>User Settings.</Text>
-      <Logout />
+      <ManageTeam />
     </View>
   );
 }

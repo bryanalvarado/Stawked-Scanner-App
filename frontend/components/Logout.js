@@ -6,7 +6,6 @@ import { useAuth } from "../providers/AuthProvider";
 export function Logout() {
   const navigation = useNavigation();
   const { signOut } = useAuth();
-
   return (
     <Button
       title="Log Out"
@@ -17,7 +16,10 @@ export function Logout() {
             style: "destructive",
             onPress: () => {
               signOut();
-              navigation.navigate("Welcome View");
+              navigation.reset({
+                index: 0,
+                routes: [{ name: "Welcome View" }],
+              });
             },
           },
           { text: "Cancel", style: "cancel" },

@@ -1,12 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Logout } from "../components/Logout";
 
-export function UserSettingsView() {
+export function HomeScreenView() {
   return (
     <View style={styles.screen}>
-      <Text>User Settings.</Text>
-      <Logout />
+      <Text>Home.</Text>
     </View>
   );
 }
