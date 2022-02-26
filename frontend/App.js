@@ -42,12 +42,7 @@ const App = () => {
             options={{ title: "Stawked App" }}
           />
 
-          <Stack.Screen
-            name="Bar-code"
-            component={Barcode}
-            options={{ title: "Barcode Scanner" }}
-          />
-          <Stack.Screen name="Task List">
+          <Stack.Screen name="Task List" options={{ title: "Inventory" }}>
             {(props) => {
               const { navigation, route } = props;
               const { user, projectPartition } = route.params;

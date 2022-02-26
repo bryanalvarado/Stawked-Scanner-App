@@ -30,6 +30,17 @@ export function Barcode({ createTask }) {
   const [overlayVisible, setOverlayVisible] = useState(false);
   const nav = useNavigation();
 
+  React.useEffect(() => {
+    const openCam = nav.addListener("focus", () => {
+      // The screen is focused
+      // Call any action
+      setOverlayVisible(true);
+      onOpneScanner();
+    });
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return openCam;
+  }, [nav]);
+
   const onOpenlink = () => {
     // If scanned then function to open URL in Browser
     Linking.openURL(qrvalue);
@@ -108,6 +119,7 @@ export function Barcode({ createTask }) {
               <TouchableHighlight
                 onPress={() => {
                   setOverlayVisible(false);
+                  nav.goBack();
                 }}
                 style={styles.buttonStyle}
               >
@@ -137,7 +149,7 @@ export function Barcode({ createTask }) {
           )}
         </SafeAreaView>
       </Overlay>
-      <Button
+      {/* <Button
         type="clear"
         titleStyle={styles.plusButton}
         title="Scan"
@@ -145,7 +157,7 @@ export function Barcode({ createTask }) {
           setOverlayVisible(true);
           onOpneScanner();
         }}
-      />
+      /> */}
     </>
   );
 }
