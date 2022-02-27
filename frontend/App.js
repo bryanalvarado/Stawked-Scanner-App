@@ -35,7 +35,6 @@ const App = () => {
             component={Signup}
             options={{ title: "Sign up" }}
           />
-
           <Stack.Screen
             name="Home"
             component={NavTabs}

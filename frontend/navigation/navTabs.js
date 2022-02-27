@@ -4,6 +4,8 @@ import { UserSettingsView } from "../views/UserSettingsView";
 import { Barcode, BarcodeView } from "../views/BarcodeView";
 import { ManageTeam } from "../components/ManageTeam";
 import { HomeScreenView } from "../views/HomeScreenView";
+import { TasksProvider } from "../providers/TasksProvider";
+import { useAuth } from "../providers/AuthProvider";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import styles from "../stylesheet";
 import { Image, View, Text, TouchableOpacity, StyleSheet } from "react-native";
@@ -35,6 +37,7 @@ const CustomNavBarButton = ({ children, onPress }) => (
 );
 
 export function NavTabs() {
+  const { user } = useAuth();
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -114,7 +117,16 @@ export function NavTabs() {
       />
       <Tab.Screen
         name="Camera"
-        component={Barcode}
+        children={() => {
+          return (
+            user ? (
+             <TasksProvider user={user} projectPartition={`project=${user.id}`}>
+              <Barcode />
+              </TasksProvider>
+              
+              ) : null
+          )
+        }}
         options={{
           tabBarIcon: ({ focused }) => (
             <Image

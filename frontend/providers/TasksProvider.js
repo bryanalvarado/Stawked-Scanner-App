@@ -41,15 +41,15 @@ const TasksProvider = ({ children, projectPartition }) => {
       });
     });
 
-    return () => {
-      // cleanup function
-      const projectRealm = realmRef.current;
-      if (projectRealm) {
-        projectRealm.close();
-        realmRef.current = null;
-        setTasks([]);
-      }
-    };
+    // return () => {
+    //   // cleanup function
+    //   const projectRealm = realmRef.current;
+    //   if (projectRealm) {
+    //     projectRealm.close();
+    //     realmRef.current = null;
+    //     setTasks([]);
+    //   }
+    // };
   }, [user, projectPartition]);
 
   const createTask = (newTaskName) => {

@@ -8,6 +8,7 @@ import { ManageTeam } from "../components/ManageTeam";
 import { useTasks } from "../providers/TasksProvider";
 import { TaskItem } from "../components/TaskItem";
 import { Barcode } from "./BarcodeView";
+import { AddTask } from "../components/AddTask";
 
 export function TasksView({ navigation, route }) {
   const { name } = route.params;
@@ -18,7 +19,7 @@ export function TasksView({ navigation, route }) {
   useEffect(() => {
     navigation.setOptions({
       headerRight: function Header() {
-        return <Barcode createTask={createTask} />;
+       
       },
       title: `${name}`.charAt(0).toUpperCase() + `${name}`.slice(1),
     });
@@ -29,34 +30,6 @@ export function TasksView({ navigation, route }) {
       {tasks.map((task) =>
         task ? <TaskItem key={`${task._id}`} task={task} /> : null
       )}
-
-      {/* {name === "My Inventory" ? (
-        <>
-          <View style={styles.manageTeamButtonContainer}>
-            <Button
-              title="Manage Family"
-              onPress={() => setOverlayVisible(true)}
-            />
-            <Button
-              title="Go to Barcode Scanner"
-              onPress={() => navigation.navigate("Bar-code")}
-            />
-          </View>
-          <Overlay
-            isVisible={overlayVisible}
-            onBackdropPress={() => setOverlayVisible(false)}
-          >
-            <ManageTeam />
-          </Overlay>
-        </>
-      ) : null} */}
-
-      {/* ) : (
-         <Button
-           title="Go to Barcode Scanner"
-           onPress={() => navigation.navigate("Bar-code")}
-       />
-     )} */}
     </View>
   );
 }

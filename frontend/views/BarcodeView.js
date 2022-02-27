@@ -20,34 +20,31 @@ import {
 import { Overlay, Input, Button } from "react-native-elements";
 
 import styles from "../barcodestyle";
+import { useTasks } from "../providers/TasksProvider";
 
 // import CameraScreen
 import { CameraScreen } from "react-native-camera-kit";
 
-export function Barcode({ createTask }) {
+export function Barcode() {
   const [qrvalue, setQrvalue] = useState("");
   const [opneScanner, setOpneScanner] = useState(false);
   const [overlayVisible, setOverlayVisible] = useState(false);
+  const { tasks, createTask } = useTasks();
   const nav = useNavigation();
 
   React.useEffect(() => {
     const openCam = nav.addListener("focus", () => {
-      // The screen is focused
-      // Call any action
       setOverlayVisible(true);
       onOpneScanner();
     });
-    // Return the function to unsubscribe from the event so it gets removed on unmount
     return openCam;
   }, [nav]);
 
   const onOpenlink = () => {
-    // If scanned then function to open URL in Browser
     Linking.openURL(qrvalue);
   };
 
   const onBarcodeScan = (qrvalue) => {
-    // Called after te successful scanning of QRCode/Barcode
     setQrvalue(qrvalue);
     setOpneScanner(false);
   };
@@ -57,9 +54,7 @@ export function Barcode({ createTask }) {
   };
 
   const onOpneScanner = () => {
-    // To Start Scanning
     if (Platform.OS === "android") {
-      // Calling the camera permission function
       requestCameraPermission();
 
       async function requestCameraPermission() {
@@ -72,7 +67,6 @@ export function Barcode({ createTask }) {
             }
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            // If CAMERA Permission is granted
             setQrvalue("");
             setOpneScanner(true);
           } else {
@@ -93,10 +87,6 @@ export function Barcode({ createTask }) {
     <>
       <Overlay
         isVisible={overlayVisible}
-        // overlayStyle={{ width: "100%" }}
-        onBackdropPress={() => {
-          setOverlayVisible(false);
-        }}
       >
         <SafeAreaView style={{ flex: 1 }}>
           {opneScanner ? (
@@ -133,7 +123,9 @@ export function Barcode({ createTask }) {
                   ? (createTask(qrvalue),
                     setQrvalue(""),
                     alert("Item Scanned"),
-                    setOverlayVisible(false))
+                    setOverlayVisible(false),
+                    nav.navigate("Inventory"))
+                    
                   : ""}
               </Text>
               {qrvalue.includes("https://") ||
@@ -149,15 +141,6 @@ export function Barcode({ createTask }) {
           )}
         </SafeAreaView>
       </Overlay>
-      {/* <Button
-        type="clear"
-        titleStyle={styles.plusButton}
-        title="Scan"
-        onPress={() => {
-          setOverlayVisible(true);
-          onOpneScanner();
-        }}
-      /> */}
     </>
   );
 }
