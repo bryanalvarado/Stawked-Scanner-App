@@ -9,18 +9,34 @@ import { TasksProvider } from "./providers/TasksProvider";
 
 import { WelcomeView } from "./views/WelcomeView";
 import { Signup } from "./views/Signup";
-import { Barcode } from "./views/BarcodeView";
-import { ProjectsView } from "./views/ProjectsView";
 import { TasksView } from "./views/TasksView";
-import { HomeScreenView } from "./views/HomeScreenView";
-import { UserSettingsView } from "./views/UserSettingsView";
 import { NavTabs } from "./navigation/navTabs";
-import { Logout } from "./components/Logout";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 const Stack = createStackNavigator();
 
 const App = () => {
+
+  const getHeaderTitle = (route) => {
+
+    // If the focused route is not found, we need to assume it's the initial screen
+    // This can happen during if there hasn't been any navigation inside the screen
+    // In our case, it's "Feed" as that's the first screen inside the navigator
+    const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home'
+
+    switch (routeName) {
+      case 'Home':
+        return 'Home';
+      case 'Inventory':
+        return 'Inventory'
+      case 'Family':
+        return 'My Family'
+      case 'Settings':
+        return 'Settings'
+    }
+  }
+
+
   return (
     <AuthProvider>
       <NavigationContainer>
@@ -38,9 +54,15 @@ const App = () => {
           <Stack.Screen
             name="Home"
             component={NavTabs}
-            options={{ title: "Stawked App" }}
+            options={({ route }) => ({
+              headerTitle: getHeaderTitle(route),
+              headerTitleAlign: "center"
+              
+            })}
           />
-          <Stack.Screen name="Task List">
+          <Stack.Screen name="Task List" options={({ route }) => ({
+              headerTitleAlign: "center"
+            })} >
             {(props) => {
               const { navigation, route } = props;
               const { user, projectPartition } = route.params;

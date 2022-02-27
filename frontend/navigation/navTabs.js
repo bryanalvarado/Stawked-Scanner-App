@@ -29,6 +29,7 @@ const CustomNavBarButton = ({ children, onPress }) => (
         alignContent: "center",
         borderRadius: 35,
         backgroundColor: "#e32f45",
+        ...styles.navBarShadow // camera shadow
       }}
     >
       {children}
@@ -136,6 +137,7 @@ export function NavTabs() {
                 width: 30,
                 height: 30,
                 tintColor: "#fff",
+                
               }}
             />
           ),
