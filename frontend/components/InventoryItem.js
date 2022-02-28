@@ -1,49 +1,49 @@
 import React, { useState } from "react";
 import { ListItem, Text } from "react-native-elements";
-import { useTasks } from "../providers/TasksProvider";
+import { useItems } from "../providers/ItemsProvider";
 import { ActionSheet } from "./ActionSheet";
 import { Task } from "../schemas";
 
 import styles from "../stylesheet";
 
-export function TaskItem({ task }) {
+export function InventoryItem({ item }) {
   const [actionSheetVisible, setActionSheetVisible] = useState(false);
 
-  const { deleteTask, setTaskStatus } = useTasks();
+  const { deleteItem, setItemStatus } = useItems();
   const actions = [
     {
       title: "Delete",
       action: () => {
-        deleteTask(task);
+        deleteItem(item);
       },
     },
   ];
 
   // For each possible status other than the current status, make an action to
-  // move the task into that status. Rather than creating a generic method to
+  // move the item into that status. Rather than creating a generic method to
   // avoid repetition, we split each status to separate each case in the code
   // below for demonstration purposes.
-  if (task.status !== "" && task.status !== Task.STATUS_OPEN) {
+  if (item.status !== "" && item.status !== Task.STATUS_OPEN) {
     actions.push({
       title: "Fully Stocked",
       action: () => {
-        setTaskStatus(task, Task.STATUS_OPEN);
+        setItemStatus(item, Task.STATUS_OPEN);
       },
     });
   }
-  if (task.status !== Task.STATUS_IN_PROGRESS) {
+  if (item.status !== Task.STATUS_IN_PROGRESS) {
     actions.push({
       title: "Running low",
       action: () => {
-        setTaskStatus(task, Task.STATUS_IN_PROGRESS);
+        setItemStatus(item, Task.STATUS_IN_PROGRESS);
       },
     });
   }
-  if (task.status !== Task.STATUS_COMPLETE) {
+  if (item.status !== Task.STATUS_COMPLETE) {
     actions.push({
       title: "Out of Stock",
       action: () => {
-        setTaskStatus(task, Task.STATUS_COMPLETE);
+        setItemStatus(item, Task.STATUS_COMPLETE);
       },
     });
   }
@@ -53,27 +53,27 @@ export function TaskItem({ task }) {
       <ActionSheet
         visible={actionSheetVisible}
         closeOverlay={() => {
-          if (task.status) {
+          if (item.status) {
             setActionSheetVisible(false);
           }
         }}
         actions={actions}
       />
       <ListItem
-        key={task.id}
+        key={item.id}
         onPress={() => {
           setActionSheetVisible(true);
         }}
         bottomDivider
       >
         <ListItem.Content>
-          <ListItem.Title>{task.name}</ListItem.Title>
+          <ListItem.Title>{item.name}</ListItem.Title>
         </ListItem.Content>
-        {task.status === Task.STATUS_COMPLETE ? (
+        {item.status === Task.STATUS_COMPLETE ? (
           <Text>Out of stock</Text>
-        ) : task.status === Task.STATUS_IN_PROGRESS ? (
+        ) : item.status === Task.STATUS_IN_PROGRESS ? (
           <Text>Running low</Text>
-        ) : task.status === Task.STATUS_OPEN ? (
+        ) : item.status === Task.STATUS_OPEN ? (
           <Text>Stocked</Text>
         ) : null}
       </ListItem>

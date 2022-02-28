@@ -1,9 +1,6 @@
 // import React in our code
 import React, { useState, useEffect, Component } from "react";
-import { AddTask } from "../components/AddTask";
 import { useNavigation } from "@react-navigation/native";
-import { CommonActions } from "@react-navigation/native";
-import { StackActions } from "@react-navigation/native";
 
 // import all the components we are going to use
 import {
@@ -20,7 +17,7 @@ import {
 import { Overlay, Input, Button } from "react-native-elements";
 
 import styles from "../barcodestyle";
-import { useTasks } from "../providers/TasksProvider";
+import { useItems } from "../providers/ItemsProvider";
 
 // import CameraScreen
 import { CameraScreen } from "react-native-camera-kit";
@@ -29,7 +26,7 @@ export function Barcode() {
   const [qrvalue, setQrvalue] = useState("");
   const [opneScanner, setOpneScanner] = useState(false);
   const [overlayVisible, setOverlayVisible] = useState(false);
-  const { tasks, createTask } = useTasks();
+  const { createItem } = useItems();
   const nav = useNavigation();
 
   React.useEffect(() => {
@@ -120,7 +117,7 @@ export function Barcode() {
             <View style={styles.container}>
               <Text style={styles.textStyle}>
                 {qrvalue
-                  ? (createTask(qrvalue),
+                  ? (createItem(qrvalue),
                     setQrvalue(""),
                     alert("Item Scanned"),
                     setOverlayVisible(false),

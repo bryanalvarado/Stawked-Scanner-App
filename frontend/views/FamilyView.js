@@ -1,11 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { ManageTeam } from "../components/ManageTeam";
+import { ManageFamily } from "../components/ManageFamily";
 
 export function FamilyView() {
   return (
     <View style={styles.screen}>
-      <ManageTeam />
+      <ManageFamily />
     </View>
   );
 }

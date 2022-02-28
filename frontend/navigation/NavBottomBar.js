@@ -1,10 +1,9 @@
 import React from "react";
-import { ProjectsView } from "../views/ProjectsView";
+import { InventoryView } from "../views/InventoryView";
 import { UserSettingsView } from "../views/UserSettingsView";
-import { Barcode, BarcodeView } from "../views/BarcodeView";
-import { ManageTeam } from "../components/ManageTeam";
+import { Barcode } from "../views/BarcodeView";
 import { HomeScreenView } from "../views/HomeScreenView";
-import { TasksProvider } from "../providers/TasksProvider";
+import {  ItemsProvider } from "../providers/ItemsProvider";
 import { useAuth } from "../providers/AuthProvider";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import styles from "../stylesheet";
@@ -37,7 +36,7 @@ const CustomNavBarButton = ({ children, onPress }) => (
   </TouchableOpacity>
 );
 
-export function NavTabs() {
+export function NavBottomBar() {
   const { user } = useAuth();
   return (
     <Tab.Navigator
@@ -60,7 +59,7 @@ export function NavTabs() {
     >
       <Tab.Screen
         name="Inventory"
-        component={ProjectsView}
+        component={InventoryView}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -121,9 +120,9 @@ export function NavTabs() {
         children={() => {
           return (
             user ? (
-             <TasksProvider user={user} projectPartition={`project=${user.id}`}>
+             <ItemsProvider user={user} projectPartition={`project=${user.id}`}>
               <Barcode />
-              </TasksProvider>
+              </ItemsProvider>
               
               ) : null
           )
