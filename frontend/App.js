@@ -5,12 +5,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import { AuthProvider } from "./providers/AuthProvider";
-import { TasksProvider } from "./providers/TasksProvider";
+import { ItemsProvider } from "./providers/ItemsProvider";
 
-import { WelcomeView } from "./views/WelcomeView";
+import { LoginView } from "./views/LoginView";
 import { Signup } from "./views/Signup";
-import { TasksView } from "./views/TasksView";
-import { NavTabs } from "./navigation/navTabs";
+import { InventoryList } from "./views/InventoryList";
+import { NavTabs } from "./navigation/NavTabs";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 const Stack = createStackNavigator();
@@ -42,8 +42,8 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name="Welcome View"
-            component={WelcomeView}
+            name="LoginView"
+            component={LoginView}
             options={{ title: "Stawked App" }}
           />
           <Stack.Screen
@@ -60,16 +60,16 @@ const App = () => {
               
             })}
           />
-          <Stack.Screen name="Task List" options={({ route }) => ({
+          <Stack.Screen name="InventoryList" options={({ route }) => ({
               headerTitleAlign: "center"
             })} >
             {(props) => {
               const { navigation, route } = props;
               const { user, projectPartition } = route.params;
               return (
-                <TasksProvider user={user} projectPartition={projectPartition}>
-                  <TasksView navigation={navigation} route={route} />
-                </TasksProvider>
+                <ItemsProvider user={user} projectPartition={projectPartition}>
+                  <InventoryList navigation={navigation} route={route} />
+                </ItemsProvider>
               );
             }}
           </Stack.Screen>

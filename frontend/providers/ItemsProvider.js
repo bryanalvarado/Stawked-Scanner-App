@@ -3,10 +3,10 @@ import Realm from "realm";
 import { Task } from "../schemas";
 import { useAuth } from "./AuthProvider";
 
-const TasksContext = React.createContext(null);
+const ItemsContext = React.createContext(null);
 
-const TasksProvider = ({ children, projectPartition }) => {
-  const [tasks, setTasks] = useState([]);
+const ItemsProvider = ({ children, projectPartition }) => {
+  const [items, setItems] = useState([]);
   const { user } = useAuth();
 
   // Use a Ref to store the realm rather than the state because it is not
@@ -33,11 +33,11 @@ const TasksProvider = ({ children, projectPartition }) => {
     Realm.open(config).then((projectRealm) => {
       realmRef.current = projectRealm;
 
-      const syncTasks = projectRealm.objects("Task");
-      let sortedTasks = syncTasks.sorted("name");
-      setTasks([...sortedTasks]);
-      sortedTasks.addListener(() => {
-        setTasks([...sortedTasks]);
+      const syncItems = projectRealm.objects("Task");
+      let sortedItems = syncItems.sorted("name");
+      setItems([...sortedItems]);
+      sortedItems.addListener(() => {
+        setItems([...sortedItems]);
       });
     });
 
@@ -52,21 +52,21 @@ const TasksProvider = ({ children, projectPartition }) => {
     // };
   }, [user, projectPartition]);
 
-  const createTask = (newTaskName) => {
+  const createItem = (newItemName) => {
     const projectRealm = realmRef.current;
     projectRealm.write(() => {
       // Create a new task in the same partition -- that is, in the same project.
       projectRealm.create(
         "Task",
         new Task({
-          name: newTaskName || "Not Scanned",
+          name: newItemName || "Not Scanned",
           partition: projectPartition,
         })
       );
     });
   };
 
-  const setTaskStatus = (task, status) => {
+  const setItemStatus = (item, status) => {
     // One advantage of centralizing the realm functionality in this provider is
     // that we can check to make sure a valid status was passed in here.
     if (
@@ -81,45 +81,45 @@ const TasksProvider = ({ children, projectPartition }) => {
     const projectRealm = realmRef.current;
 
     projectRealm.write(() => {
-      task.status = status;
+      item.status = status;
     });
   };
 
-  // Define the function for deleting a task.
-  const deleteTask = (task) => {
+  // Define the function for deleting an item.
+  const deleteItem = (item) => {
     const projectRealm = realmRef.current;
     projectRealm.write(() => {
-      projectRealm.delete(task);
-      setTasks([...projectRealm.objects("Task").sorted("name")]);
+      projectRealm.delete(item);
+      setItems([...projectRealm.objects("Task").sorted("name")]);
     });
   };
 
-  // Render the children within the TaskContext's provider. The value contains
+  // Render the children within the ItemsContext's provider. The value contains
   // everything that should be made available to descendants that use the
-  // useTasks hook.
+  // useItems hook.
   return (
-    <TasksContext.Provider
+    <ItemsContext.Provider
       value={{
-        createTask,
-        deleteTask,
-        setTaskStatus,
-        tasks,
+        createItem: createItem,
+        deleteItem: deleteItem,
+        setItemStatus: setItemStatus,
+        items,
       }}
     >
       {children}
-    </TasksContext.Provider>
+    </ItemsContext.Provider>
   );
 };
 
-// The useTasks hook can be used by any descendant of the TasksProvider. It
-// provides the tasks of the TasksProvider's project and various functions to
-// create, update, and delete the tasks in that project.
-const useTasks = () => {
-  const task = useContext(TasksContext);
-  if (task == null) {
-    throw new Error("useTasks() called outside of a TasksProvider?"); // an alert is not placed because this is an error for the developer not the user
+// The useItems hook can be used by any descendant of the ItemsProvider. It
+// provides the items of the ItemsProvider's project and various functions to
+// create, update, and delete the items in that project.
+const useItems = () => {
+  const item = useContext(ItemsContext);
+  if (item == null) {
+    throw new Error("useItems() called outside of a ItemsProvider?"); // an alert is not placed because this is an error for the developer not the user
   }
-  return task;
+  return item;
 };
 
-export { TasksProvider, useTasks };
+export { ItemsProvider, useItems };

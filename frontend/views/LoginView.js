@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react";
 import { View, TextInput, Button, Alert, Text } from "react-native";
 import { useAuth } from "../providers/AuthProvider";
 import styles from "../stylesheet";
-import { CommonActions } from "@react-navigation/native";
 
-export function WelcomeView({ navigation }) {
+export function LoginView({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { user, signIn } = useAuth();

@@ -18,7 +18,7 @@ export function Logout() {
               signOut();
               navigation.reset({
                 index: 0,
-                routes: [{ name: "Welcome View" }],
+                routes: [{ name: "LoginView" }],
               });
             },
           },

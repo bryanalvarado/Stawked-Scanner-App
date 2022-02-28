@@ -5,7 +5,7 @@ import { Text, ListItem } from "react-native-elements";
 
 import { useAuth } from "../providers/AuthProvider";
 
-export function ManageTeam() {
+export function ManageFamily() {
   const { user } = useAuth();
   const [newTeamMember, setNewTeamMember] = useState(null);
   const [teamMemberList, setTeamMemberList] = useState([]);
@@ -66,10 +66,7 @@ export function ManageTeam() {
   }, [user]);
 
   return (
-    <View style={styles.manageTeamWrapper}>
-      <View style={styles.manageTeamTitle}>
-        <Text h4>My Family</Text>
-      </View>
+    <View style={styles.manageFamilyWrapper}>
       {teamMemberList.map((member) => (
         <ListItem
           onPress={() => openDeleteDialogue(member)}

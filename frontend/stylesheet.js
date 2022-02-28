@@ -10,10 +10,10 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 2,
   },
-  manageTeamWrapper: {
+  manageFamilyWrapper: {
     width: 350,
   },
-  manageTeamTitle: {
+  manageFamilyTitle: {
     marginBottom: 10,
   },
   addTeamMemberInput: {
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 18,
   },
-  manageTeamButtonContainer: {
+  manageFamilyButtonContainer: {
     textAlign: "left",
     borderTopColor: "grey",
     borderTopWidth: 1,
