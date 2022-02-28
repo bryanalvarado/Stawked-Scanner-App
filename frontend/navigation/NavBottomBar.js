@@ -36,7 +36,7 @@ const CustomNavBarButton = ({ children, onPress }) => (
   </TouchableOpacity>
 );
 
-export function NavTabs() {
+export function NavBottomBar() {
   const { user } = useAuth();
   return (
     <Tab.Navigator
