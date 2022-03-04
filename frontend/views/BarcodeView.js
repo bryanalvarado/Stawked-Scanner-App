@@ -24,7 +24,7 @@ import { CameraScreen } from "react-native-camera-kit";
 
 export function Barcode() {
   const [qrvalue, setQrvalue] = useState("");
-  const [opneScanner, setOpneScanner] = useState(false);
+  const [openScanner, setOpenScanner] = useState(false);
   const [overlayVisible, setOverlayVisible] = useState(false);
   const { createItem } = useItems();
   const nav = useNavigation();
@@ -32,7 +32,7 @@ export function Barcode() {
   React.useEffect(() => {
     const openCam = nav.addListener("focus", () => {
       setOverlayVisible(true);
-      onOpneScanner();
+      onOpenScanner();
     });
     return openCam;
   }, [nav]);
@@ -43,14 +43,14 @@ export function Barcode() {
 
   const onBarcodeScan = (qrvalue) => {
     setQrvalue(qrvalue);
-    setOpneScanner(false);
+    setOpenScanner(false);
   };
 
   const home = () => {
-    setOpneScanner(false);
+    setOpenScanner(false);
   };
 
-  const onOpneScanner = () => {
+  const onOpenScanner = () => {
     if (Platform.OS === "android") {
       requestCameraPermission();
 
@@ -65,28 +65,28 @@ export function Barcode() {
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             setQrvalue("");
-            setOpneScanner(true);
+            setOpenScanner(true);
           } else {
             alert("CAMERA permission denied");
+            nav.goBack();
           }
         } catch (err) {
           alert("Camera permission err", err);
           console.warn(err);
+          nav.goBack();
         }
       }
     } else {
       setQrvalue("");
-      setOpneScanner(true);
+      setOpenScanner(true);
     }
   };
 
   return (
     <>
-      <Overlay
-        isVisible={overlayVisible}
-      >
+      <Overlay isVisible={overlayVisible}>
         <SafeAreaView style={{ flex: 1 }}>
-          {opneScanner ? (
+          {openScanner ? (
             <View style={{ flex: 1 }}>
               <CameraScreen
                 showFrame={false}
@@ -122,7 +122,6 @@ export function Barcode() {
                     alert("Item Scanned"),
                     setOverlayVisible(false),
                     nav.navigate("Inventory"))
-                    
                   : ""}
               </Text>
               {qrvalue.includes("https://") ||
