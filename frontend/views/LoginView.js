@@ -1,56 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { View, TextInput, Button, Alert, Text, StyleSheet, ImageBackground, Animated, Dimensions, Image } from "react-native";
+import { View, TextInput, Button, Alert, Text } from "react-native";
 import { useAuth } from "../providers/AuthProvider";
 import styles from "../stylesheet";
-import { StatusBar } from "react-native";
-import { TypingAnimation } from "react-native-typing-animation";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 export function LoginView({ navigation }) {
-
-
-  const width = Dimensions.get("screen").width;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { user, signIn } = useAuth();
-  const [typingEmail, setTypingEmail] = useState(false);
-  const [typingPassword, setTypingPassword] = useState(false);
-  const [failedSignin, setFailedSignin] = useState(false);
 
-  const animationLogin = new Animated.Value(width-40);
   const nav = useNavigation();
-
-  
-  const loginAnimation = (active) => {
-    if(active){
-        Animated.timing(
-        animationLogin, {
-          toValue: 80,
-          duration: 250,
-          useNativeDriver: false
-        }
-      ).start();
-    } else {
-      Animated.timing(
-        animationLogin, {
-          toValue: width-40,
-          duration: 100,
-          useNativeDriver: false
-        }
-      ).start();
-    }
-    
-  }
-
-  const typing = () => {
-    return (
-      <TypingAnimation 
-        dotColor="#e32f45"
-        style={{marginRight: 25}}
-      />
-    )
-  }
 
   useEffect(() => {
     // If there is a user logged in, go to the Projects page.
@@ -63,175 +22,37 @@ export function LoginView({ navigation }) {
   // email/password in state.
   const onPressSignIn = async () => {
     try {
-      
-      loginAnimation(true);
       await signIn(email, password);
     } catch (error) {
-      loginAnimation(false);
-      setTimeout(() => {
-        setFailedSignin(true);
-      }, 101)
+      Alert.alert(`Failed to sign in: ${error.message}`);
     }
   };
 
-  const animWidth = animationLogin;
   return (
-    <View style={myStyles.container}>
-      <StatusBar barStyle="light-content" />
-      <View style={myStyles.header}>
-        <ImageBackground
-          source={require("../assets/header.png")}
-          style={myStyles.imageBG}
-        >
-        <Image
-          source={require("../assets/home.png")}
-          style={{width: 50, height: 50}}
-        >
-        </Image>
-        <Text style={myStyles.headerTopText}>Welcome Back</Text>
-        <Text style={myStyles.headerBotText}>Sign in to continue</Text>
-
-        </ImageBackground>
-      </View>
-
-      <View style={myStyles.footer}>
-        <Text style={[myStyles.title, {marginTop: 50}]}>E-mail</Text>
-
-        <View style={myStyles.action}>
-          <TextInput placeholder="Your Email" style={myStyles.textInput} 
-          onFocus={() => {
-             setFailedSignin(false)
-             setTypingEmail(true)
-             setTypingPassword(false);
-          }}
-          onBlur={() => {
-            setTypingEmail(false);
-          }}
+    <View>
+      <View style={styles.inputContainer}>
+        <TextInput
           onChangeText={setEmail}
           value={email}
+          placeholder="Email"
+          style={styles.inputStyle}
           autoCapitalize="none"
-           />
-           {typingEmail ? typing() : null}
-        </View>
-
-        <Text style={[myStyles.title, {marginTop: 20}]}>Password</Text>
-
-        <View style={myStyles.action}>
-          <TextInput placeholder="Your Password" style={myStyles.textInput} onFocus={() => {
-             setFailedSignin(false)
-             setTypingEmail(false)
-             setTypingPassword(true);
-          }}
-          onBlur={() => {
-            setTypingPassword(false);
-          }} 
-          onChangeText={(text) => {
-            setPassword(text)
-          }}
-          value={password}
-          secureTextEntry
-          />
-          {typingPassword ? typing() : null}
-
-        </View>
-        {failedSignin ? <Text style={myStyles.failedLoginText} >Wrong Username and Password</Text> : null}
-        
-
-        <TouchableOpacity onPress={onPressSignIn} >
-          <View style={myStyles.button_container}>
-            <Animated.View style={[myStyles.animation, {width: animWidth}]}>
-              <Text style={myStyles.textLogin}>Login </Text>
-            </Animated.View>
-          </View>
-        </TouchableOpacity>
-
-        
-          <View style={myStyles.signup}>
-            <Text style={{color: 'black'}} >New User? </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Sign-up")} >
-              
-              <Text style={{color: 'royalblue', fontWeight: 'bold'}}>Sign up</Text>
-              
-            </TouchableOpacity>  
-          </View>
+        />
       </View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+          placeholder="Password"
+          style={styles.inputStyle}
+          secureTextEntry
+        />
+      </View>
+      <Button onPress={onPressSignIn} title="Sign In" />
+      <Text style={{ textAlignVertical: "center", textAlign: "center" }}>
+        Don't have an account?
+      </Text>
+      <Button title="Sign up" onPress={() => navigation.navigate("Sign-up")} />
     </View>
   );
 }
-
-
-const myStyles = StyleSheet.create({
-
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    justifyContent: "center"
-  },
-  header: {
-    flex: 1,
-  },
-  footer: {
-    flex: 2,
-    padding: 20
-  },
-  imageBG: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    height: '100%',
-    width: "100%",
-  },
-  headerTopText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 30
-  },
-  headerBotText: {
-    color: 'yellow'
-  },
-  title: {
-    color: 'black',
-    fontWeight: "bold",
-  }, 
-  action: {
-    flexDirection: "row",
-    borderBottomWidth: 1,
-    borderBottomColor: '#f2f2f2'
-  }, 
-  textInput: {
-    flex: 1,
-    marginTop: 5,
-    paddingBottom: 5,
-    color: 'gray'
-  },
-  button_container: {
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  animation: {
-    backgroundColor: '#e32f45',
-    paddingVertical: 10,
-    marginTop: 30,
-    borderRadius: 100,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  textLogin: {
-    color: 'white',
-    fontWeight: "bold",
-    fontSize: 18
-  },
-  failedLoginText: {
-    color: 'red',
-    alignItems: "center",
-    justifyContent: 'center',
-    marginHorizontal: '20%',
-    marginTop: 5
-  }, 
-  signup: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 20
-  }
-
-})
