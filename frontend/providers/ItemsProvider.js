@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import Realm from "realm";
-import { Task } from "../schemas";
+import { Item } from "../schemas";
 import { useAuth } from "./AuthProvider";
 
 const ItemsContext = React.createContext(null);
@@ -21,7 +21,7 @@ const ItemsProvider = ({ children, projectPartition }) => {
       type: 'openImmediately',
     };
     const config = {
-      schema: [Task.schema],
+      schema: [Item.schema],
       sync: {
         user: user,
         partitionValue: projectPartition,
@@ -33,7 +33,7 @@ const ItemsProvider = ({ children, projectPartition }) => {
     Realm.open(config).then((projectRealm) => {
       realmRef.current = projectRealm;
 
-      const syncItems = projectRealm.objects("Task");
+      const syncItems = projectRealm.objects("Item");
       let sortedItems = syncItems.sorted("name");
       setItems([...sortedItems]);
       sortedItems.addListener(() => {
@@ -52,14 +52,15 @@ const ItemsProvider = ({ children, projectPartition }) => {
     // };
   }, [user, projectPartition]);
 
-  const createItem = (newItemName) => {
+  const createItem = (newItemName, image) => {
     const projectRealm = realmRef.current;
     projectRealm.write(() => {
       // Create a new task in the same partition -- that is, in the same project.
       projectRealm.create(
-        "Task",
-        new Task({
+        "Item",
+        new Item({
           name: newItemName || "Not Scanned",
+          image: image || "No Image",
           partition: projectPartition,
         })
       );
@@ -71,9 +72,9 @@ const ItemsProvider = ({ children, projectPartition }) => {
     // that we can check to make sure a valid status was passed in here.
     if (
       ![
-        Task.STATUS_OPEN,
-        Task.STATUS_IN_PROGRESS,
-        Task.STATUS_COMPLETE,
+        Item.STATUS_OPEN,
+        Item.STATUS_IN_PROGRESS,
+        Item.STATUS_COMPLETE,
       ].includes(status)
     ) {
       throw new Error(`Invalid status: ${status}`);
@@ -90,7 +91,7 @@ const ItemsProvider = ({ children, projectPartition }) => {
     const projectRealm = realmRef.current;
     projectRealm.write(() => {
       projectRealm.delete(item);
-      setItems([...projectRealm.objects("Task").sorted("name")]);
+      setItems([...projectRealm.objects("Item").sorted("name")]);
     });
   };
 

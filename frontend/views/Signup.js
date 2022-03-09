@@ -42,8 +42,8 @@ export function Signup() {
       </View>
       <View style={styles.inputContainer}>
         <TextInput
-          //   onChangeText={setEmail}
-          //   value={email}
+          onChangeText={setEmail}
+          value={email}
           placeholder="Nickname"
           style={styles.inputStyle}
           autoCapitalize="none"

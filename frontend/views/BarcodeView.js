@@ -117,7 +117,7 @@ export function Barcode() {
             <View style={styles.container}>
               <Text style={styles.textStyle}>
                 {qrvalue
-                  ? (createItem(qrvalue),
+                  ? (createItem(qrvalue, "No Image"), // Placeholder for Image once API is available
                     setQrvalue(""),
                     alert("Item Scanned"),
                     setOverlayVisible(false),
