@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { View, Button, TextInput, Alert } from "react-native";
 import styles from "../stylesheet";
 import { Text, ListItem } from "react-native-elements";
-
+import {
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 import { useAuth } from "../providers/AuthProvider";
 
 export function ManageFamily() {
@@ -87,10 +90,26 @@ export function ManageFamily() {
           autoCapitalize="none"
         />
       </View>
-      <Button
+      <View
+        style={{
+          width: 300,
+          height: 60,
+          alignItems: "center",
+          alignSelf: "center",
+          justifyContent: "center",
+          borderRadius: 35,
+          backgroundColor: "#e32f45",
+          ...styles.navBarShadow, // Manage Family Shadow>
+        }}
+      >
+        <TouchableOpacity onPress={() => addTeamMember(newTeamMember)}>
+          <Text style={{ fontSize: 24, color: "white" }}>Add to family</Text>
+        </TouchableOpacity>
+      </View>
+      {/* <Button
         onPress={() => addTeamMember(newTeamMember)}
         title="Add Family Member"
-      />
+      /> */}
     </View>
   );
 }

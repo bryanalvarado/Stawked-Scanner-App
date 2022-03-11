@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   manageFamilyWrapper: {
-    width: 350,
+    flex: 1,
   },
   manageFamilyTitle: {
     marginBottom: 10,
@@ -43,20 +43,20 @@ const styles = StyleSheet.create({
     shadowRadius: 3.5,
     elevation: 5,
   },
-  settingCard:{
+  settingCard: {
     marginTop: 15,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 15,
-    marginHorizontal: '2%',
+    marginHorizontal: "2%",
     //height: 50,
     flex: 1,
-    backfaceVisibility: 'hidden',
+    backfaceVisibility: "hidden",
   },
   settingCardText: {
     paddingTop: 15,
     paddingLeft: 20,
-    fontWeight: 'bold'
-  }
+    fontWeight: "bold",
+  },
 });
 
 export default styles;
