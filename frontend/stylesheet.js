@@ -43,6 +43,20 @@ const styles = StyleSheet.create({
     shadowRadius: 3.5,
     elevation: 5,
   },
+  settingCard:{
+    marginTop: 15,
+    backgroundColor: 'white',
+    borderRadius: 15,
+    marginHorizontal: '2%',
+    //height: 50,
+    flex: 1,
+    backfaceVisibility: 'hidden',
+  },
+  settingCardText: {
+    paddingTop: 15,
+    paddingLeft: 20,
+    fontWeight: 'bold'
+  }
 });
 
 export default styles;

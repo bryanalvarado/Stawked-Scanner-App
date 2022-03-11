@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { useAuth } from "../providers/AuthProvider";
 import { ListItem } from "react-native-elements";
 
@@ -16,6 +16,7 @@ export function InventoryView({ navigation }) {
   };
 
   return (
+    
     <View>
       {projectData.map((project) => (
         <View key={project.name}>
@@ -31,5 +32,6 @@ export function InventoryView({ navigation }) {
         </View>
       ))}
     </View>
+    
   );
 }

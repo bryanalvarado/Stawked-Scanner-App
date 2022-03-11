@@ -1,16 +1,17 @@
 import * as React from "react";
-import { Button, Alert } from "react-native";
+import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../providers/AuthProvider";
+import styles from "../stylesheet";
+import SettingsCard from "./SettingsCard";
+import Setting from "./Setting";
 
 export function Logout() {
   const navigation = useNavigation();
   const { signOut } = useAuth();
-  return (
-    <Button
-      title="Log Out"
-      onPress={() => {
-        Alert.alert("Log Out", null, [
+
+  const logoutOnClick = () => {
+    Alert.alert("Log Out", null, [
           {
             text: "Yes, Log Out",
             style: "destructive",
@@ -24,7 +25,12 @@ export function Logout() {
           },
           { text: "Cancel", style: "cancel" },
         ]);
-      }}
-    />
+  }
+  return (
+    <SettingsCard style={{marginBottom: 25}}>
+      <Setting textStyle={{color: '#e32f45'}} settingName="Logout" onClick={() => {logoutOnClick()}}>
+      </Setting>
+    </SettingsCard>
   );
 }
+
