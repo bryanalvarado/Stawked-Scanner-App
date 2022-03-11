@@ -12,25 +12,29 @@ export function Logout() {
 
   const logoutOnClick = () => {
     Alert.alert("Log Out", null, [
-          {
-            text: "Yes, Log Out",
-            style: "destructive",
-            onPress: () => {
-              signOut();
-              navigation.reset({
-                index: 0,
-                routes: [{ name: "LoginView" }],
-              });
-            },
-          },
-          { text: "Cancel", style: "cancel" },
-        ]);
-  }
+      {
+        text: "Yes, Log Out",
+        style: "destructive",
+        onPress: () => {
+          signOut();
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "LoginView" }],
+          });
+        },
+      },
+      { text: "Cancel", style: "cancel" },
+    ]);
+  };
   return (
-    <SettingsCard style={{marginBottom: 25}}>
-      <Setting textStyle={{color: '#e32f45'}} settingName="Logout" onClick={() => {logoutOnClick()}}>
-      </Setting>
+    <SettingsCard style={{ marginBottom: 25 }}>
+      <Setting
+        textStyle={{ color: "#e32f45" }}
+        settingName="Logout"
+        onClick={() => {
+          logoutOnClick();
+        }}
+      ></Setting>
     </SettingsCard>
   );
 }
-

@@ -30,7 +30,7 @@ export function Signup() {
 
   return (
     <View>
-      <Button title="Back" onPress={() => nav.goBack()}/>
+      <Button title="Back" onPress={() => nav.goBack()} />
       <View style={styles.inputContainer}>
         <TextInput
           onChangeText={setEmail}

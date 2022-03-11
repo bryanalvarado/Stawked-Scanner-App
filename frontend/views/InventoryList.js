@@ -4,7 +4,6 @@ import { useItems } from "../providers/ItemsProvider";
 import { InventoryItem } from "../components/InventoryItem";
 // import { AddInventoryItem } from "../components/AddInventoryItem";
 
-
 export function InventoryList({ navigation, route }) {
   const { name } = route.params;
 
@@ -14,12 +13,11 @@ export function InventoryList({ navigation, route }) {
   useEffect(() => {
     navigation.setOptions({
       headerRight: function Header() {
-      //  return <AddInventoryItem createItem={createItem} />
+        //  return <AddInventoryItem createItem={createItem} />
       },
       title: `${name}`.charAt(0).toUpperCase() + `${name}`.slice(1),
     });
   }, []);
-
   return (
     <View>
       {items.map((item) =>

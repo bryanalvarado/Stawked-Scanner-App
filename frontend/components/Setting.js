@@ -16,7 +16,6 @@ const Setting = (props) => {
     </TouchableHighlight>
   );
 };
-
 const myStyles = StyleSheet.create({
   setting: {
     borderBottomWidth: 0.5,

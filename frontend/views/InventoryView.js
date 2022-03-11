@@ -16,7 +16,6 @@ export function InventoryView({ navigation }) {
   };
 
   return (
-    
     <View>
       {projectData.map((project) => (
         <View key={project.name}>
@@ -32,6 +31,5 @@ export function InventoryView({ navigation }) {
         </View>
       ))}
     </View>
-    
   );
 }

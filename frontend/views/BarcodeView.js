@@ -18,7 +18,6 @@ import { Overlay, Input, Button } from "react-native-elements";
 
 import styles from "../barcodestyle";
 import { useItems } from "../providers/ItemsProvider";
-
 // import CameraScreen
 import { CameraScreen } from "react-native-camera-kit";
 

@@ -1,15 +1,23 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { View, TextInput, Button, Alert, Text, StyleSheet, ImageBackground, Animated, Dimensions, Image } from "react-native";
+import {
+  View,
+  TextInput,
+  Button,
+  Alert,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  Animated,
+  Dimensions,
+  Image,
+} from "react-native";
 import { useAuth } from "../providers/AuthProvider";
 import styles from "../stylesheet";
 import { StatusBar } from "react-native";
 import { TypingAnimation } from "react-native-typing-animation";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
 export function LoginView({ navigation }) {
-
-
   const width = Dimensions.get("screen").width;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,39 +26,28 @@ export function LoginView({ navigation }) {
   const [typingPassword, setTypingPassword] = useState(false);
   const [failedSignin, setFailedSignin] = useState(false);
 
-  const animationLogin = new Animated.Value(width-40);
+  const animationLogin = new Animated.Value(width - 40);
   const nav = useNavigation();
 
-  
   const loginAnimation = (active) => {
-    if(active){
-        Animated.timing(
-        animationLogin, {
-          toValue: 80,
-          duration: 250,
-          useNativeDriver: false
-        }
-      ).start();
+    if (active) {
+      Animated.timing(animationLogin, {
+        toValue: 80,
+        duration: 250,
+        useNativeDriver: false,
+      }).start();
     } else {
-      Animated.timing(
-        animationLogin, {
-          toValue: width-40,
-          duration: 100,
-          useNativeDriver: false
-        }
-      ).start();
+      Animated.timing(animationLogin, {
+        toValue: width - 40,
+        duration: 100,
+        useNativeDriver: false,
+      }).start();
     }
-    
-  }
+  };
 
   const typing = () => {
-    return (
-      <TypingAnimation 
-        dotColor="#e32f45"
-        style={{marginRight: 25}}
-      />
-    )
-  }
+    return <TypingAnimation dotColor="#e32f45" style={{ marginRight: 25 }} />;
+  };
 
   useEffect(() => {
     // If there is a user logged in, go to the Projects page.
@@ -63,14 +60,13 @@ export function LoginView({ navigation }) {
   // email/password in state.
   const onPressSignIn = async () => {
     try {
-      
       loginAnimation(true);
       await signIn(email, password);
     } catch (error) {
       loginAnimation(false);
       setTimeout(() => {
         setFailedSignin(true);
-      }, 101)
+      }, 101);
     }
   };
 
@@ -78,160 +74,161 @@ export function LoginView({ navigation }) {
   return (
     <View style={myStyles.container}>
       <StatusBar barStyle="light-content" />
+
       <View style={myStyles.header}>
         <ImageBackground
           source={require("../assets/header.png")}
           style={myStyles.imageBG}
         >
-        <Image
-          source={require("../assets/home.png")}
-          style={{width: 50, height: 50}}
-        >
-        </Image>
-        <Text style={myStyles.headerTopText}>Welcome Back</Text>
-        <Text style={myStyles.headerBotText}>Sign in to continue</Text>
-
+          <Image
+            source={require("../assets/home.png")}
+            style={{ width: 50, height: 50 }}
+          ></Image>
+          <Text style={myStyles.headerTopText}>Welcome Back</Text>
+          <Text style={myStyles.headerBotText}>Sign in to continue</Text>
         </ImageBackground>
       </View>
 
       <View style={myStyles.footer}>
-        <Text style={[myStyles.title, {marginTop: 50}]}>E-mail</Text>
+        <Text style={[myStyles.title, { marginTop: 50 }]}>E-mail</Text>
 
         <View style={myStyles.action}>
-          <TextInput placeholder="Your Email" style={myStyles.textInput} 
-          onFocus={() => {
-             setFailedSignin(false)
-             setTypingEmail(true)
-             setTypingPassword(false);
-          }}
-          onBlur={() => {
-            setTypingEmail(false);
-          }}
-          onChangeText={setEmail}
-          value={email}
-          autoCapitalize="none"
-           />
-           {typingEmail ? typing() : null}
+          <TextInput
+            placeholder="Your Email"
+            style={myStyles.textInput}
+            onFocus={() => {
+              setFailedSignin(false);
+              setTypingEmail(true);
+              setTypingPassword(false);
+            }}
+            onBlur={() => {
+              setTypingEmail(false);
+            }}
+            onChangeText={setEmail}
+            value={email}
+            autoCapitalize="none"
+          />
+          {typingEmail ? typing() : null}
         </View>
 
-        <Text style={[myStyles.title, {marginTop: 20}]}>Password</Text>
+        <Text style={[myStyles.title, { marginTop: 20 }]}>Password</Text>
 
         <View style={myStyles.action}>
-          <TextInput placeholder="Your Password" style={myStyles.textInput} onFocus={() => {
-             setFailedSignin(false)
-             setTypingEmail(false)
-             setTypingPassword(true);
-          }}
-          onBlur={() => {
-            setTypingPassword(false);
-          }} 
-          onChangeText={(text) => {
-            setPassword(text)
-          }}
-          value={password}
-          secureTextEntry
+          <TextInput
+            placeholder="Your Password"
+            style={myStyles.textInput}
+            onFocus={() => {
+              setFailedSignin(false);
+              setTypingEmail(false);
+              setTypingPassword(true);
+            }}
+            onBlur={() => {
+              setTypingPassword(false);
+            }}
+            onChangeText={(text) => {
+              setPassword(text);
+            }}
+            value={password}
+            secureTextEntry
           />
           {typingPassword ? typing() : null}
-
         </View>
-        {failedSignin ? <Text style={myStyles.failedLoginText} >Wrong Username and Password</Text> : null}
-        
+        {failedSignin ? (
+          <Text style={myStyles.failedLoginText}>
+            Wrong Username and Password
+          </Text>
+        ) : null}
 
-        <TouchableOpacity onPress={onPressSignIn} >
+        <TouchableOpacity onPress={onPressSignIn}>
           <View style={myStyles.button_container}>
-            <Animated.View style={[myStyles.animation, {width: animWidth}]}>
+            <Animated.View style={[myStyles.animation, { width: animWidth }]}>
               <Text style={myStyles.textLogin}>Login </Text>
             </Animated.View>
           </View>
         </TouchableOpacity>
 
-        
-          <View style={myStyles.signup}>
-            <Text style={{color: 'black'}} >New User? </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Sign-up")} >
-              
-              <Text style={{color: 'royalblue', fontWeight: 'bold'}}>Sign up</Text>
-              
-            </TouchableOpacity>  
-          </View>
+        <View style={myStyles.signup}>
+          <Text style={{ color: "black" }}>New User? </Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Sign-up")}>
+            <Text style={{ color: "royalblue", fontWeight: "bold" }}>
+              Sign up
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
 }
-
-
 const myStyles = StyleSheet.create({
-
   container: {
     flex: 1,
-    backgroundColor: 'white',
-    justifyContent: "center"
+    backgroundColor: "white",
+    justifyContent: "center",
   },
   header: {
     flex: 1,
   },
   footer: {
     flex: 2,
-    padding: 20
+    padding: 20,
   },
   imageBG: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    height: '100%',
+    height: "100%",
     width: "100%",
   },
   headerTopText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 30
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 30,
   },
   headerBotText: {
-    color: 'yellow'
+    color: "yellow",
   },
   title: {
-    color: 'black',
+    color: "black",
     fontWeight: "bold",
-  }, 
+  },
   action: {
     flexDirection: "row",
     borderBottomWidth: 1,
-    borderBottomColor: '#f2f2f2'
-  }, 
+    borderBottomColor: "#f2f2f2",
+  },
   textInput: {
     flex: 1,
     marginTop: 5,
     paddingBottom: 5,
-    color: 'gray'
+    color: "gray",
   },
   button_container: {
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   animation: {
-    backgroundColor: '#e32f45',
+    backgroundColor: "#e32f45",
     paddingVertical: 10,
     marginTop: 30,
     borderRadius: 100,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   textLogin: {
-    color: 'white',
+    color: "white",
     fontWeight: "bold",
-    fontSize: 18
+    fontSize: 18,
   },
   failedLoginText: {
-    color: 'red',
+    color: "red",
     alignItems: "center",
-    justifyContent: 'center',
-    marginHorizontal: '20%',
-    marginTop: 5
-  }, 
+    justifyContent: "center",
+    marginHorizontal: "20%",
+    marginTop: 5,
+  },
   signup: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 20
-  }
-
-})
+    marginTop: 20,
+  },
+});
