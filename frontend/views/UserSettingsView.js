@@ -43,26 +43,38 @@ export function UserSettingsView() {
             <Setting
               style={myStyles.topSetting}
               settingName="Nickname"
-              onClick={() => alertFunction("tests")}
+              onClick={() => alertFunction("Nickname")}
             />
 
             <Setting
               settingName="Email"
-              onClick={() => alertFunction("tests")}
+              onClick={() => alertFunction("Email")}
             />
 
             <Setting
               style={myStyles.bottomSetting}
               settingName="Password"
-              onClick={() => alertFunction("tests")}
+              onClick={() => alertFunction("Password")}
             />
           </SettingsCard>
 
           <View style={myStyles.settingCategory}>
-            <Text style={myStyles.settingCategoryText}>
-              Additional Settings
-            </Text>
+            <Text style={myStyles.settingCategoryText}>Miscellanious</Text>
           </View>
+
+          <SettingsCard style={myStyles.categoryView}>
+            <Setting
+              style={myStyles.topSetting}
+              settingName="Notifications"
+              onClick={() => alertFunction("Notifications")}
+            />
+
+            <Setting
+              style={myStyles.bottomSetting}
+              settingName="About"
+              onClick={() => alertFunction("About")}
+            />
+          </SettingsCard>
 
           {/* <SettingsCard style={myStyles.categoryView} >
 
@@ -72,7 +84,6 @@ export function UserSettingsView() {
 
               <Setting style={myStyles.bottomSetting} settingName="sss" onClick={() => alertFunction("tests")}/>
             </SettingsCard > */}
-
           <Logout />
         </ScrollView>
       </View>

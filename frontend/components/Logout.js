@@ -29,6 +29,7 @@ export function Logout() {
   return (
     <SettingsCard style={{ marginBottom: 25 }}>
       <Setting
+        style={{ borderBottomWidth: 0 }}
         textStyle={{ color: "#e32f45" }}
         settingName="Logout"
         onClick={() => {

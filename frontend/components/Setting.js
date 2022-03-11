@@ -18,7 +18,7 @@ const Setting = (props) => {
 };
 const myStyles = StyleSheet.create({
   setting: {
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 0.7,
     borderBottomColor: "grey",
     paddingVertical: 5,
   },
