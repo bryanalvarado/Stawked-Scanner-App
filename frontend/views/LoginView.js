@@ -90,7 +90,7 @@ export function LoginView({ navigation }) {
       </View>
 
       <View style={myStyles.footer}>
-        <Text style={[myStyles.title, { marginTop: 50 }]}>E-mail</Text>
+        <Text style={[myStyles.title, {}]}>E-mail</Text>
 
         <View style={myStyles.action}>
           <TextInput
@@ -139,8 +139,8 @@ export function LoginView({ navigation }) {
           </Text>
         ) : null}
 
-        <TouchableOpacity onPress={onPressSignIn}>
-          <View style={myStyles.button_container}>
+        <TouchableOpacity onPress={onPressSignIn} style={{marginTop: 5}} >
+          <View style={myStyles.button_container} >
             <Animated.View style={[myStyles.animation, { width: animWidth }]}>
               <Text style={myStyles.textLogin}>Login </Text>
             </Animated.View>
@@ -159,7 +159,10 @@ export function LoginView({ navigation }) {
     </View>
   );
 }
-const myStyles = StyleSheet.create({
+
+
+export const myStyles = StyleSheet.create({
+
   container: {
     flex: 1,
     backgroundColor: "white",
@@ -169,15 +172,13 @@ const myStyles = StyleSheet.create({
     flex: 1,
   },
   footer: {
-    flex: 2,
+    flex: 1,
     padding: 20,
   },
   imageBG: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    height: "100%",
-    width: "100%",
   },
   headerTopText: {
     color: "white",
@@ -209,7 +210,7 @@ const myStyles = StyleSheet.create({
   animation: {
     backgroundColor: "#e32f45",
     paddingVertical: 10,
-    marginTop: 30,
+    marginTop: 0,
     borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",
@@ -221,9 +222,9 @@ const myStyles = StyleSheet.create({
   },
   failedLoginText: {
     color: "red",
+    alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: "20%",
     marginTop: 5,
   },
   signup: {

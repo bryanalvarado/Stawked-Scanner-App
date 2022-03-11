@@ -49,7 +49,7 @@ const App = () => {
             name="Sign-up"
             component={Signup}
             options={{ 
-              headerShown: true
+              headerShown: false
              }}
           />
           <Stack.Screen
