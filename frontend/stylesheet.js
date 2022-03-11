@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   },
   manageFamilyWrapper: {
     flex: 1,
+    backgroundColor: "#Fcfcfc",
   },
   manageFamilyTitle: {
     marginBottom: 10,

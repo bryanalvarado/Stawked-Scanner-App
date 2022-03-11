@@ -75,15 +75,6 @@ export function UserSettingsView() {
               onClick={() => alertFunction("About")}
             />
           </SettingsCard>
-
-          {/* <SettingsCard style={myStyles.categoryView} >
-
-              <Setting style={myStyles.topSetting} settingName="Nickname" onClick={() => alertFunction("tests")}/>
-
-              <Setting  settingName="Email" onClick={() => alertFunction("tests")}/>
-
-              <Setting style={myStyles.bottomSetting} settingName="sss" onClick={() => alertFunction("tests")}/>
-            </SettingsCard > */}
           <Logout />
         </ScrollView>
       </View>

@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Button, TextInput, Alert } from "react-native";
 import styles from "../stylesheet";
 import { Text, ListItem } from "react-native-elements";
-import {
-  TouchableHighlight,
-  TouchableOpacity,
-} from "react-native-gesture-handler";
+import { TouchableHighlight } from "react-native-gesture-handler";
 import { useAuth } from "../providers/AuthProvider";
 
 export function ManageFamily() {
@@ -77,7 +74,9 @@ export function ManageFamily() {
           key={member.name}
         >
           <ListItem.Content>
-            <ListItem.Title>{member.name}</ListItem.Title>
+            <ListItem.Title style={{ textTransform: "capitalize" }}>
+              {member.name}
+            </ListItem.Title>
           </ListItem.Content>
         </ListItem>
       ))}
@@ -92,19 +91,32 @@ export function ManageFamily() {
       </View>
       <View
         style={{
-          width: 300,
-          height: 60,
-          alignItems: "center",
+          alignContent: "center",
           alignSelf: "center",
-          justifyContent: "center",
           borderRadius: 35,
-          backgroundColor: "#e32f45",
-          ...styles.navBarShadow, // Manage Family Shadow>
+          alignItems: "center",
+          elevation: 0,
+          backgroundColor: "#fcfcfc",
+          ...styles.navBarShadow,
         }}
       >
-        <TouchableOpacity onPress={() => addTeamMember(newTeamMember)}>
-          <Text style={{ fontSize: 24, color: "white" }}>Add to family</Text>
-        </TouchableOpacity>
+        <TouchableHighlight
+          onPress={() => addTeamMember(newTeamMember)}
+          style={{
+            width: 300,
+            height: 60,
+            alignItems: "center",
+            alignSelf: "center",
+            justifyContent: "center",
+            borderRadius: 35,
+            backgroundColor: "#e32f45",
+          }}
+          underlayColor={3}
+        >
+          <View>
+            <Text style={{ fontSize: 24, color: "white" }}>Add to family</Text>
+          </View>
+        </TouchableHighlight>
       </View>
       {/* <Button
         onPress={() => addTeamMember(newTeamMember)}

@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
 const Setting = (props) => {
   return (
     <TouchableHighlight
-      style={{ ...myStyles.setting, ...myStyles.topSetting, ...props.style }}
+      style={{ ...myStyles.setting, ...props.style }}
       underlayColor={3}
       onPress={props.onClick}
     >

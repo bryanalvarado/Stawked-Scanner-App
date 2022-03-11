@@ -3,7 +3,7 @@ import { InventoryView } from "../views/InventoryView";
 import { UserSettingsView } from "../views/UserSettingsView";
 import { Barcode } from "../views/BarcodeView";
 import { HomeScreenView } from "../views/HomeScreenView";
-import {  ItemsProvider } from "../providers/ItemsProvider";
+import { ItemsProvider } from "../providers/ItemsProvider";
 import { useAuth } from "../providers/AuthProvider";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import styles from "../stylesheet";
@@ -28,7 +28,7 @@ const CustomNavBarButton = ({ children, onPress }) => (
         alignContent: "center",
         borderRadius: 35,
         backgroundColor: "#e32f45",
-        ...styles.navBarShadow // camera shadow
+        ...styles.navBarShadow, // camera shadow
       }}
     >
       {children}
@@ -118,14 +118,11 @@ export function NavBottomBar() {
       <Tab.Screen
         name="Camera"
         children={() => {
-          return (
-            user ? (
-             <ItemsProvider user={user} projectPartition={`project=${user.id}`}>
+          return user ? (
+            <ItemsProvider user={user} projectPartition={`project=${user.id}`}>
               <Barcode />
-              </ItemsProvider>
-              
-              ) : null
-          )
+            </ItemsProvider>
+          ) : null;
         }}
         options={{
           tabBarIcon: ({ focused }) => (
@@ -136,7 +133,6 @@ export function NavBottomBar() {
                 width: 30,
                 height: 30,
                 tintColor: "#fff",
-                
               }}
             />
           ),
