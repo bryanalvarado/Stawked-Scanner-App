@@ -47,6 +47,7 @@ export function UserSettingsView() {
             />
 
             <Setting
+              style={myStyles.midSetting}
               settingName="Email"
               onClick={() => alertFunction("Email")}
             />
@@ -94,6 +95,7 @@ const myStyles = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },
+  midSetting: {},
   bottomSetting: {
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
