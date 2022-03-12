@@ -108,18 +108,19 @@ const myStyles = StyleSheet.create({
   },
   nametext: {
     fontSize: 30,
-    fontWeight: "bold",
+    fontFamily: "Inter-Bold",
   },
   emailtext: {
     fontSize: 15,
     fontWeight: "normal",
+    fontFamily: "Inter-Bold",
   },
   settingCategory: {
     marginTop: 5,
     marginLeft: 10,
   },
   settingCategoryText: {
-    fontWeight: "bold",
+    fontFamily: "Inter-ExtraBold",
   },
   scrollview: {
     height: "77%",
