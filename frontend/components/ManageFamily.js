@@ -31,7 +31,7 @@ export function ManageFamily() {
       getTeam();
     } catch (err) {
       Alert.alert(
-        "An error occurred while adding a Family member",
+        "An error occurred while adding a household member",
         err.message
       );
     }
@@ -44,12 +44,12 @@ export function ManageFamily() {
       await user.functions.removeTeamMember(email);
       getTeam();
     } catch (err) {
-      Alert.alert("An error occurred while removing a Family member", err);
+      Alert.alert("An error occurred while removing a household member", err);
     }
   };
 
   const openDeleteDialogue = (member) => {
-    Alert.alert("Remove the following member from your Family?", member.name, [
+    Alert.alert("Remove the following member from your household?", member.name, [
       {
         text: "Remove",
         onPress: () => {
@@ -84,7 +84,7 @@ export function ManageFamily() {
         <TextInput
           onChangeText={(text) => setNewTeamMember(text)}
           value={newTeamMember}
-          placeholder="Family member username"
+          placeholder="Household member username"
           style={styles.addTeamMemberInput}
           autoCapitalize="none"
         />
@@ -114,7 +114,7 @@ export function ManageFamily() {
           underlayColor={3}
         >
           <View>
-            <Text style={{ fontSize: 24, color: "white" }}>Add to family</Text>
+            <Text style={{ fontSize: 24, color: "white" }}>Add to household</Text>
           </View>
         </TouchableHighlight>
       </View>

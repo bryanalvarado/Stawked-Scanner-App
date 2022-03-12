@@ -28,7 +28,7 @@ const App = () => {
       case "Inventory":
         return "Inventory";
       case "Family":
-        return "My Family";
+        return "My Household";
       case "Settings":
         return "Settings";
     }

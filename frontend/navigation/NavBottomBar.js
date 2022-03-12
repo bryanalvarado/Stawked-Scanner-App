@@ -163,7 +163,7 @@ export function NavBottomBar() {
               <Text
                 style={{ color: focused ? "#e32f45" : "#748c94", fontSize: 12 }}
               >
-                FAMILY
+                HOUSEHOLD
               </Text>
             </View>
           ),
