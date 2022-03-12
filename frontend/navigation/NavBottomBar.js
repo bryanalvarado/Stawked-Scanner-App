@@ -69,7 +69,7 @@ export function NavBottomBar() {
               }}
             >
               <Image
-                source={require("../assets/inventory.png")}
+                source={require("../assets/img/inventory.png")}
                 resizeMode="contain"
                 style={{
                   width: 25,
@@ -98,7 +98,7 @@ export function NavBottomBar() {
               }}
             >
               <Image
-                source={require("../assets/home.png")}
+                source={require("../assets/img/home.png")}
                 resizeMode="contain"
                 style={{
                   width: 25,
@@ -127,7 +127,7 @@ export function NavBottomBar() {
         options={{
           tabBarIcon: ({ focused }) => (
             <Image
-              source={require("../assets/camera.png")}
+              source={require("../assets/img/camera.png")}
               resizeMode="contain"
               style={{
                 width: 30,
@@ -152,7 +152,7 @@ export function NavBottomBar() {
               }}
             >
               <Image
-                source={require("../assets/household.png")}
+                source={require("../assets/img/household.png")}
                 resizeMode="contain"
                 style={{
                   width: 25,
@@ -181,7 +181,7 @@ export function NavBottomBar() {
               }}
             >
               <Image
-                source={require("../assets/user.png")}
+                source={require("../assets/img/user.png")}
                 resizeMode="contain"
                 style={{
                   width: 25,

@@ -17,6 +17,7 @@ import styles from "../stylesheet";
 import { StatusBar } from "react-native";
 import { TypingAnimation } from "react-native-typing-animation";
 import { TouchableOpacity } from "react-native-gesture-handler";
+
 export function LoginView({ navigation }) {
   const width = Dimensions.get("screen").width;
   const [email, setEmail] = useState("");
@@ -77,11 +78,11 @@ export function LoginView({ navigation }) {
 
       <View style={myStyles.header}>
         <ImageBackground
-          source={require("../assets/header.png")}
+          source={require("../assets/img/header.png")}
           style={myStyles.imageBG}
         >
           <Image
-            source={require("../assets/home.png")}
+            source={require("../assets/img/home.png")}
             style={{ width: 50, height: 50 }}
           ></Image>
           <Text style={myStyles.headerTopText}>Welcome Back</Text>
