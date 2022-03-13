@@ -8,7 +8,7 @@ exports = async function(email) {
   const callingUser = context.user;
   
   if (memberToRemove._id === callingUser.id) {
-    return {error: "You cannot remove yourself from your Family"};
+    return {error: "You cannot remove yourself from your household"};
   }
   
   const {canWritePartitions} = memberToRemove;
@@ -16,7 +16,7 @@ exports = async function(email) {
   const projectPartition = `project=${callingUser.id}`;
 
   if ((canWritePartitions == null) || !canWritePartitions.includes(projectPartition)) {
-    return {error: `User ${email} is not a member of your Family`};
+    return {error: `User ${email} is not a member of your household`};
   }
   
   try {

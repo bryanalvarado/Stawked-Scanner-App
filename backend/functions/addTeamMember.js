@@ -8,13 +8,13 @@ exports = async function(email) {
   const callingUser = context.user;
   
   if (newMember._id === callingUser.id) {
-    return {error: "You are already on your own Family!"};
+    return {error: "You are already on your own household!"};
   }
   
   const projectPartition = `project=${callingUser.id}`;
 
   if (newMember.canWritePartitions && newMember.canWritePartitions.includes(projectPartition)) {
-     return {error: `User ${email} is already a member of your Family`};
+     return {error: `User ${email} is already a member of your household`};
   }
 
   try {
