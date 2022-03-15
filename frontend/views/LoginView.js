@@ -81,12 +81,7 @@ export function LoginView({ navigation }) {
           source={require("../assets/img/header.png")}
           style={myStyles.imageBG}
         >
-          <Image
-            source={require("../assets/img/home.png")}
-            style={{ width: 50, height: 50 }}
-          ></Image>
-          <Text style={myStyles.headerTopText}>Welcome Back</Text>
-          <Text style={myStyles.headerBotText}>Sign in to continue</Text>
+          <Image source={require("../assets/img/Logo.png")}></Image>
         </ImageBackground>
       </View>
 
@@ -140,8 +135,8 @@ export function LoginView({ navigation }) {
           </Text>
         ) : null}
 
-        <TouchableOpacity onPress={onPressSignIn} style={{marginTop: 5}} >
-          <View style={myStyles.button_container} >
+        <TouchableOpacity onPress={onPressSignIn} style={{ marginTop: 5 }}>
+          <View style={myStyles.button_container}>
             <Animated.View style={[myStyles.animation, { width: animWidth }]}>
               <Text style={myStyles.textLogin}>Login </Text>
             </Animated.View>
@@ -161,9 +156,7 @@ export function LoginView({ navigation }) {
   );
 }
 
-
 export const myStyles = StyleSheet.create({
-
   container: {
     flex: 1,
     backgroundColor: "white",

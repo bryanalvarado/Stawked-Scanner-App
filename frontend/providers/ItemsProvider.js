@@ -3,8 +3,6 @@ import Realm from "realm";
 import { Item } from "../schemas";
 import { useAuth } from "./AuthProvider";
 import makeCancelable from "makecancelable";
-
-
 const ItemsContext = React.createContext(null);
 
 const ItemsProvider = ({ children, projectPartition }) => {
@@ -17,10 +15,10 @@ const ItemsProvider = ({ children, projectPartition }) => {
   const realmRef = useRef(null);
 
   useEffect(() => {
-    // Enables offline-first: opens a local realm immediately without waiting 
+    // Enables offline-first: opens a local realm immediately without waiting
     // for the download of a synchronized realm to be completed.
     const OpenRealmBehaviorConfiguration = {
-      type: 'openImmediately',
+      type: "openImmediately",
     };
     const config = {
       schema: [Item.schema],
@@ -58,11 +56,9 @@ const ItemsProvider = ({ children, projectPartition }) => {
     //     setTasks([]);
     //   }
     // };
-    
   }, [user, projectPartition]);
 
   const createItem = (newItemName, image) => {
-    
     const projectRealm = realmRef.current;
     projectRealm.write(() => {
       // Create a new task in the same partition -- that is, in the same project.

@@ -86,12 +86,7 @@ export function Signup() {
           source={require("../assets/img/header.png")}
           style={myStyles.imageBG}
         >
-          <Image
-            source={require("../assets/img/home.png")}
-            style={{ width: 50, height: 50 }}
-          ></Image>
-          <Text style={myStyles.headerTopText}>Sign up</Text>
-          <Text style={myStyles.headerBotText}>We're happy to have you!</Text>
+          <Image source={require("../assets/img/Logo.png")}></Image>
         </ImageBackground>
       </View>
 
