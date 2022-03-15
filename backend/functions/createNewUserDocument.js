@@ -5,6 +5,8 @@ exports = async function createNewUserDocument({user}) {
     _id: user.id,
     _partition: `user=${user.id}`,
     name: user.data.email,
+    //Nickname added to schema
+    nickname: user.data.email,
     canReadPartitions: [`user=${user.id}`],
     canWritePartitions: [`project=${user.id}`],
     memberOf: [
