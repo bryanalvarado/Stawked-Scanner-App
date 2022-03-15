@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import Realm from "realm";
 import { Item } from "../schemas";
 import { useAuth } from "./AuthProvider";
+import makeCancelable from "makecancelable";
+
 
 const ItemsContext = React.createContext(null);
 
@@ -29,6 +31,7 @@ const ItemsProvider = ({ children, projectPartition }) => {
         existingRealmFileBehavior: OpenRealmBehaviorConfiguration,
       },
     };
+    //const cancelablePromise = makeCancelable(
     // open a realm for this particular project
     Realm.open(config).then((projectRealm) => {
       realmRef.current = projectRealm;
@@ -41,6 +44,11 @@ const ItemsProvider = ({ children, projectPartition }) => {
       });
     });
 
+    // return () =>{
+    //   console.log('cleanup');
+    //   cancelablePromise();
+    // }
+
     // return () => {
     //   // cleanup function
     //   const projectRealm = realmRef.current;
@@ -50,9 +58,11 @@ const ItemsProvider = ({ children, projectPartition }) => {
     //     setTasks([]);
     //   }
     // };
+    
   }, [user, projectPartition]);
 
   const createItem = (newItemName, image) => {
+    
     const projectRealm = realmRef.current;
     projectRealm.write(() => {
       // Create a new task in the same partition -- that is, in the same project.
