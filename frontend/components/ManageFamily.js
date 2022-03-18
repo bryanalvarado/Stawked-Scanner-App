@@ -49,15 +49,19 @@ export function ManageFamily() {
   };
 
   const openDeleteDialogue = (member) => {
-    Alert.alert("Remove the following member from your household?", member.name, [
-      {
-        text: "Remove",
-        onPress: () => {
-          removeTeamMember(member.name);
+    Alert.alert(
+      "Remove the following member from your household?",
+      member.name,
+      [
+        {
+          text: "Remove",
+          onPress: () => {
+            removeTeamMember(member.name);
+          },
         },
-      },
-      { text: "cancel", style: "cancel" },
-    ]);
+        { text: "cancel", style: "cancel" },
+      ]
+    );
   };
 
   // Load the team when the component is first mounted or when the user changes.
@@ -109,12 +113,14 @@ export function ManageFamily() {
             alignSelf: "center",
             justifyContent: "center",
             borderRadius: 35,
-            backgroundColor: "#e32f45",
+            backgroundColor: "royalblue",
           }}
           underlayColor={3}
         >
           <View>
-            <Text style={{ fontSize: 24, color: "white" }}>Add to household</Text>
+            <Text style={{ fontSize: 24, color: "white" }}>
+              Add to household
+            </Text>
           </View>
         </TouchableHighlight>
       </View>

@@ -27,7 +27,7 @@ const CustomNavBarButton = ({ children, onPress }) => (
         height: 70,
         alignContent: "center",
         borderRadius: 35,
-        backgroundColor: "#e32f45",
+        backgroundColor: "royalblue",
         ...styles.navBarShadow, // camera shadow
       }}
     >
@@ -74,11 +74,14 @@ export function NavBottomBar() {
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? "#e32f45" : "#748c94",
+                  tintColor: focused ? "royalblue" : "#748c94",
                 }}
               />
               <Text
-                style={{ color: focused ? "#e32f45" : "#748c94", fontSize: 12 }}
+                style={{
+                  color: focused ? "royalblue" : "#748c94",
+                  fontSize: 12,
+                }}
               >
                 INVENTORY
               </Text>
@@ -103,11 +106,14 @@ export function NavBottomBar() {
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? "#e32f45" : "#748c94",
+                  tintColor: focused ? "royalblue" : "#748c94",
                 }}
               />
               <Text
-                style={{ color: focused ? "#e32f45" : "#748c94", fontSize: 12 }}
+                style={{
+                  color: focused ? "royalblue" : "#748c94",
+                  fontSize: 12,
+                }}
               >
                 HOME
               </Text>
@@ -157,11 +163,14 @@ export function NavBottomBar() {
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? "#e32f45" : "#748c94",
+                  tintColor: focused ? "royalblue" : "#748c94",
                 }}
               />
               <Text
-                style={{ color: focused ? "#e32f45" : "#748c94", fontSize: 12 }}
+                style={{
+                  color: focused ? "royalblue" : "#748c94",
+                  fontSize: 12,
+                }}
               >
                 HOUSEHOLD
               </Text>
@@ -186,11 +195,14 @@ export function NavBottomBar() {
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? "#e32f45" : "#748c94",
+                  tintColor: focused ? "royalblue" : "#748c94",
                 }}
               />
               <Text
-                style={{ color: focused ? "#e32f45" : "#748c94", fontSize: 12 }}
+                style={{
+                  color: focused ? "royalblue" : "#748c94",
+                  fontSize: 12,
+                }}
               >
                 SETTINGS
               </Text>

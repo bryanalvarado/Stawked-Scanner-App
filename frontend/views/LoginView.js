@@ -202,7 +202,7 @@ export const myStyles = StyleSheet.create({
     justifyContent: "center",
   },
   animation: {
-    backgroundColor: "#e32f45",
+    backgroundColor: "royalblue",
     paddingVertical: 10,
     marginTop: 0,
     borderRadius: 100,
