@@ -16,6 +16,7 @@ import AnimatedInput from "../components/AnimatedInput";
 import { useAuth } from "../providers/AuthProvider";
 import { myStyles } from "./LoginView";
 import styles from "../stylesheet";
+import { validateEmail, validateNickname } from "../providers/Validation";
 
 export function Signup() {
   const [email, setEmail] = useState("");
@@ -23,6 +24,7 @@ export function Signup() {
   const [password, setPassword] = useState("");
 
   const [invalidEmail, setInvalidEmail] = useState(false);
+  const [invalidNickname, setInvalidNickname] = useState(false);
   const [userTaken, setUserTaken] = useState(false);
 
   const { user, signUp, signIn } = useAuth();
@@ -37,6 +39,17 @@ export function Signup() {
     }
   }, [user]);
 
+  const nicknameError = () => {
+    if(invalidNickname){
+      return (
+        <Text style={myStyles.failedLoginText}>
+          Invalid nickname, please try again
+        </Text>
+      );
+    }
+    return null;
+  }
+
   const signupErrors = () => {
     if (invalidEmail) {
       return (
@@ -44,29 +57,24 @@ export function Signup() {
           Invalid email, please try again
         </Text>
       );
-    } else if (userTaken) {
-      return (
-        <Text style={myStyles.failedLoginText}>
-          There is already an account with that email
-        </Text>
-      );
-    } else if (nickname === "") {
-      <Text style={myStyles.failedLoginText}>Please fill out a nickname</Text>;
-    } else {
-      return null;
-    }
+    } 
+    return null;
   };
 
-  const validateEmail = () => {
-    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-    if (reg.test(email) === false) {
+  const validateSignup = () => {
+    if(validateEmail(email) === false){
       setEmail("");
       setInvalidEmail(true);
-      return false;
+    } else if (validateNickname(nickname) === false) {
+      setNickname("");
+      setInvalidNickname(true);
     } else {
-      onPressSignUp();
+      // passed checks
+      onPressSignUp(); 
     }
-  };
+  }
+
+
 
   // The onPressSignUp method calls AuthProvider.signUp with the
   // email/password in state and then signs in.
@@ -114,6 +122,9 @@ export function Signup() {
         <Text style={[myStyles.title, { marginTop: 1 }]}>Nickname</Text>
         <AnimatedInput
           textStyle={{ marginTop: 0, paddingBottom: 0 }}
+          focus={() => {
+            setInvalidNickname(false);
+          }}
           placeholder={"Nickname"}
           onChangeText={setNickname}
           value={nickname}
@@ -129,9 +140,10 @@ export function Signup() {
         />
 
         {signupErrors()}
+        {nicknameError()}
 
         <TouchableOpacity
-          onPress={validateEmail}
+          onPress={validateSignup}
           style={{ marginTop: 5, marginHorizontal: "30%" }}
         >
           <View style={myStyles.button_container}>

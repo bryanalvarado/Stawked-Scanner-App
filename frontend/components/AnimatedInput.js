@@ -19,32 +19,30 @@ const AnimatedInput = props => {
 
     return (
         
-            <View style={{...myStyles.action, ...props.style}}>
-                <TextInput placeholder={props.placeholder} style={{...myStyles.textInput, ...props.textStyle}} 
-                    onFocus={() => {
-                        setIsTyping(true);
-                        if(props.focus){
-                            props.focus();
-                        } 
-                        //  setFailedSignin(false)
-                        //  setTypingEmail(true)
-                        //  setTypingPassword(false);
-                    }}
-                    onBlur={() => {
-                        setIsTyping(false);
-                        if(props.blur){
-                            props.blur();
-                        }
-                    }}
-                    onChangeText={props.onChangeText}
-                    value={props.value}
-                    autoCapitalize="none"
-                    secureTextEntry={props.isSecure ? props.isSecure : false}
-                />
-                {isTyping ? typing() : null}
-            </View>
-        
-        
+        <View style={{...myStyles.action, ...props.style}}>
+            <TextInput placeholder={props.placeholder} style={{...myStyles.textInput, ...props.textStyle}} 
+                onFocus={() => {
+                    setIsTyping(true);
+                    if(props.focus){
+                        props.focus();
+                    } 
+                    //  setFailedSignin(false)
+                    //  setTypingEmail(true)
+                    //  setTypingPassword(false);
+                }}
+                onBlur={() => {
+                    setIsTyping(false);
+                    if(props.blur){
+                        props.blur();
+                    }
+                }}
+                onChangeText={props.onChangeText}
+                value={props.value}
+                autoCapitalize="none"
+                secureTextEntry={props.isSecure ? props.isSecure : false}
+            />
+            {isTyping ? typing() : null}
+        </View>
     );
 } 
 

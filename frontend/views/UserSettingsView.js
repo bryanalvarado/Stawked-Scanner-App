@@ -5,6 +5,8 @@ import {
   StyleSheet,
   TouchableHighlight,
   Alert,
+  Modal,
+  Pressable
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Logout } from "../components/Logout";
@@ -12,11 +14,20 @@ import { useAuth } from "../providers/AuthProvider";
 import styles from "../stylesheet";
 import SettingsCard from "../components/SettingsCard";
 import Setting from "../components/Setting";
+import SettingModal from "../components/SettingModal";
+import AnimatedInput from "../components/AnimatedInput";
+import { validateEmail, validateNickname } from "../providers/Validation";
 
 export function UserSettingsView() {
   const { user } = useAuth();
+
+  const [inputNickname, setInputNickname] = useState("");
   const [nickname, setNickname] = useState("");
+  const [invalidInputNickname, setInvalidInputNickname] = useState(false);
+
   const [email, setEmail] = useState("");
+
+  const [nicknameModalVisible, setNicknameModalVisible] = useState(false);
 
   useEffect(() => {
     setUserInfo();
@@ -50,8 +61,47 @@ export function UserSettingsView() {
     Alert.alert("Pressed " + title);
   };
 
+
+  const changeNickname = () => {
+    if(validateNickname(inputNickname) === true){
+      setNicknameModalVisible(false)
+      //change in backend
+      setUserInfo();
+    } else {
+      setInvalidInputNickname(true);
+    }
+    setInputNickname("");
+  }
+
   return (
     <View style={myStyles.screen}>
+      <SettingModal visible={nicknameModalVisible} title={"Change Nickname"} onClose={() => {
+        setNicknameModalVisible(false);
+        setInvalidInputNickname(false);
+        setInputNickname("");
+      }}>
+
+        <AnimatedInput
+          textStyle={{ marginTop: 0, paddingBottom: 0 }}
+          placeholder={"New Nickname"}
+          onChangeText={setInputNickname}
+          value={inputNickname}
+          focus={() => {setInvalidInputNickname(false)}}
+          
+        />
+        {invalidInputNickname ? <Text style={{color: 'red'}} >Invalid Nickname!</Text> : null}
+
+        <Pressable
+          style={[myStyles.button, myStyles.buttonClose]}
+          onPress={() => {
+            changeNickname()
+            // try 
+          }}
+        >
+            <Text style={myStyles.textStyle}>Change</Text>
+        </Pressable>
+      </SettingModal>
+
       <View style={myStyles.scrollview}>
         <ScrollView alwaysBounceVertical={true}>
           <View style={[myStyles.header]}>
@@ -73,7 +123,7 @@ export function UserSettingsView() {
             <Setting
               style={myStyles.topSetting}
               settingName="Nickname"
-              onClick={() => alertFunction("Nickname")}
+              onClick={() => setNicknameModalVisible(true)}
             />
 
             <Setting
@@ -139,6 +189,20 @@ const myStyles = StyleSheet.create({
   nametext: {
     fontSize: 30,
     // fontFamily: "Inter-Bold",
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    marginTop: 20,
+    elevation: 2
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
   },
   emailtext: {
     fontSize: 15,
