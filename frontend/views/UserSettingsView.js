@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -15,6 +15,36 @@ import Setting from "../components/Setting";
 
 export function UserSettingsView() {
   const { user } = useAuth();
+  const [nickname, setNickname] = useState("");
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    setUserInfo();
+  },[])
+
+  const setUserInfo = () => {
+    getNickname();
+    getEmail();
+  }
+
+  const getNickname = async () => {
+    try {
+       const temp = await user.functions.getNickname(user.id); // Change nickname attribute
+       setNickname(temp)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getEmail = async () => {
+    try {
+       const temp = await user.functions.getEmail(user.id); 
+       setEmail(temp)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 
   const alertFunction = (title) => {
     Alert.alert("Pressed " + title);
@@ -26,11 +56,11 @@ export function UserSettingsView() {
         <ScrollView alwaysBounceVertical={true}>
           <View style={[myStyles.header]}>
             <View style={{ paddingLeft: 10 }}>
-              <Text style={myStyles.nametext}>{"John Doe"}</Text>
+              <Text style={myStyles.nametext}>{nickname}</Text>
             </View>
             <View style={{ paddingLeft: 10 }}>
               <Text style={[myStyles.nametext, myStyles.emailtext]}>
-                {"johndoe@gmail.com"}
+                {email}
               </Text>
             </View>
           </View>
