@@ -31,7 +31,9 @@ export function Signup() {
   useEffect(() => {
     // If there is a user logged in, go to the Projects page.
     if (user != null) {
+      addNickname()
       nav.reset({ index: 0, routes: [{ name: "Home" }] });
+
     }
   }, [user]);
 
@@ -56,7 +58,6 @@ export function Signup() {
   };
 
   const validateEmail = () => {
-    console.log(email);
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     if (reg.test(email) === false) {
       setEmail("");
@@ -75,6 +76,14 @@ export function Signup() {
       signIn(email, password);
     } catch (error) {
       Alert.alert(`Failed to sign up: ${error.message}`);
+    }
+  };
+
+  const addNickname = async () => {
+    try {
+       const temp = await user.functions.addNickname(user.id, nickname); // Change nickname attribute
+    } catch (err) {
+      console.log(err);
     }
   };
 
