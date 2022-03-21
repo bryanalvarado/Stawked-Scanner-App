@@ -74,6 +74,14 @@ const AuthProvider = ({ children }) => {
     await app.emailPasswordAuth.registerUser({ email, password });
   };
 
+  const changeUserPassword = async (email) => {
+    try {
+      const temp = await app.emailPasswordAuth.sendResetPasswordEmail( {email} );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // The signOut function calls the logOut function on the currently
   // logged in user
   const signOut = () => {
@@ -92,6 +100,7 @@ const AuthProvider = ({ children }) => {
         signIn,
         signOut,
         user,
+        changeUserPassword,
         projectData, // list of projects the user is a memberOf
       }}
     >

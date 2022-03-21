@@ -6,7 +6,7 @@ import {
   TouchableHighlight,
   Alert,
   Modal,
-  Pressable
+  Pressable,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Logout } from "../components/Logout";
@@ -19,7 +19,7 @@ import AnimatedInput from "../components/AnimatedInput";
 import { validateEmail, validateNickname } from "../providers/Validation";
 
 export function UserSettingsView() {
-  const { user } = useAuth();
+  const { user, changeUserPassword } = useAuth();
 
   const [inputNickname, setInputNickname] = useState("");
   const [nickname, setNickname] = useState("");
@@ -31,17 +31,17 @@ export function UserSettingsView() {
 
   useEffect(() => {
     setUserInfo();
-  },[])
+  }, []);
 
   const setUserInfo = () => {
     getNickname();
     getEmail();
-  }
+  };
 
   const getNickname = async () => {
     try {
-       const temp = await user.functions.getNickname(user.id); // Change nickname attribute
-       setNickname(temp)
+      const temp = await user.functions.getNickname(user.id); // Change nickname attribute
+      setNickname(temp);
     } catch (err) {
       console.log(err);
     }
@@ -49,56 +49,74 @@ export function UserSettingsView() {
 
   const getEmail = async () => {
     try {
-       const temp = await user.functions.getEmail(user.id); 
-       setEmail(temp)
+      const temp = await user.functions.getEmail(user.id);
+      setEmail(temp);
     } catch (err) {
       console.log(err);
     }
   };
 
+  const setNewNickname = async (inputNickname) => {
+    try {
+      const temp = await user.functions.addNickname(user.id, inputNickname);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const alertFunction = (title) => {
     Alert.alert("Pressed " + title);
   };
 
+  const passwordChangingFunction = () => {
+    Alert.alert("Check Email to reset password");
+    changeUserPassword(email)
+  };
 
   const changeNickname = () => {
-    if(validateNickname(inputNickname) === true){
-      setNicknameModalVisible(false)
-      //change in backend
-      setUserInfo();
+    if (validateNickname(inputNickname) === true) {
+      setNicknameModalVisible(false);
+      setNewNickname(inputNickname);
+      setNickname(inputNickname);
     } else {
       setInvalidInputNickname(true);
     }
     setInputNickname("");
-  }
+  };
 
   return (
     <View style={myStyles.screen}>
-      <SettingModal visible={nicknameModalVisible} title={"Change Nickname"} onClose={() => {
-        setNicknameModalVisible(false);
-        setInvalidInputNickname(false);
-        setInputNickname("");
-      }}>
-
+      <SettingModal
+        visible={nicknameModalVisible}
+        title={"Change Nickname"}
+        onClose={() => {
+          setNicknameModalVisible(false);
+          setInvalidInputNickname(false);
+          setInputNickname("");
+        }}
+      >
         <AnimatedInput
+          style={{ borderBottomColor: "black" }}
           textStyle={{ marginTop: 0, paddingBottom: 0 }}
           placeholder={"New Nickname"}
           onChangeText={setInputNickname}
           value={inputNickname}
-          focus={() => {setInvalidInputNickname(false)}}
-          
+          focus={() => {
+            setInvalidInputNickname(false);
+          }}
         />
-        {invalidInputNickname ? <Text style={{color: 'red'}} >Invalid Nickname!</Text> : null}
+        {invalidInputNickname ? (
+          <Text style={{ color: "red" }}>Invalid Nickname!</Text>
+        ) : null}
 
         <Pressable
           style={[myStyles.button, myStyles.buttonClose]}
           onPress={() => {
-            changeNickname()
-            // try 
+            changeNickname();
+            // try
           }}
         >
-            <Text style={myStyles.textStyle}>Change</Text>
+          <Text style={myStyles.textStyle}>Change</Text>
         </Pressable>
       </SettingModal>
 
@@ -125,17 +143,10 @@ export function UserSettingsView() {
               settingName="Nickname"
               onClick={() => setNicknameModalVisible(true)}
             />
-
-            <Setting
-              style={myStyles.midSetting}
-              settingName="Email"
-              onClick={() => alertFunction("Email")}
-            />
-
             <Setting
               style={myStyles.bottomSetting}
               settingName="Password"
-              onClick={() => alertFunction("Password")}
+              onClick={() => passwordChangingFunction()}
             />
           </SettingsCard>
 
@@ -194,7 +205,7 @@ const myStyles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     marginTop: 20,
-    elevation: 2
+    elevation: 2,
   },
   buttonClose: {
     backgroundColor: "#2196F3",
@@ -202,7 +213,7 @@ const myStyles = StyleSheet.create({
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   emailtext: {
     fontSize: 15,

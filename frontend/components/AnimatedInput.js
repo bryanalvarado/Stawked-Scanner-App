@@ -10,7 +10,7 @@ const AnimatedInput = props => {
         return (
             <TypingAnimation 
                 dotColor="#e32f45"
-                style={{marginRight: 25, marginTop: 20}}
+                style={{marginRight: 25, marginTop: 0}}
             />
         )
     }

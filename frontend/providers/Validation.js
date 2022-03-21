@@ -1,5 +1,5 @@
 export const validateNickname = (nickname) => {
-    let reg = /^[a-zA-Z0-9]{5,}[a-zA-Z]+[0-9]*$/;
+    let reg = /^[a-zA-Z0-9]{2,}[a-zA-Z]+[0-9]*$/;
     if(reg.test(nickname) === false){
       return false;
     }

@@ -27,7 +27,8 @@ export function ManageFamily() {
   // team member to the logged in user's project
   const addTeamMember = async () => {
     try {
-      await user.functions.addTeamMember(newTeamMember);
+      await user.functions.addMemberToCurrent(newTeamMember, user.id);
+      await user.functions.addCurrentToMember(newTeamMember, user.id);
       getTeam();
     } catch (err) {
       Alert.alert(
@@ -41,10 +42,11 @@ export function ManageFamily() {
   // team member from the logged in user's project
   const removeTeamMember = async (email) => {
     try {
-      await user.functions.removeTeamMember(email);
+      await user.functions.removeMemberFromCurrent(email);
+      await user.functions.removeCurrentFromUser(email, user.id);
       getTeam();
     } catch (err) {
-      Alert.alert("An error occurred while removing a household member", err);
+      console.log(err);
     }
   };
 

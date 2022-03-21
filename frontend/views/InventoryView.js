@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 import { useAuth } from "../providers/AuthProvider";
 import { ListItem } from "react-native-elements";
 
 export function InventoryView({ navigation }) {
-  const { projectData } = useAuth();
+  const { user, projectData } = useAuth();
+
+  useEffect(() => {
+    updateMemberOf();
+  },[projectData])
 
   // the onClickProject navigates to the InventoryList with the project name
   // and project partition value
@@ -14,6 +18,14 @@ export function InventoryView({ navigation }) {
       projectPartition: project.partition,
     });
   };
+
+  const updateMemberOf = async () => {
+    try {
+      const memberOf = await user.functions.updateMemberOf(user.id);
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <View>
