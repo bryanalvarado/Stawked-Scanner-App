@@ -9,9 +9,7 @@ const ItemsContext = React.createContext(null);
 const ItemsProvider = ({ children, projectPartition }) => {
   const [items, setItems] = useState([]);
   const { user } = useAuth();
-  const [itemName, setItemName] = useState("");
-  const [itemImage, setItemImage] = useState("");
-  const [productInfo, setProductInfo] = useState(null);
+
 
 
   
@@ -65,41 +63,45 @@ const ItemsProvider = ({ children, projectPartition }) => {
     // };
   }, [user, projectPartition]);
 
-  const createItem = (newItemName, image) => {
-    console.log('what we just scanned: '+ newItemName)
-    apiCall(newItemName);
+  const createItem = (name, image) => {
+    console.log('what we just scanned: '+ name)
+    
     const projectRealm = realmRef.current;
     projectRealm.write(() => {
       // Create a new task in the same partition -- that is, in the same project.
       projectRealm.create(
         "Item",
         new Item({
-          name: itemName || "Not Scanned",
-          image: itemImage || "No Image",
+          name: name || "Not Scanned",
+          image: image || "No Image",
           partition: projectPartition,
         })
       );
     });
+    // setItemImage("")
+    //   setItemName("")
+    //   setProductInfo("")
   };
 
-  const apiCall = (apinumber) =>{
-    let apicallnumber = `https://api.barcodelookup.com/v3/products?barcode=${apinumber}&formatted=y&key=r2x1sx1l68x31921pn06vp3o195oph`
-    fetch(apicallnumber).then((resp) =>resp.json()).
-    then((data) => {
-      console.log(data.products)
-      const [item] = data.products
-      setProductInfo(item)
-      const name = productInfo['title'];
-      const image = productInfo['images'][0]
-      setItemImage(image)
-      setItemName(name)
-      //console.log('product tile :', itemName)
-      //console.log('product image :', itemImage)
+  // const apiCall = (apinumber) =>{
+  //   let apicallnumber = `https://api.barcodelookup.com/v3/products?barcode=${apinumber}&formatted=y&key=r2x1sx1l68x31921pn06vp3o195oph`
+  //   fetch(apicallnumber).then((resp) =>resp.json()).
+  //   then((data) => {
+  //     console.log(data.products)
+  //     let [item] = data.products
+  //     console.log('current item', item)
+    
+  //     let name = item['title'];
+  //     let image = item['images'][0];
+  //     setItemImage(image)
+  //     setItemName(name)
+  //     console.log('product tile :', name)
+  //     console.log('product image :', image)
 
-    }
-    ).catch(console.log('doesnt exist in api database'))
+  //   }
+  //   ).catch(console.log())
 
-  }
+  // }
 
   const setItemStatus = (item, status) => {
     // One advantage of centralizing the realm functionality in this provider is

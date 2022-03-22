@@ -45,6 +45,24 @@ export function Barcode() {
     setOpenScanner(false);
   };
 
+  const apiCall = (apinumber) =>{
+    let apicallnumber = `https://api.barcodelookup.com/v3/products?barcode=${apinumber}&formatted=y&key=r2x1sx1l68x31921pn06vp3o195oph`
+    fetch(apicallnumber).then((resp) =>resp.json()).
+    then((data) => {
+      // console.log(data.products)
+      let [item] = data.products
+      // console.log('current item', item)
+    
+      let name = item['title'];
+      let image = item['images'][0];
+      // console.log('product tile :', name)
+      // console.log('product image :', image)
+      createItem(name, image)
+    }
+    ).catch(console.log())
+
+  }
+
   const home = () => {
     setOpenScanner(false);
   };
@@ -116,7 +134,7 @@ export function Barcode() {
             <View style={styles.container}>
               <Text style={styles.textStyle}>
                 {qrvalue
-                  ? (createItem(qrvalue, "No Image"), // Placeholder for Image once API is available
+                  ? (apiCall(qrvalue), // Placeholder for Image once API is available
                     setQrvalue(""),
                     alert("Item Scanned"),
                     setOverlayVisible(false),
