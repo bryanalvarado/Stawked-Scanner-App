@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
   },
   modalText: {
     marginBottom: 15,
+    fontSize: 20,
     textAlign: "center"
   }
 });

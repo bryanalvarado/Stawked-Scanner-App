@@ -28,6 +28,7 @@ export function UserSettingsView() {
   const [email, setEmail] = useState("");
 
   const [nicknameModalVisible, setNicknameModalVisible] = useState(false);
+  const [changePasswordModalVisible, setChangePasswordModalVisible] = useState(false);
 
   useEffect(() => {
     setUserInfo();
@@ -69,8 +70,9 @@ export function UserSettingsView() {
   };
 
   const passwordChangingFunction = () => {
-    Alert.alert("Check Email to reset password");
     changeUserPassword(email)
+    setChangePasswordModalVisible(false);
+    Alert.alert(`We have sent an email to ${email}.`, "Please check your email!");
   };
 
   const changeNickname = () => {
@@ -120,6 +122,27 @@ export function UserSettingsView() {
         </Pressable>
       </SettingModal>
 
+      <SettingModal
+        visible={changePasswordModalVisible}
+        title={"Change Password"}
+        onClose={() => {
+          setChangePasswordModalVisible(false);
+        }}
+      >
+        <View style={{marginHorizontal: 5}}>
+          <Text style={{fontWeight: "bold"}}>We will send you an email to change your password!</Text>
+        </View>
+        
+        <Pressable
+          style={[myStyles.button, myStyles.buttonClose]}
+          onPress={() => {
+            passwordChangingFunction();
+          }}
+        >
+          <Text style={myStyles.textStyle}>Send Email</Text>
+        </Pressable>
+      </SettingModal>
+
       <View style={myStyles.scrollview}>
         <ScrollView alwaysBounceVertical={true}>
           <View style={[myStyles.header]}>
@@ -146,7 +169,7 @@ export function UserSettingsView() {
             <Setting
               style={myStyles.bottomSetting}
               settingName="Password"
-              onClick={() => passwordChangingFunction()}
+              onClick={() => {setChangePasswordModalVisible(true);}}
             />
           </SettingsCard>
 
