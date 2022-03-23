@@ -3,11 +3,16 @@ import Realm from "realm";
 import { Item } from "../schemas";
 import { useAuth } from "./AuthProvider";
 import makeCancelable from "makecancelable";
+import { State } from "react-native-gesture-handler";
 const ItemsContext = React.createContext(null);
 
 const ItemsProvider = ({ children, projectPartition }) => {
   const [items, setItems] = useState([]);
   const { user } = useAuth();
+
+
+
+  
 
   // Use a Ref to store the realm rather than the state because it is not
   // directly rendered, so updating it should not trigger a re-render as using
@@ -58,20 +63,45 @@ const ItemsProvider = ({ children, projectPartition }) => {
     // };
   }, [user, projectPartition]);
 
-  const createItem = (newItemName, image) => {
+  const createItem = (name, image) => {
+    console.log('what we just scanned: '+ name)
+    
     const projectRealm = realmRef.current;
     projectRealm.write(() => {
       // Create a new task in the same partition -- that is, in the same project.
       projectRealm.create(
         "Item",
         new Item({
-          name: newItemName || "Not Scanned",
+          name: name || "Not Scanned",
           image: image || "No Image",
           partition: projectPartition,
         })
       );
     });
+    // setItemImage("")
+    //   setItemName("")
+    //   setProductInfo("")
   };
+
+  // const apiCall = (apinumber) =>{
+  //   let apicallnumber = `https://api.barcodelookup.com/v3/products?barcode=${apinumber}&formatted=y&key=r2x1sx1l68x31921pn06vp3o195oph`
+  //   fetch(apicallnumber).then((resp) =>resp.json()).
+  //   then((data) => {
+  //     console.log(data.products)
+  //     let [item] = data.products
+  //     console.log('current item', item)
+    
+  //     let name = item['title'];
+  //     let image = item['images'][0];
+  //     setItemImage(image)
+  //     setItemName(name)
+  //     console.log('product tile :', name)
+  //     console.log('product image :', image)
+
+  //   }
+  //   ).catch(console.log())
+
+  // }
 
   const setItemStatus = (item, status) => {
     // One advantage of centralizing the realm functionality in this provider is
