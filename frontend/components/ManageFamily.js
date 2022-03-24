@@ -10,6 +10,17 @@ export function ManageFamily({navigation, route}) {
   const [newTeamMember, setNewTeamMember] = useState(null);
   const [teamMemberList, setTeamMemberList] = useState([]);
 
+
+  const requestUser = async () => {
+    if (user != null) {
+      try {
+        await user.functions.requestUser(user.id, newTeamMember);
+        Alert.alert("User has been requested!")
+      } catch (err) {
+        Alert.alert("An error occured", err.message)
+      }
+    }
+  };
   // getTeam calls the backend function getMyTeamMembers to retrieve the
   // team members of the logged in user's project
   const getTeam = async () => {
@@ -23,20 +34,6 @@ export function ManageFamily({navigation, route}) {
     }
   };
 
-  // addTeamMember calls the backend function addTeamMember to add a
-  // team member to the logged in user's project
-  const addTeamMember = async () => {
-    try {
-      await user.functions.addMemberToCurrent(newTeamMember, user.id);
-      await user.functions.addCurrentToMember(newTeamMember, user.id);
-      getTeam();
-    } catch (err) {
-      Alert.alert(
-        "An error occurred while adding a household member",
-        err.message
-      );
-    }
-  };
 
   // removeTeamMember calls the backend function removeTeamMember to remove a
   // team member from the logged in user's project
@@ -69,7 +66,7 @@ export function ManageFamily({navigation, route}) {
   // Load the team when the component is first mounted or when the user changes.
   useEffect(() => {
     getTeam();
-  }, [user]);
+  }, [teamMemberList]);
 
   return (
     <View style={styles.manageFamilyWrapper}>
@@ -107,7 +104,7 @@ export function ManageFamily({navigation, route}) {
         }}
       >
         <TouchableHighlight
-          onPress={() => addTeamMember(newTeamMember)}
+          onPress={() => requestUser()}
           style={{
             width: 300,
             height: 60,
@@ -121,7 +118,7 @@ export function ManageFamily({navigation, route}) {
         >
           <View>
             <Text style={{ fontSize: 24, color: "white" }}>
-              Add to household
+              Invite User
             </Text>
           </View>
         </TouchableHighlight>

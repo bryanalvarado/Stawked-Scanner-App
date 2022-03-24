@@ -35,22 +35,22 @@ export function UserSettingsView() {
   }, []);
 
   const setUserInfo = () => {
-    getNickname();
-    getEmail();
+    getNickname(user.id);
+    getEmail(user.id);
   };
 
-  const getNickname = async () => {
+  const getNickname = async (userId) => {
     try {
-      const temp = await user.functions.getNickname(user.id); // Change nickname attribute
+      const temp = await user.functions.getNickname(userId); // Change nickname attribute
       setNickname(temp);
     } catch (err) {
       console.log(err);
     }
   };
-
-  const getEmail = async () => {
+  
+  const getEmail = async (userId) => {
     try {
-      const temp = await user.functions.getEmail(user.id);
+      const temp = await user.functions.getEmail(userId);
       setEmail(temp);
     } catch (err) {
       console.log(err);
