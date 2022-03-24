@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "react-native";
+import { Button, Text, TouchableOpacity } from "react-native";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -12,6 +12,8 @@ import { Signup } from "./views/Signup";
 import { InventoryList } from "./views/InventoryList";
 import { NavBottomBar } from "./navigation/NavBottomBar";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import { RequestsView } from "./views/RequestsView";
+
 
 const Stack = createStackNavigator();
 
@@ -22,7 +24,7 @@ const App = () => {
     // In our case, it's "Feed" as that's the first screen inside the navigator
     //  ignore - testing commit 
     const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
-
+    
     switch (routeName) {
       case "Home":
         return "Home";
@@ -35,6 +37,21 @@ const App = () => {
     }
   };
 
+  const getHeaderRight = (route, navigation) => {
+    const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
+    
+    switch(routeName){
+      case "Family":
+        return(
+          <TouchableOpacity onPress={() => navigation.navigate("Requests")}>
+            <Text>Requests</Text>
+          </TouchableOpacity>
+        );
+      default:
+        return null
+    }
+  }
+
   return (
     <AuthProvider>
       <NavigationContainer>
@@ -43,7 +60,7 @@ const App = () => {
             name="LoginView"
             component={LoginView}
             options={{ 
-              headerShown: false
+              headerShown: false,
              }}
           />
           <Stack.Screen
@@ -56,11 +73,17 @@ const App = () => {
           <Stack.Screen
             name="Home"
             component={NavBottomBar}
-            options={({ route }) => ({
+            options={({ route, navigation }) => ({
               headerTitle: getHeaderTitle(route),
               headerTitleAlign: "center",
-            })}
+              headerRight: () => (
+                
+                getHeaderRight(route, navigation)
+              ),
+            })
+          }
           />
+
           <Stack.Screen
             name="InventoryList"
             options={({ route }) => ({
@@ -77,6 +100,15 @@ const App = () => {
               );
             }}
           </Stack.Screen>
+
+          <Stack.Screen
+            name="Requests"
+            component={RequestsView}
+            options={{ 
+              headerTitleAlign: "center",
+              title: "Requests"
+             }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>

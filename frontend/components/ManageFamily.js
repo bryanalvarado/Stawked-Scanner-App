@@ -5,7 +5,7 @@ import { Text, ListItem } from "react-native-elements";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { useAuth } from "../providers/AuthProvider";
 
-export function ManageFamily() {
+export function ManageFamily({navigation, route}) {
   const { user } = useAuth();
   const [newTeamMember, setNewTeamMember] = useState(null);
   const [teamMemberList, setTeamMemberList] = useState([]);

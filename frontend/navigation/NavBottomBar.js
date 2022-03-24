@@ -150,6 +150,7 @@ export function NavBottomBar() {
         name="Family"
         component={FamilyView}
         options={{
+          keyboardHidesTabBar: true,
           tabBarIcon: ({ focused }) => (
             <View
               style={{
