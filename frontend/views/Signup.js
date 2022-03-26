@@ -18,7 +18,7 @@ import { myStyles } from "./LoginView";
 import styles from "../stylesheet";
 import { validateEmail, validateNickname } from "../providers/Validation";
 
-export function Signup() {
+export function Signup({ navigation }) {
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
@@ -74,24 +74,15 @@ export function Signup() {
     }
   }
 
-
-
   // The onPressSignUp method calls AuthProvider.signUp with the
   // email/password in state and then signs in.
   const onPressSignUp = async () => {
     try {
       await signUp(email, password);
-      signIn(email, password);
+      Alert.alert("Log in verification email has been sent!")
+      navigation.navigate("LoginView", {nick_name: nickname})
     } catch (error) {
       Alert.alert(`Failed to sign up: ${error.message}`);
-    }
-  };
-
-  const addNickname = async () => {
-    try {
-       const temp = await user.functions.addNickname(user.id, nickname); // Change nickname attribute
-    } catch (err) {
-      console.log(err);
     }
   };
 
