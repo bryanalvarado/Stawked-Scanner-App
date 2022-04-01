@@ -18,7 +18,7 @@ import { StatusBar } from "react-native";
 import { TypingAnimation } from "react-native-typing-animation";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-export function LoginView({ navigation }) {
+export function LoginView({ route, navigation }) {
   const width = Dimensions.get("screen").width;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -53,6 +53,7 @@ export function LoginView({ navigation }) {
   useEffect(() => {
     // If there is a user logged in, go to the Projects page.
     if (user != null) {
+      addNickname()
       nav.reset({ index: 0, routes: [{ name: "Home" }] });
     }
   }, [user]);
@@ -68,6 +69,15 @@ export function LoginView({ navigation }) {
       setTimeout(() => {
         setFailedSignin(true);
       }, 101);
+    }
+  };
+
+  const addNickname = async () => {
+    const { nick_name } = route.params;
+    try {
+       const temp = await user.functions.addNickname(user.id, nick_name); // Change nickname attribute
+    } catch (err) {
+      console.log(err);
     }
   };
 

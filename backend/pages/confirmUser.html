@@ -1,0 +1,45 @@
+<html>
+<head>
+<script src="https://unpkg.com/realm-web@1.2.0/dist/bundle.iife.js"></script>
+<script>
+const APP_ID = "scannerapp-wlugv";
+const app = new Realm.App({ id: APP_ID});
+//Grab Tokens
+const params = new URLSearchParams(window.location.search);
+const token = params.get('token');
+const tokenId = params.get('tokenId');
+app.emailPasswordAuth.confirmUser(token, tokenId)
+        .then(() => displayResult('success'))
+        .catch(err => displayResult('error', err))
+
+
+function displayResult(result, err) {
+    const message = document.getElementById("message");
+    if (result === "success") {
+        message.innerText = "Your email has been sent successfully verified. You can login now!";
+    }
+   else if (result === "error") {
+       message.innerText = "Email confirmation failed. " + err;
+   }
+}
+</script>
+
+<title>Email Confirmation</title>
+<style>
+    h1 {text-align: center;}
+    h3 {text-align: center;}
+    h5 {text-align: center; background-color: whitesmoke;}
+    p {text-align: center;}
+    div {text-align: center;}
+    input {text-align: center;}
+    body {text-align: center;}
+</style>
+</head>
+<body>
+    <h1>Stawked App</h1>
+
+    </br>
+    </br>   
+    <h5 id = "message"></h5>
+</body>
+</html>
