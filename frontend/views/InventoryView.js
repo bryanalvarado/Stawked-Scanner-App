@@ -47,7 +47,7 @@ export function InventoryView({ navigation }) {
 
                     <View >
                       <Text style={{color: 'gray'}}>
-                        {"5"} items
+                        {"3"} items
                       </Text>
                     </View>
                   </View>

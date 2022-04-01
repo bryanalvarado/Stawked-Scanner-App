@@ -21,6 +21,7 @@ export function InventoryList({ navigation, route }) {
   return (
     <View>
       {items.map((item) =>
+      
         item ? <InventoryItem key={`${item._id}`} item={item} /> : null
       )}
     </View>
