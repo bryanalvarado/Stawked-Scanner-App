@@ -10,10 +10,6 @@ const ItemsProvider = ({ children, projectPartition }) => {
   const [items, setItems] = useState([]);
   const { user } = useAuth();
 
-
-
-  
-
   // Use a Ref to store the realm rather than the state because it is not
   // directly rendered, so updating it should not trigger a re-render as using
   // state would.
@@ -65,6 +61,10 @@ const ItemsProvider = ({ children, projectPartition }) => {
 
   const createItem = (name, image) => {
     console.log('what we just scanned: '+ name)
+    //if name exists in DB
+    //   add quantity++
+    // else
+    //   add like normal.
     
     const projectRealm = realmRef.current;
     projectRealm.write(() => {
@@ -125,6 +125,10 @@ const ItemsProvider = ({ children, projectPartition }) => {
   // Define the function for deleting an item.
   const deleteItem = (item) => {
     const projectRealm = realmRef.current;
+    //if item.quantity > 1
+    //    item.quantity--
+    //else
+    //   normal deletion.
     projectRealm.write(() => {
       projectRealm.delete(item);
       setItems([...projectRealm.objects("Item").sorted("name")]);

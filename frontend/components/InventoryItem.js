@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { ListItem, Text, Image, StyleSheet, View } from "react-native-elements";
+import { View, StyleSheet, TouchableOpacity} from 'react-native'
+import { ListItem, Text, Image} from "react-native-elements";
 import { useItems } from "../providers/ItemsProvider";
 import { ActionSheet } from "./ActionSheet";
 import { Item } from "../schemas";
@@ -32,6 +33,14 @@ export function InventoryItem({ item }) {
     }
   }
 
+  const itemImage = (item) => {
+    if(item.image){
+      return <Image source={{uri:`${item.image}`}} style={{width:100,height:100}}/>
+    } else {
+      return <Image source={require("../assets/img/cart.jpg")} style={{width:100,height:100}}/>
+    }
+    
+  }
   // For each possible status other than the current status, make an action to
   // move the item into that status. Rather than creating a generic method to
   // avoid repetition, we split each status to separate each case in the code
@@ -75,40 +84,55 @@ export function InventoryItem({ item }) {
       />
 
       
-      <ListItem style={{borderWidth:0, padding: 2.5, justifyContent: "space-between"}}
-        key={item.id}
-        onPress={() => {
-          setActionSheetVisible(true);
-        }}
-        bottomDivider
-      >
-        
-        <ListItem.Content style = {{borderWidth : 0, padding: 1,flexDirection: 'column', backgroundColor: "white"}}>
-          
+      
         {/* <Image source={require("../assets/img/cart.jpg")} style={{width:150,height:150}}/> */}
-        <Image source={{uri:`${item.image}`}} style={{width:150,height:150}}/>
+          <TouchableOpacity style={[myStyles.item, styles.navBarShadow]}
+            onPress={() => {setActionSheetVisible(true);}}
           
-          <ListItem.Title style={{fontWeight: 'bold', fontSize: 15}}>{item.name}</ListItem.Title>
-          
-          <Text style = {{fontSize: 12}}> 
-            Quantity: {"1"}
-          </Text>
-          <Text style = {{fontSize: 12}}> 
-            Brand: {"The Brand"}
-          </Text>
-          <Text style = {{fontSize: 12}}> 
-            Purchase Date: {"Date"}
-          </Text>
-        </ListItem.Content>
-        {itemStatus(item)}
-      </ListItem>
+          >
+            <View style={{ flex: 1}}>
+              {/* <Image source={{uri:`${item.image}`}} style={{width:100,height:100}}/> */}
+              {itemImage(item)}
+            </View>
+
+            <View style={{flex: 2}}>
+              <Text style={myStyles.itemName}>{item.name}</Text>
+              
+              <Text style = {myStyles.subText}> 
+                Quantity: {"1"}
+              </Text>
+              <Text style = {myStyles.subText}> 
+                Brand: {"The Brand"}
+              </Text>
+              <Text style = {myStyles.subText}> 
+                Purchase Date: {"Date"}
+              </Text>
+            </View>
+
+            <View>
+              {itemStatus(item)}
+            </View>
+          </TouchableOpacity>
+        
+        
+      
     </>
   );
 }
 
-// const itemSytle = StyleSheet.create({
-//   screen: {
-//     flex: 1,
-//     backgroundColor: "light-blue"
-//   }
-// });
+const myStyles = StyleSheet.create({
+  item : {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    marginVertical: 3,
+    padding: 10
+  },
+  itemName: {
+    fontWeight: 'bold',
+    fontSize: 15
+  },
+  subText: {
+    fontSize: 12
+  }
+});

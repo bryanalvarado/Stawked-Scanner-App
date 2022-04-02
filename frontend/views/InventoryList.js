@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Button } from "react-native";
+import { View, Button, StyleSheet, FlatList, SafeAreaView } from "react-native";
 import { useItems } from "../providers/ItemsProvider";
 import { InventoryItem } from "../components/InventoryItem";
 // import { AddInventoryItem } from "../components/AddInventoryItem";
@@ -18,12 +18,35 @@ export function InventoryList({ navigation, route }) {
       title: `${name}`.charAt(0).toUpperCase() + `${name}`.slice(1),
     });
   }, []);
+
+  const renderItem = ({item}) => {
+    <InventoryItem item={item} />
+  }
+  
   return (
-    <View>
-      {items.map((item) =>
-      
-        item ? <InventoryItem key={`${item._id}`} item={item} /> : null
-      )}
-    </View>
+    <SafeAreaView style={myStyles.screen}>
+      <FlatList
+        data={items}
+        renderItem={({item}) => (
+          <InventoryItem item={item} />
+          
+        )}
+        keyExtractor={item => item._id}
+      />
+
+      {/* <View>
+        {items.map((item) =>
+        
+          item ? <InventoryItem key={`${item._id}`} item={item} /> : null
+        )}
+      </View> */}
+    </SafeAreaView>
   );
 }
+
+const myStyles = StyleSheet.create({
+  screen:{
+    flex: 1,
+    backgroundColor: 'white'
+  }
+})
