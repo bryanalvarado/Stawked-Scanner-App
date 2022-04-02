@@ -17,5 +17,6 @@ export function FamilyView({navigation}) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    backgroundColor: 'white'
   },
 });

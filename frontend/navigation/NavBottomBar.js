@@ -173,7 +173,7 @@ export function NavBottomBar() {
                   fontSize: 12,
                 }}
               >
-                HOUSEHOLD
+                {"HOUSE" + "\n" + " HOLD"}
               </Text>
             </View>
           ),

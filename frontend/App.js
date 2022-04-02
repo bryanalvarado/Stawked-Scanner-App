@@ -43,8 +43,8 @@ const App = () => {
     switch(routeName){
       case "Family":
         return(
-          <TouchableOpacity onPress={() => navigation.navigate("Requests")}>
-            <Text>Requests</Text>
+          <TouchableOpacity style={{marginRight: 10}} onPress={() => navigation.navigate("Requests")}>
+            <Text style={{color: '#458FF7', fontWeight: 'bold'}}>Requests</Text>
           </TouchableOpacity>
         );
       default:

@@ -19,6 +19,7 @@ export function ManageFamily({navigation, route}) {
       } catch (err) {
         Alert.alert("An error occured", err.message)
       }
+      setNewTeamMember("")
     }
   };
   // getTeam calls the backend function getMyTeamMembers to retrieve the
@@ -77,7 +78,7 @@ export function ManageFamily({navigation, route}) {
           key={member.name}
         >
           <ListItem.Content>
-            <ListItem.Title style={{ textTransform: "capitalize" }}>
+            <ListItem.Title >
               {member.name}
             </ListItem.Title>
           </ListItem.Content>

@@ -35,7 +35,7 @@ export function InventoryItem({ item }) {
 
   const itemImage = (item) => {
     if(item.image){
-      return <Image source={{uri:`${item.image}`}} style={{width:100,height:100}}/>
+      return <Image source={{uri:`${item.image}`}} style={{width:100, height:100}}/>
     } else {
       return <Image source={require("../assets/img/cart.jpg")} style={{width:100,height:100}}/>
     }
@@ -90,12 +90,13 @@ export function InventoryItem({ item }) {
             onPress={() => {setActionSheetVisible(true);}}
           
           >
-            <View style={{ flex: 1}}>
+            <View >
               {/* <Image source={{uri:`${item.image}`}} style={{width:100,height:100}}/> */}
               {itemImage(item)}
             </View>
 
             <View style={{flex: 2}}>
+              <View style={{marginLeft:10}}>
               <Text style={myStyles.itemName}>{item.name}</Text>
               
               <Text style = {myStyles.subText}> 
@@ -107,6 +108,9 @@ export function InventoryItem({ item }) {
               <Text style = {myStyles.subText}> 
                 Purchase Date: {"Date"}
               </Text>
+
+              </View>
+              
             </View>
 
             <View>
@@ -126,7 +130,8 @@ const myStyles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     marginVertical: 3,
-    padding: 10
+    padding: 10,
+    alignContent:'space-around'
   },
   itemName: {
     fontWeight: 'bold',

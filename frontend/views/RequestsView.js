@@ -52,12 +52,12 @@ export function RequestsView(props) {
   };
 
   const acceptRequest = (incomingId) => {
-    Alert.alert("accepted Request " + incomingId);
+    Alert.alert("Accepted Users Request ", "You will now see them in your inventory!");
     addTeamMember(user.id, incomingId);
   };
 
   const denyRequest = (incomingId) => {
-    Alert.alert("denyed Request " + incomingId);
+    Alert.alert("Denied Request");
     // remove id from request scheme of current user.
     removeRequest(user.id, incomingId);
   };
@@ -72,50 +72,59 @@ export function RequestsView(props) {
       Alert.alert("An error occurred while removing", err.message);
     }
   };
+  
+  const noRequests = () => {
+    return (
+      <View style={{flex: 1, alignSelf: 'center'}}> 
+        <Text style={{color: 'gray'}}>No Requests</Text>
+      </View>
+    )
+  }
 
 
   return (
     <View style={myStyles.screen}>
       <ScrollView>
-        {requests.map((request) =>
-          request ? (
-            <Request key={request.id} style={myStyles.request}>
-              <View style={{ flexDirection: "column" }}>
-                <Text style={myStyles.requestText}>{request.nickname}</Text>
-                <Text style={[myStyles.requestText, { fontSize: 14 }]}>
-                  {request.email}
-                </Text>
-              </View>
+        {requests.length > 0 ? 
+          requests.map((request) =>
+              <Request key={request.id} style={myStyles.request}>
+                
+                <View style={{ flexDirection: "column" }}>
+                  <Text style={myStyles.requestText}>{request.nickname}</Text>
+                  <Text style={[myStyles.requestText, { fontSize: 14 }]}>
+                    {request.email}
+                  </Text>
+                </View>
 
-              <View style={{ flexDirection: "row" }}>
-                <Pressable
-                  style={[
-                    myStyles.button,
-                    {
-                      backgroundColor: "#e73e18",
-                      paddingHorizontal: 17,
-                      marginHorizontal: 15,
-                    },
-                  ]}
-                  onPress={() => {
-                    denyRequest(request.id);
-                  }}
-                >
-                  <Text style={myStyles.textStyle}>Deny</Text>
-                </Pressable>
+                <View style={{ flexDirection: "row" }}>
+                  <Pressable
+                    style={[
+                      myStyles.button,
+                      {
+                        backgroundColor: "#e73e18",
+                        paddingHorizontal: 17,
+                        marginHorizontal: 15,
+                      },
+                    ]}
+                    onPress={() => {
+                      denyRequest(request.id);
+                    }}
+                  >
+                    <Text style={myStyles.textStyle}>Deny</Text>
+                  </Pressable>
 
-                <Pressable
-                  style={[myStyles.button, { backgroundColor: "royalblue" }]}
-                  onPress={() => {
-                    acceptRequest(request.id);
-                  }}
-                >
-                  <Text style={myStyles.textStyle}>Accept</Text>
-                </Pressable>
-              </View>
-            </Request>
-          ) : null
-        )}
+                  <Pressable
+                    style={[myStyles.button, { backgroundColor: "royalblue" }]}
+                    onPress={() => {
+                      acceptRequest(request.id);
+                    }}
+                  >
+                    <Text style={myStyles.textStyle}>Accept</Text>
+                  </Pressable>
+                </View>
+              </Request>
+            )
+           : noRequests()    }
       </ScrollView>
     </View>
   );
@@ -124,6 +133,7 @@ export function RequestsView(props) {
 const myStyles = StyleSheet.create({
   screen: {
     flex: 1,
+    backgroundColor: 'white'
   },
   requestText: {
     //fontWeight: 'bold',

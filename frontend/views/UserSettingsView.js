@@ -200,7 +200,7 @@ export function UserSettingsView() {
 const myStyles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "#fcfcfc",
+    backgroundColor: "white",
   },
   categoryView: {
     justifyContent: "space-between",

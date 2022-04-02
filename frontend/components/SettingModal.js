@@ -33,12 +33,14 @@ const SettingModal = props => {
 const styles = StyleSheet.create({
   closeModalText: {
     fontWeight: 'bold',
-    color: 'red'
+
+    color: 'white'
   },
   closeModalView: {
     alignSelf: 'flex-end',
     borderWidth: 1,
     borderColor: 'red',
+    backgroundColor: 'red',
     borderRadius: 35,
     paddingHorizontal: 5,
     paddingVertical: 1,
