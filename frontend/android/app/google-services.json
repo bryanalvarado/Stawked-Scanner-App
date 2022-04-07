@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "191188041927",
+    "project_id": "stawked-47530",
+    "storage_bucket": "stawked-47530.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191188041927:android:714cda9cfbf3edbdef3ee2",
+        "android_client_info": {
+          "package_name": "com.rn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "191188041927-4pkec8n2kkm13ct1vl0bk7ljtvs9415f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1QSpLfVA323dlDEbgg00QdrqnZTjNc40"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "191188041927-4pkec8n2kkm13ct1vl0bk7ljtvs9415f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
