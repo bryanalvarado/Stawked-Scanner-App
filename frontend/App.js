@@ -80,6 +80,9 @@ const App = () => {
                 
                 getHeaderRight(route, navigation)
               ),
+              // headerStyle: {
+              //   backgroundColor: 'royalblue',
+              // },
             })
           }
           />
