@@ -165,11 +165,13 @@ export function UserSettingsView() {
               style={myStyles.topSetting}
               settingName="Nickname"
               onClick={() => setNicknameModalVisible(true)}
+              imageValue = {1}
             />
             <Setting
               style={myStyles.bottomSetting}
               settingName="Password"
               onClick={() => {setChangePasswordModalVisible(true);}}
+              imageValue = {2}
             />
           </SettingsCard>
 
@@ -182,12 +184,14 @@ export function UserSettingsView() {
               style={myStyles.topSetting}
               settingName="Notifications"
               onClick={() => alertFunction("Notifications")}
+              imageValue = {3}
             />
 
             <Setting
               style={myStyles.bottomSetting}
               settingName="About"
               onClick={() => alertFunction("About")}
+              imageValue = {4}
             />
           </SettingsCard>
           <Logout />

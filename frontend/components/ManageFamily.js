@@ -22,7 +22,7 @@ export function ManageFamily({navigation, route}) {
       setNewTeamMember("")
     }
   };
-  // getTeam calls the backend function getMyTeamMembers to retrieve the
+  // getTeam calls the backend function getMyTeamMembers to retrieve theclea
   // team members of the logged in user's project
   const getTeam = async () => {
     if (user != null) {

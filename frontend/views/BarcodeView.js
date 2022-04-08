@@ -59,7 +59,11 @@ export function Barcode() {
       // console.log('product image :', image)
       createItem(name, image)
     }
-    ).catch(console.log())
+    ).catch(function(error) {
+      console.log('There has been a problem with your fetch operation: ' + error.message);
+       // ADD THIS THROW error
+        throw error;
+      });
 
   }
 

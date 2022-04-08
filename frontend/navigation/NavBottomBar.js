@@ -191,7 +191,7 @@ export function NavBottomBar() {
               }}
             >
               <Image
-                source={require("../assets/img/user.png")}
+                source={require("../assets/img/settings.png")}
                 resizeMode="contain"
                 style={{
                   width: 25,

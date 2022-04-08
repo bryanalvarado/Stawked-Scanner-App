@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View,Text } from "react-native";
 import styles from "../stylesheet";
 
 const SettingsCard = (props) => {
@@ -8,6 +8,7 @@ const SettingsCard = (props) => {
       style={{ ...styles.settingCard, ...styles.navBarShadow, ...props.style }}
     >
       {props.children}
+      {/* <Text>hello world</Text> */}
     </View>
   );
 };
