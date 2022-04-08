@@ -173,7 +173,7 @@ export function NavBottomBar() {
                   fontSize: 12,
                 }}
               >
-                {Platform.OS === "ios" ? "HOUSE" + "\n" + " HOLD" : "HOUSEHOLD"}
+                {"HOUSE" + "\n" + " HOLD"}
               </Text>
             </View>
           ),
