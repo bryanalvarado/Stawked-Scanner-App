@@ -49,15 +49,13 @@ export function Barcode() {
     let apicallnumber = `https://api.barcodelookup.com/v3/products?barcode=${apinumber}&formatted=y&key=r2x1sx1l68x31921pn06vp3o195oph`
     fetch(apicallnumber).then((resp) =>resp.json()).
     then((data) => {
-      // console.log(data.products)
       let [item] = data.products
-      // console.log('current item', item)
-    
       let name = item['title'];
       let image = item['images'][0];
-      // console.log('product tile :', name)
-      // console.log('product image :', image)
-      createItem(name, image)
+      let brand = item['brand']
+      let date = Date.now();
+      let formatDate = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit'}).format(date)
+      createItem(name, image, brand, formatDate)
     }
     ).catch(console.log())
 

@@ -53,6 +53,7 @@ export function LoginView({ route, navigation }) {
   useEffect(() => {
     // If there is a user logged in, go to the Projects page.
     if (user != null) {
+      if(route.params)
       addNickname()
       nav.reset({ index: 0, routes: [{ name: "Home" }] });
     }

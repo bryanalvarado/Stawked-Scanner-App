@@ -43,65 +43,51 @@ const ItemsProvider = ({ children, projectPartition }) => {
       });
     });
 
-    // return () =>{
-    //   console.log('cleanup');
-    //   cancelablePromise();
-    // }
+    return () =>{
+      console.log('cleanup');
+      cancelablePromise();
+    }
 
-    // return () => {
-    //   // cleanup function
-    //   const projectRealm = realmRef.current;
-    //   if (projectRealm) {
-    //     projectRealm.close();
-    //     realmRef.current = null;
-    //     setTasks([]);
-    //   }
-    // };
+    return () => {
+      // cleanup function
+      const projectRealm = realmRef.current;
+      if (projectRealm) {
+        projectRealm.close();
+        realmRef.current = null;
+        setTasks([]);
+      }
+    };
   }, [user, projectPartition]);
 
-  const createItem = (name, image) => {
-    console.log('what we just scanned: '+ name)
-    //if name exists in DB
-    //   add quantity++
-    // else
-    //   add like normal.
-    
-    const projectRealm = realmRef.current;
-    projectRealm.write(() => {
-      // Create a new task in the same partition -- that is, in the same project.
-      projectRealm.create(
-        "Item",
-        new Item({
-          name: name || "Not Scanned",
-          image: image || "No Image",
-          partition: projectPartition,
-        })
-      );
-    });
-    // setItemImage("")
-    //   setItemName("")
-    //   setProductInfo("")
+  const createItem = async (name, image, brand, date) => {
+    let doesItemExist = false;
+    console.log("what we just scanned: " + name);
+    try {
+      doesItemExist = await user.functions.addToItemQuantity(name, user.id);
+      await user.functions.addToTotalItems(user.id);
+      await user.functions.updateAllOtherInventorys(user.id);
+      await user.functions.addToUniqueItems(user.id);
+    } catch (err) {
+      console.log(err.message);
+    }
+
+    if (!doesItemExist) {
+      const projectRealm = realmRef.current;
+      projectRealm.write(() => {
+        projectRealm.create(
+          "Item",
+          new Item({
+            name: name || "N/A",
+            image: image || "N/A",
+            brand: brand || "N/A",
+            date: date,
+            quantity: 1,
+            partition: projectPartition,
+          })
+        );
+      });
+    }
   };
-
-  // const apiCall = (apinumber) =>{
-  //   let apicallnumber = `https://api.barcodelookup.com/v3/products?barcode=${apinumber}&formatted=y&key=r2x1sx1l68x31921pn06vp3o195oph`
-  //   fetch(apicallnumber).then((resp) =>resp.json()).
-  //   then((data) => {
-  //     console.log(data.products)
-  //     let [item] = data.products
-  //     console.log('current item', item)
-    
-  //     let name = item['title'];
-  //     let image = item['images'][0];
-  //     setItemImage(image)
-  //     setItemName(name)
-  //     console.log('product tile :', name)
-  //     console.log('product image :', image)
-
-  //   }
-  //   ).catch(console.log())
-
-  // }
 
   const setItemStatus = (item, status) => {
     // One advantage of centralizing the realm functionality in this provider is
@@ -123,16 +109,31 @@ const ItemsProvider = ({ children, projectPartition }) => {
   };
 
   // Define the function for deleting an item.
-  const deleteItem = (item) => {
+  const deleteItem = async (item) => {
     const projectRealm = realmRef.current;
-    //if item.quantity > 1
-    //    item.quantity--
-    //else
-    //   normal deletion.
-    projectRealm.write(() => {
-      projectRealm.delete(item);
-      setItems([...projectRealm.objects("Item").sorted("name")]);
-    });
+    let isQuantityGreaterThanOne = true;
+    try {
+      isQuantityGreaterThanOne = await user.functions.deleteItemFromInventory(
+        item.name,
+        user.id
+      );
+    } catch (err) {
+      console.log(err.message);
+    }
+
+    if (!isQuantityGreaterThanOne) {
+      projectRealm.write (() => {
+        projectRealm.delete(item);
+        setItems([...projectRealm.objects("Item").sorted("name")]);
+      });
+    }
+    try {
+      await user.functions.updateAllOtherInventorys(user.id);
+      await user.functions.addToUniqueItems(user.id)
+    }
+    catch (err){
+      console.log(err)
+    }
   };
 
   // Render the children within the ItemsContext's provider. The value contains

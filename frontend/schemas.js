@@ -9,7 +9,10 @@ class Item {
    */
   constructor({
     name,
-    image, 
+    image,
+    quantity,
+    brand,
+    date, 
     partition,
     status = Item.STATUS_OPEN,
     id = new ObjectId(),
@@ -17,6 +20,9 @@ class Item {
     this._partition = partition;
     this._id = id;
     this.name = name;
+    this.quantity = quantity;
+    this.brand = brand;
+    this.date = date;
     this.image = image;
     this.status = status;
   }
@@ -31,6 +37,9 @@ class Item {
       name: "string",
       image: "string",
       status: "string",
+      brand: "string",
+      date: "string",
+      quantity: "int"
     },
     primaryKey: "_id",
   };

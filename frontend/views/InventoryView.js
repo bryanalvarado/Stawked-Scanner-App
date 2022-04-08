@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useAuth } from "../providers/AuthProvider";
 import { ListItem } from "react-native-elements";
@@ -7,9 +7,13 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
 export function InventoryView({ navigation }) {
   const { user, projectData } = useAuth();
+  const [newMemberOf, setNewMemberOf] = useState()
 
   useEffect(() => {
     updateMemberOf();
+    return function cleanup() {
+      updateMemberOf()
+  }
   },[projectData])
 
   // the onClickProject navigates to the InventoryList with the project name
@@ -23,17 +27,23 @@ export function InventoryView({ navigation }) {
 
   const updateMemberOf = async () => {
     try {
+      await user.functions.addToUniqueItems(user.id)
+      await user.functions.updateAllOtherInventorys(user.id)
       const memberOf = await user.functions.updateMemberOf(user.id);
+      console.log(memberOf)
+      setNewMemberOf(memberOf)
     } catch (err) {
       console.log(err)
     }
   }
 
+
   return (
     <View style={myStyles.screen}>
       <View>
         <ScrollView>
-          {projectData.map((project) => (
+          {newMemberOf ? (
+          newMemberOf.map((project) => (
             <View key={project.name}>
 
               <TouchableOpacity onPress={() => onClickProject(project)} style={[myStyles.cardView, styles.navBarShadow]}>
@@ -46,8 +56,11 @@ export function InventoryView({ navigation }) {
                     </View>
 
                     <View >
+                    <Text style={{color: 'gray'}}>
+                      {project.uniqueItems} Unique Items
+                      </Text>
                       <Text style={{color: 'gray'}}>
-                        {"3"} items
+                      {project.totalItems} Total Items
                       </Text>
                     </View>
                   </View>
@@ -61,18 +74,10 @@ export function InventoryView({ navigation }) {
 
                 </View>
               </TouchableOpacity>
-
-              {/* <ListItem
-                onPress={() => onClickProject(project)}
-                bottomDivider
-                key={project.name}
-              >
-                <ListItem.Content>
-                  <ListItem.Title>{project.name}</ListItem.Title>
-                </ListItem.Content>
-              </ListItem> */}
             </View>
-          ))}
+          ))) :  <Text >
+          {'Loading...'}
+        </Text>}
         </ScrollView>
       </View>
     </View>

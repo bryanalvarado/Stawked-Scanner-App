@@ -100,13 +100,13 @@ export function InventoryItem({ item }) {
               <Text style={myStyles.itemName}>{item.name}</Text>
               
               <Text style = {myStyles.subText}> 
-                Quantity: {"1"}
+                Quantity: {item.quantity}
               </Text>
               <Text style = {myStyles.subText}> 
-                Brand: {"The Brand"}
+                Brand: {item.brand}
               </Text>
               <Text style = {myStyles.subText}> 
-                Purchase Date: {"Date"}
+                Purchase Date: {item.date}
               </Text>
 
               </View>
