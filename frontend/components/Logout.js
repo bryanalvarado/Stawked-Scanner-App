@@ -32,6 +32,7 @@ export function Logout() {
         style={{ borderBottomWidth: 0 }}
         textStyle={{ color: "#e32f45" }}
         settingName="Logout"
+        imageValue = {0}
         onClick={() => {
           logoutOnClick();
         }}

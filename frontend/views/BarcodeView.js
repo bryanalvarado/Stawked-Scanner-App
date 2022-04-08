@@ -57,7 +57,11 @@ export function Barcode() {
       let formatDate = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit'}).format(date)
       createItem(name, image, brand, formatDate)
     }
-    ).catch(console.log())
+    ).catch(function(error) {
+      console.log('There has been a problem with your fetch operation: ' + error.message);
+       // ADD THIS THROW error
+        throw error;
+      });
 
   }
 

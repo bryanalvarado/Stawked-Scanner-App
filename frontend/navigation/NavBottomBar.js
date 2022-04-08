@@ -173,7 +173,11 @@ export function NavBottomBar() {
                   fontSize: 12,
                 }}
               >
+<<<<<<< HEAD
                 {"HOUSEHOLD"}
+=======
+                {Platform.OS === "ios" ? "HOUSE" + "\n" + " HOLD" : "HOUSEHOLD"}
+>>>>>>> 00e11d2cac77a83f5d32248b2df4ecf8beb2a303
               </Text>
             </View>
           ),
@@ -191,7 +195,7 @@ export function NavBottomBar() {
               }}
             >
               <Image
-                source={require("../assets/img/user.png")}
+                source={require("../assets/img/settings.png")}
                 resizeMode="contain"
                 style={{
                   width: 25,
