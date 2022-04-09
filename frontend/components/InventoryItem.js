@@ -23,18 +23,18 @@ export function InventoryItem({ item }) {
 
     const status = item.status
     if(status === Item.STATUS_COMPLETE){
-      return <Text>Out of Stock</Text>
+      return <Text style={myStyles.subText}>Status: Out of Stock</Text>
     } else if (status === Item.STATUS_IN_PROGRESS){
-      return <Text>Running Low</Text>
+      return <Text style={myStyles.subText}>Status: Running Low</Text>
     } else if (status === Item.STATUS_OPEN){
-      return <Text>Stocked</Text>
+      return <Text style={myStyles.subText}>Status: Stocked</Text>
     } else {
       return null
     }
   }
 
   const itemImage = (item) => {
-    if(item.image){
+    if(item.image !== ""){
       return <Image source={{uri:`${item.image}`}} style={{width:100, height:100}}/>
     } else {
       return <Image source={require("../assets/img/cart.jpg")} style={{width:100,height:100}}/>
@@ -97,25 +97,26 @@ export function InventoryItem({ item }) {
 
             <View style={{flex: 2}}>
               <View style={{marginLeft:10}}>
-              <Text style={myStyles.itemName}>{item.name}</Text>
-              
-              <Text style = {myStyles.subText}> 
-                Quantity: {item.quantity}
-              </Text>
-              <Text style = {myStyles.subText}> 
-                Brand: {item.brand}
-              </Text>
-              <Text style = {myStyles.subText}> 
-                Purchase Date: {item.date}
-              </Text>
+                <Text style={myStyles.itemName}>{item.name}</Text>
+                
+                <Text style = {myStyles.subText}> 
+                  Quantity: {item.quantity}
+                </Text>
+                <Text style = {myStyles.subText}> 
+                  Brand: {item.brand}
+                </Text>
+                <Text style = {myStyles.subText}> 
+                  Purchase Date: {item.date}
+                </Text>
+
+                {itemStatus(item)}
 
               </View>
-              
             </View>
 
-            <View>
+            {/* <View>
               {itemStatus(item)}
-            </View>
+            </View> */}
           </TouchableOpacity>
         
         
