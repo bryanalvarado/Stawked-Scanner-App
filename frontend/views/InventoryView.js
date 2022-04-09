@@ -30,7 +30,6 @@ export function InventoryView({ navigation }) {
       await user.functions.addToUniqueItems(user.id)
       await user.functions.updateAllOtherInventorys(user.id)
       const memberOf = await user.functions.updateMemberOf(user.id);
-      console.log(memberOf)
       setNewMemberOf(memberOf)
     } catch (err) {
       console.log(err)
@@ -75,9 +74,9 @@ export function InventoryView({ navigation }) {
                 </View>
               </TouchableOpacity>
             </View>
-          ))) :  <Text >
-          {'Loading...'}
-        </Text>}
+          ))) : <View style={{flex: 1, alignSelf: 'center', marginTop: 5}}> 
+          <Text style={{color: 'gray'}}>Loading...</Text>
+        </View>}
         </ScrollView>
       </View>
     </View>

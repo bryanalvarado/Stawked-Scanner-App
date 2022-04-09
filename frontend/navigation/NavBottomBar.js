@@ -45,13 +45,16 @@ export function NavBottomBar() {
         keyboardHidesTabBar: true,
         showLabel: false,
         style: {
-          position: "absolute",
-          bottom: 25,
-          left: 20,
-          right: 20,
+          // position: "absolute",
+          // justifyContent: "flex-end", 
+          // alignItems: "center",
+          // flexDirection: "row",
+          // bottom: 25,
+          // left: 20,
+          // right: 20,
           elevation: 0,
           backgroundColor: "#ffffff",
-          borderRadius: 15,
+          // borderRadius: 15,
           height: 90,
           ...styles.navBarShadow,
         },
@@ -80,7 +83,7 @@ export function NavBottomBar() {
               <Text
                 style={{
                   color: focused ? "royalblue" : "#748c94",
-                  fontSize: 12,
+                  fontSize: 11,
                 }}
               >
                 INVENTORY
@@ -112,7 +115,7 @@ export function NavBottomBar() {
               <Text
                 style={{
                   color: focused ? "royalblue" : "#748c94",
-                  fontSize: 12,
+                  fontSize: 11,
                 }}
               >
                 HOME
@@ -170,14 +173,10 @@ export function NavBottomBar() {
               <Text
                 style={{
                   color: focused ? "royalblue" : "#748c94",
-                  fontSize: 12,
+                  fontSize: 11,
                 }}
               >
-<<<<<<< HEAD
-                {"HOUSEHOLD"}
-=======
-                {Platform.OS === "ios" ? "HOUSE" + "\n" + " HOLD" : "HOUSEHOLD"}
->>>>>>> 00e11d2cac77a83f5d32248b2df4ecf8beb2a303
+                {Platform.OS === "ios" ? "HOUSEHOLD" : "HOUSEHOLD"}
               </Text>
             </View>
           ),
@@ -206,7 +205,7 @@ export function NavBottomBar() {
               <Text
                 style={{
                   color: focused ? "royalblue" : "#748c94",
-                  fontSize: 12,
+                  fontSize: 11,
                 }}
               >
                 SETTINGS

@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Button, StyleSheet, FlatList, SafeAreaView } from "react-native";
+import {
+  View,
+  Button,
+  StyleSheet,
+  FlatList,
+  SafeAreaView,
+  Text,
+} from "react-native";
 import { useItems } from "../providers/ItemsProvider";
 import { InventoryItem } from "../components/InventoryItem";
 // import { AddInventoryItem } from "../components/AddInventoryItem";
@@ -19,34 +26,30 @@ export function InventoryList({ navigation, route }) {
     });
   }, []);
 
-  const renderItem = ({item}) => {
-    <InventoryItem item={item} />
-  }
-  
+  const renderItem = ({ item }) => {
+    <InventoryItem item={item} />;
+  };
+
   return (
     <SafeAreaView style={myStyles.screen}>
-      <FlatList
-        data={items}
-        renderItem={({item}) => (
-          <InventoryItem item={item} />
-          
-        )}
-        keyExtractor={item => item._id}
-      />
-
-      {/* <View>
-        {items.map((item) =>
-        
-          item ? <InventoryItem key={`${item._id}`} item={item} /> : null
-        )}
-      </View> */}
+      {items.length > 0 ? (
+        <FlatList
+          data={items}
+          renderItem={({ item }) => <InventoryItem item={item} />}
+          keyExtractor={(item) => item._id}
+        />
+      ) : (
+        <View style={{ alignSelf: "center", marginTop: 5 }}>
+          <Text style={{ color: "gray" }}> No Items</Text>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
 
 const myStyles = StyleSheet.create({
-  screen:{
+  screen: {
     flex: 1,
-    backgroundColor: 'white'
-  }
-})
+    backgroundColor: "white",
+  },
+});

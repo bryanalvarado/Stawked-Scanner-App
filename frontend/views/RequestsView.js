@@ -75,7 +75,7 @@ export function RequestsView(props) {
   
   const noRequests = () => {
     return (
-      <View style={{flex: 1, alignSelf: 'center'}}> 
+      <View style={{flex: 1, alignSelf: 'center', marginTop: 5}}> 
         <Text style={{color: 'gray'}}>No Requests</Text>
       </View>
     )
