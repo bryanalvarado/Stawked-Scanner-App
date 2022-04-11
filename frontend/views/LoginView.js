@@ -15,6 +15,7 @@ import {
 import { useAuth } from "../providers/AuthProvider";
 import styles from "../stylesheet";
 import { StatusBar } from "react-native";
+import PushNotification from "react-native-push-notification";
 import { TypingAnimation } from "react-native-typing-animation";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -57,7 +58,17 @@ export function LoginView({ route, navigation }) {
       addNickname()
       nav.reset({ index: 0, routes: [{ name: "Home" }] });
     }
+    createChannels(); //mess around with placement
   }, [user]);
+
+  const createChannels = () => {
+    PushNotification.createChannel(
+      {
+        channelId: "test-channel",
+        channelName: "Test Channel"
+      }
+    )
+  }
 
   // The onPressSignIn method calls AuthProvider.signIn with the
   // email/password in state.

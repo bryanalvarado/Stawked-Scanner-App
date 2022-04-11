@@ -191,6 +191,10 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
+    //firebase dependencies
+    compile 'com.google.firebase:firebase-core:10.0.1' // added for notifications <---------
+
+    
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
