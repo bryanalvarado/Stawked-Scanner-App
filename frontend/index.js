@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import PushNotification from "react-native-push-notification";
 
 PushNotification.configure({
+  //this function is called when the notificatio is clicked
     onNotification: function (notification) {
         console.log("NOTIFICATION:", notification);
       },

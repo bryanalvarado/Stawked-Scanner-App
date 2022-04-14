@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -35,17 +35,18 @@ export function HomeScreenView() {
       console.log(err)
     }
   }
-  //new stuff pasted above here
 
   const handleNotifications = (item) => {
+
       PushNotification.localNotification({
         channelId: "test-channel",
         title: item,//"Fridge Alert, ",
         message: "The milk in here stinks!",  
         bigPictureUrl:"https://cdn-icons-png.flaticon.com/512/291/291893.png",
-        color:"black",
-        largeIcon:"ic_notification",
+        color:"white",
+        largeIcon:"ic_cart",
         smallIcon:"ic_cart",
+        
       })
   }
   // this notification type is scheduled. Not currently used but might be usefull
@@ -72,7 +73,7 @@ export function HomeScreenView() {
 
   return (
     <TouchableOpacity onPress={()=>{handleNotifications(sendData())}}>
-      <Text>hellooooo</Text>
+      <Text>hello</Text>
       {projectData.map((project)=> (
         <View key = {project.name}>
             <Text>{project.name}</Text>
