@@ -118,7 +118,7 @@ export function UserSettingsView() {
         ) : null}
 
         <Pressable
-          style={[myStyles.button, myStyles.buttonClose]}
+          style={[myStyles.button, myStyles.buttonClose, styles.navBarShadow]}
           onPress={() => {
             changeNickname();
             // try
@@ -135,12 +135,12 @@ export function UserSettingsView() {
           setChangePasswordModalVisible(false);
         }}
       >
-        <View style={{marginHorizontal: 5}}>
-          <Text style={{fontWeight: "bold"}}>We will send you an email to change your password!</Text>
+        <View style={{marginHorizontal: 10}}>
+          <Text style={{fontWeight: "bold"}}>Would you like us to send an email?</Text>
         </View>
         
         <Pressable
-          style={[myStyles.button, myStyles.buttonClose]}
+          style={[myStyles.button, myStyles.buttonClose, styles.navBarShadow]}
           onPress={() => {
             passwordChangingFunction();
           }}

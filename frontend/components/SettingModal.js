@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import { View, Text, StyleSheet, Modal, Pressable, TouchableOpacity } from 'react-native';
+import styles from '../stylesheet';
+import style from '../stylesheet';
 
 
 const SettingModal = props => {
@@ -14,15 +16,15 @@ const SettingModal = props => {
           setModalVisible(!props.visible);
         }}
       >
-        <View style={styles.centeredView}>
+        <View style={myStyles.centeredView}>
             
-          <View style={styles.modalView}>
-              <TouchableOpacity style={styles.closeModalView} onPress={() => {
+          <View style={myStyles.modalView}>
+              <TouchableOpacity style={[myStyles.closeModalView, style.navBarShadow]} onPress={() => {
                   props.onClose()
               }}>
-                <Text style={styles.closeModalText}>X</Text>
+                <Text style={myStyles.closeModalText}>X</Text>
               </TouchableOpacity>
-            <Text style={styles.modalText}>{props.title}</Text>
+            <Text style={myStyles.modalText}>{props.title}</Text>
                 {props.children}
           </View>
         </View>
@@ -30,10 +32,9 @@ const SettingModal = props => {
   );
 };
 
-const styles = StyleSheet.create({
+const myStyles = StyleSheet.create({
   closeModalText: {
     fontWeight: 'bold',
-
     color: 'white'
   },
   closeModalView: {
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
     borderRadius: 35,
     paddingHorizontal: 5,
     paddingVertical: 1,
+
     
   },
   centeredView: {
@@ -56,6 +58,7 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
+    borderWidth: 1,
     padding: 10,
     alignItems: "center",
     shadowColor: "#000",
