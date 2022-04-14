@@ -17,6 +17,7 @@ import Setting from "../components/Setting";
 import SettingModal from "../components/SettingModal";
 import AnimatedInput from "../components/AnimatedInput";
 import { validateEmail, validateNickname } from "../providers/Validation";
+import { useNavigation } from "@react-navigation/native";
 
 export function UserSettingsView() {
   const { user, changeUserPassword } = useAuth();
@@ -30,6 +31,8 @@ export function UserSettingsView() {
   const [nicknameModalVisible, setNicknameModalVisible] = useState(false);
   const [changePasswordModalVisible, setChangePasswordModalVisible] = useState(false);
 
+  //const [aboutPressedVisible,setChangeAboutVisible] = useState(false);
+  const nav = useNavigation()
   useEffect(() => {
     setUserInfo();
   }, []);
@@ -68,7 +71,10 @@ export function UserSettingsView() {
   const alertFunction = (title) => {
     Alert.alert("Pressed " + title);
   };
-
+  //const aboutAlertFunction = () => {
+  //  Alert.alert("About ");
+  //  Alert.alert("Terms and Conditions");
+  // };
   const passwordChangingFunction = () => {
     changeUserPassword(email)
     setChangePasswordModalVisible(false);
@@ -143,6 +149,29 @@ export function UserSettingsView() {
         </Pressable>
       </SettingModal>
 
+      {/* <SettingModal
+        visable={aboutPressedVisible}
+        title={"About"}
+        onClose={() => {  
+          setChangeAboutVisible(false);
+        }}
+      >
+        <View style={{marginHorizontal: 5}}>
+          <Text style={{fontWeight: "bold",padding:3}}>You are using version 1.00.00 of Stawked</Text>
+          <Text style={{fontWeight: "normal", padding:5}}>Stawked was created by Team Cardono in Conjunction with Amanda Watson</Text>
+          <Text style={{fontWeight: "normal", padding:5}}>Stawked is an android Based app Built with React Native and Mango DB. Stawked Provides a fully online and portable list of items the user owns. Stawked uses the camera feature of ones smartphone to scan the barcode of items they scan. Stawked then creates an Inventory of items off the items they scanned. Stawked has the feature to add "Family Members" to ones circle and they can see their inventory to know what their household has.</Text>
+        </View>
+
+        <Pressable
+          style={[myStyles.button, myStyles.buttonClose]}
+          onPress={() => {
+            setChangeAboutVisible(false);
+          }}
+        >
+          <Text style={myStyles.textStyle}>Close</Text>
+        </Pressable>
+      </SettingModal> */}
+
       <View style={myStyles.scrollview}>
         <ScrollView alwaysBounceVertical={true}>
           <View style={[myStyles.header]}>
@@ -190,7 +219,7 @@ export function UserSettingsView() {
             <Setting
               style={myStyles.bottomSetting}
               settingName="About"
-              onClick={() => alertFunction("About")}
+              onClick={() => {nav.navigate("About")}}
               imageValue = {4}
             />
           </SettingsCard>

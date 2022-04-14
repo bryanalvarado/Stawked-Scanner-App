@@ -13,8 +13,9 @@ import { InventoryList } from "./views/InventoryList";
 import { NavBottomBar } from "./navigation/NavBottomBar";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { RequestsView } from "./views/RequestsView";
-
-
+import { AboutView } from "./views/AboutView";
+import { PolicyView } from "./views/PolicyView";
+import { TermsView } from "./views/TermsView";
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -112,6 +113,30 @@ const App = () => {
               title: "Requests"
              }}
           />
+          <Stack.Screen
+            name="About"
+            component={AboutView}
+            options={{ 
+              headerTitleAlign: "center",
+              title: "About"
+             }}
+          />
+          <Stack.Screen
+            name="Policy"
+            component={PolicyView}
+            options={{ 
+              headerTitleAlign: "center",
+              title: "Policy"
+             }}
+          />
+          <Stack.Screen
+            name="Terms"
+            component={TermsView}
+            options={{ 
+              headerTitleAlign: "center",
+              title: "Terms and Conditions"
+             }}
+          />          
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
