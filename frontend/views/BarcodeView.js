@@ -1,5 +1,5 @@
 // import React in our code
-import React, { useState, useEffect, Component } from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 // import all the components we are going to use
@@ -11,10 +11,9 @@ import {
   TouchableHighlight,
   PermissionsAndroid,
   Platform,
-  StyleSheet,
 } from "react-native";
 
-import { Overlay, Input, Button } from "react-native-elements";
+import { Overlay } from "react-native-elements";
 
 import styles from "../barcodestyle";
 import { useItems } from "../providers/ItemsProvider";

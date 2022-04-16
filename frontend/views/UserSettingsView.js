@@ -1,11 +1,9 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
-  TouchableHighlight,
   Alert,
-  Modal,
   Pressable,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
@@ -16,7 +14,7 @@ import SettingsCard from "../components/SettingsCard";
 import Setting from "../components/Setting";
 import SettingModal from "../components/SettingModal";
 import AnimatedInput from "../components/AnimatedInput";
-import { validateEmail, validateNickname } from "../providers/Validation";
+import { validateNickname } from "../providers/Validation";
 import { useNavigation } from "@react-navigation/native";
 
 export function UserSettingsView() {
@@ -258,6 +256,6 @@ const myStyles = StyleSheet.create({
     // fontFamily: "Inter-ExtraBold",
   },
   scrollview: {
-    height: "77%",
+    flex: 1,
   },
 });

@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
-import { View, Text, StyleSheet, Modal, Pressable, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native';
 import styles from '../stylesheet';
-import style from '../stylesheet';
 
 
 const SettingModal = props => {
@@ -12,14 +11,13 @@ const SettingModal = props => {
         transparent={true}
         visible={props.visible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           setModalVisible(!props.visible);
         }}
       >
         <View style={myStyles.centeredView}>
             
           <View style={myStyles.modalView}>
-              <TouchableOpacity style={[myStyles.closeModalView, style.navBarShadow]} onPress={() => {
+              <TouchableOpacity style={[myStyles.closeModalView, styles.navBarShadow]} onPress={() => {
                   props.onClose()
               }}>
                 <Text style={myStyles.closeModalText}>X</Text>
@@ -45,8 +43,6 @@ const myStyles = StyleSheet.create({
     borderRadius: 35,
     paddingHorizontal: 5,
     paddingVertical: 1,
-
-    
   },
   centeredView: {
     flex: 1,
@@ -69,22 +65,6 @@ const myStyles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
   },
   modalText: {
     marginBottom: 15,
