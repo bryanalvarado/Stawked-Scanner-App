@@ -3,17 +3,13 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   TextInput,
-  Button,
-  Alert,
   Text,
   StyleSheet,
-  ImageBackground,
   Animated,
   Dimensions,
   Image,
 } from "react-native";
 import { useAuth } from "../providers/AuthProvider";
-import styles from "../stylesheet";
 import { StatusBar } from "react-native";
 import PushNotification from "react-native-push-notification";
 import { TypingAnimation } from "react-native-typing-animation";
@@ -27,6 +23,7 @@ export function LoginView({ route, navigation }) {
   const [typingEmail, setTypingEmail] = useState(false);
   const [typingPassword, setTypingPassword] = useState(false);
   const [failedSignin, setFailedSignin] = useState(false);
+  const [failedSigninText, setFailedSigninText] = useState("");
 
   const animationLogin = new Animated.Value(width - 40);
   const nav = useNavigation();
@@ -80,6 +77,18 @@ export function LoginView({ route, navigation }) {
       loginAnimation(false);
       setTimeout(() => {
         setFailedSignin(true);
+        if(email === "" && password === ""){
+          setFailedSigninText("Please input an email and password")
+        }
+        else if(email === ""){
+          setFailedSigninText("Please input an email")
+        }
+        else if(password === ""){
+          setFailedSigninText("Please input a password")
+        }
+        else {
+          setFailedSigninText("Wrong email and password")
+        }
       }, 101);
     }
   };
@@ -99,12 +108,9 @@ export function LoginView({ route, navigation }) {
       <StatusBar barStyle="light-content" />
 
       <View style={myStyles.header}>
-        <ImageBackground
-          source={require("../assets/img/header.png")}
-          style={myStyles.imageBG}
-        >
-          <Image source={require("../assets/img/Logo.png")}></Image>
-        </ImageBackground>
+        
+        <Image source={require("../assets/img/Logo.png")}></Image>
+        
       </View>
 
       <View style={myStyles.footer}>
@@ -153,7 +159,7 @@ export function LoginView({ route, navigation }) {
         </View>
         {failedSignin ? (
           <Text style={myStyles.failedLoginText}>
-            Wrong Username and Password
+            {failedSigninText}
           </Text>
         ) : null}
 
@@ -186,6 +192,8 @@ export const myStyles = StyleSheet.create({
   },
   header: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   footer: {
     flex: 1,

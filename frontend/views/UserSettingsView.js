@@ -1,11 +1,9 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
-  TouchableHighlight,
   Alert,
-  Modal,
   Pressable,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
@@ -16,7 +14,8 @@ import SettingsCard from "../components/SettingsCard";
 import Setting from "../components/Setting";
 import SettingModal from "../components/SettingModal";
 import AnimatedInput from "../components/AnimatedInput";
-import { validateEmail, validateNickname } from "../providers/Validation";
+import { validateNickname } from "../providers/Validation";
+import { useNavigation } from "@react-navigation/native";
 
 export function UserSettingsView() {
   const { user, changeUserPassword } = useAuth();
@@ -30,6 +29,8 @@ export function UserSettingsView() {
   const [nicknameModalVisible, setNicknameModalVisible] = useState(false);
   const [changePasswordModalVisible, setChangePasswordModalVisible] = useState(false);
 
+  //const [aboutPressedVisible,setChangeAboutVisible] = useState(false);
+  const nav = useNavigation();
   useEffect(() => {
     setUserInfo();
   }, []);
@@ -66,9 +67,9 @@ export function UserSettingsView() {
   };
 
   const alertFunction = (title) => {
-    Alert.alert("Pressed " + title);
+    console.log(title);
   };
-
+  
   const passwordChangingFunction = () => {
     changeUserPassword(email)
     setChangePasswordModalVisible(false);
@@ -112,7 +113,7 @@ export function UserSettingsView() {
         ) : null}
 
         <Pressable
-          style={[myStyles.button, myStyles.buttonClose]}
+          style={[myStyles.button, myStyles.buttonClose, styles.navBarShadow]}
           onPress={() => {
             changeNickname();
             // try
@@ -129,12 +130,12 @@ export function UserSettingsView() {
           setChangePasswordModalVisible(false);
         }}
       >
-        <View style={{marginHorizontal: 5}}>
-          <Text style={{fontWeight: "bold"}}>We will send you an email to change your password!</Text>
+        <View style={{marginHorizontal: 10}}>
+          <Text style={{fontWeight: "bold"}}>Would you like us to send an email?</Text>
         </View>
         
         <Pressable
-          style={[myStyles.button, myStyles.buttonClose]}
+          style={[myStyles.button, myStyles.buttonClose, styles.navBarShadow]}
           onPress={() => {
             passwordChangingFunction();
           }}
@@ -190,7 +191,7 @@ export function UserSettingsView() {
             <Setting
               style={myStyles.bottomSetting}
               settingName="About"
-              onClick={() => alertFunction("About")}
+              onClick={() => {nav.navigate("About")}}
               imageValue = {4}
             />
           </SettingsCard>
@@ -255,6 +256,6 @@ const myStyles = StyleSheet.create({
     // fontFamily: "Inter-ExtraBold",
   },
   scrollview: {
-    height: "77%",
+    flex: 1,
   },
 });
