@@ -27,7 +27,6 @@ export function InventoryView({ navigation }) {
   }
 
   useEffect(() => {
-    console.log("InventoryList")
     updateMemberOf();
     return function cleanup() {
       updateMemberOf()
