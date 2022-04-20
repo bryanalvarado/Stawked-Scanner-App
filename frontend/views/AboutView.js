@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet,Image } from "react-native";
 import { ListItem } from 'react-native-elements';
 
 export function AboutView({navigation}) 
@@ -15,6 +15,11 @@ export function AboutView({navigation})
                 <ListItem.Content>
                   <ListItem.Title>Policy</ListItem.Title>
                 </ListItem.Content>
+                
+                <View style={{paddingRight: 10}}>
+                  <Image style={{height: 12, width: 12}} source={require("../assets/img/pointing-arrow.png")}></Image>
+                </View>
+
         </ListItem> 
         <ListItem
                 onPress={() => {nav.navigate("Terms")}}
@@ -23,6 +28,10 @@ export function AboutView({navigation})
                 <ListItem.Content>
                   <ListItem.Title>Terms and Conditions</ListItem.Title>
                 </ListItem.Content>
+
+                <View style={{paddingRight: 10}}>
+                  <Image style={{height: 12, width: 12}} source={require("../assets/img/pointing-arrow.png")}></Image>
+                </View>
         </ListItem> 
     </View>
   );
