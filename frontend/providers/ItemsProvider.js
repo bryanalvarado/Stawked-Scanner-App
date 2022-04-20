@@ -4,11 +4,13 @@ import { Item } from "../schemas";
 import { useAuth } from "./AuthProvider";
 import makeCancelable from "makecancelable";
 import { State } from "react-native-gesture-handler";
+import PushNotification from "react-native-push-notification";
 const ItemsContext = React.createContext(null);
 
 const ItemsProvider = ({ children, projectPartition }) => {
   const [items, setItems] = useState([]);
-  const { user } = useAuth();
+  const { user, updateProjectData } = useAuth();
+  const tempArray = ["Deleted An Item", "Added An Item"]; 
 
   // Use a Ref to store the realm rather than the state because it is not
   // directly rendered, so updating it should not trigger a re-render as using
@@ -43,35 +45,30 @@ const ItemsProvider = ({ children, projectPartition }) => {
       });
     });
 
-    return () =>{
-      console.log('cleanup');
-      cancelablePromise();
-    }
+    // return () => {
+    //   console.log("cleanup");
+    //   cancelablePromise();
+    // };
 
     return () => {
-      // cleanup function
-      const projectRealm = realmRef.current;
-      if (projectRealm) {
-        projectRealm.close();
-        realmRef.current = null;
-        setTasks([]);
-      }
+    //   // cleanup function
+    //   const projectRealm = realmRef.current;
+    //   console.log("cleanup #2");
+    //   if (projectRealm) {
+    //     projectRealm.close();
+    //     realmRef.current = null;
+        setItems([]);
+    //   }
     };
   }, [user, projectPartition]);
 
   const createItem = async (name, image, brand, date) => {
-    let doesItemExist = false;
-    console.log("what we just scanned: " + name);
-    try {
-      doesItemExist = await user.functions.addToItemQuantity(name, user.id);
-      await user.functions.addToTotalItems(user.id);
-      await user.functions.updateAllOtherInventorys(user.id);
-      await user.functions.addToUniqueItems(user.id);
-    } catch (err) {
-      console.log(err.message);
-    }
-
-    if (!doesItemExist) {
+    let itemExists = await user.functions.doesItemExist(name);
+    if (itemExists) {
+      await user.functions.addOneToQuantityAndTotalItems(name, user.id);
+    } else {
+      await user.functions.addOneToUniqueItems(user.id);
+      await user.functions.addOneToTotalItems(user.id);
       const projectRealm = realmRef.current;
       projectRealm.write(() => {
         projectRealm.create(
@@ -87,6 +84,63 @@ const ItemsProvider = ({ children, projectPartition }) => {
         );
       });
     }
+    updateProjectData();
+    // notifyUsersOnAdd(name);
+  };
+
+  const deleteItem = async (item) => {
+    let isQuantityGreaterThanTwo = await user.functions.isItemQuantityGreaterThanTwo(
+      item.name,
+      user.id
+    );
+    if (isQuantityGreaterThanTwo) {
+      await user.functions.subtractOneFromQuantityAndTotalItems(item.name, user.id);
+      notifyUsersOnDelete(item.name);
+    } else {
+      await user.functions.subtractOneFromQuantityAndTotalItems(item.name, user.id);
+      await user.functions.subtractOneFromUniqueItems(user.id);
+      notifyUsersOnDelete(item.name);
+      const projectRealm = realmRef.current;
+      projectRealm.write(() => {
+        projectRealm.delete(item);
+        setItems([...projectRealm.objects("Item").sorted("name")]);
+      });
+    }
+    updateProjectData();
+  };
+
+  const notifyUsersOnAdd = async (itemName) => {
+    try {
+      await user.functions.notifyUsersOnAdd(user.id, itemName);
+      const nickname = await user.functions.getNickname(user.id)
+      handleNotifications(itemName, nickname + " " + tempArray[1]);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const notifyUsersOnDelete = async (itemName) => {
+    try {
+      await user.functions.notifyUsersOnDelete(user.id, itemName);
+      const nickname = await user.functions.getNickname(user.id)
+      handleNotifications(itemName, nickname + " " + tempArray[0]);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const handleNotifications = (item, action) => {
+    console.log(item)
+    console.log(action)
+    PushNotification.localNotification({
+      channelId: "test-channel",
+      title: item, //"Fridge Alert, ",
+      message: action,
+      bigPictureUrl: "https://cdn-icons-png.flaticon.com/512/291/291893.png",
+      color: "white",
+      largeIcon: "ic_cart",
+      smallIcon: "ic_cart",
+    });
   };
 
   const setItemStatus = (item, status) => {
@@ -106,34 +160,6 @@ const ItemsProvider = ({ children, projectPartition }) => {
     projectRealm.write(() => {
       item.status = status;
     });
-  };
-
-  // Define the function for deleting an item.
-  const deleteItem = async (item) => {
-    const projectRealm = realmRef.current;
-    let isQuantityGreaterThanOne = true;
-    try {
-      isQuantityGreaterThanOne = await user.functions.deleteItemFromInventory(
-        item.name,
-        user.id
-      );
-    } catch (err) {
-      console.log(err.message);
-    }
-
-    if (!isQuantityGreaterThanOne) {
-      projectRealm.write (() => {
-        projectRealm.delete(item);
-        setItems([...projectRealm.objects("Item").sorted("name")]);
-      });
-    }
-    try {
-      await user.functions.updateAllOtherInventorys(user.id);
-      await user.functions.addToUniqueItems(user.id)
-    }
-    catch (err){
-      console.log(err)
-    }
   };
 
   // Render the children within the ItemsContext's provider. The value contains

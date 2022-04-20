@@ -1,8 +1,10 @@
-// import React in our code
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-
-// import all the components we are going to use
+import { Overlay } from "react-native-elements";
+import styles from "../barcodestyle";
+import { useItems } from "../providers/ItemsProvider";
+import { CameraScreen } from "react-native-camera-kit";
+import { useAuth } from "../providers/AuthProvider";
 import {
   SafeAreaView,
   Text,
@@ -13,17 +15,12 @@ import {
   TouchableOpacity,
   PermissionsAndroid,
   Platform,
+  Alert,
 } from "react-native";
-
-import { Overlay } from "react-native-elements";
-
-import styles from "../barcodestyle";
-import { useItems } from "../providers/ItemsProvider";
-// import CameraScreen
-import { CameraScreen } from "react-native-camera-kit";
 
 export function Barcode() {
   const [qrvalue, setQrvalue] = useState("");
+  const { user } = useAuth();
   const [openScanner, setOpenScanner] = useState(false);
   const [overlayVisible, setOverlayVisible] = useState(false);
   const { createItem } = useItems();
@@ -61,14 +58,18 @@ export function Barcode() {
           month: "2-digit",
           day: "2-digit",
         }).format(date);
+        nav.navigate("Inventory");
         createItem(name, image, brand, formatDate);
       })
       .catch(function (error) {
         console.log(
           "There has been a problem with your fetch operation: " + error.message
         );
-        // ADD THIS THROW error
-        throw error;
+        Alert.alert(
+          "Oops...Product Not Found!",
+          "We will try to add it as soon as possible"
+        );
+        nav.navigate("Inventory");
       });
   };
 
@@ -155,9 +156,7 @@ export function Barcode() {
                 {qrvalue
                   ? (apiCall(qrvalue), // Placeholder for Image once API is available
                     setQrvalue(""),
-                    alert("Item Scanned"),
-                    setOverlayVisible(false),
-                    nav.navigate("Inventory"))
+                    setOverlayVisible(false))
                   : ""}
               </Text>
               {qrvalue.includes("https://") ||

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useItems } from "../providers/ItemsProvider";
+import { InventoryItem } from "../components/InventoryItem";
 import {
   View,
   StyleSheet,
@@ -6,16 +8,13 @@ import {
   SafeAreaView,
   Text,
 } from "react-native";
-import { useItems } from "../providers/ItemsProvider";
-import { InventoryItem } from "../components/InventoryItem";
 // import { AddInventoryItem } from "../components/AddInventoryItem";
 
 export function InventoryList({ navigation, route }) {
   const { name } = route.params;
-
   const [overlayVisible, setOverlayVisible] = useState(false);
-
   const { items, createItem } = useItems();
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: function Header() {
@@ -34,7 +33,7 @@ export function InventoryList({ navigation, route }) {
       {items.length > 0 ? (
         <FlatList
           data={items}
-          renderItem={({ item }) => <InventoryItem item={item} />}
+          renderItem={({ item }) => <InventoryItem name={name} item={item} />}
           keyExtractor={(item) => item._id}
         />
       ) : (

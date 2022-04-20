@@ -1,26 +1,24 @@
-import React,{useEffect} from "react";
-import { View, Text, StyleSheet } from "react-native";
-
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import PushNotification from "react-native-push-notification";
-
 import { useAuth } from "../providers/AuthProvider";
 import { ListItem } from "react-native-elements";
 import styles from "../stylesheet";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TouchableHighlight } from "react-native-gesture-handler";
+import { AddInventoryItem } from "../components/AddInventoryItem";
 
-export function HomeScreenView() {
+export function HomeScreenView({ navigation }) {
+  const [notifications, setNotifications] = useState();
+  const [keys, setKeys] = useState();
+  const { user, projectData, clearAllNotifications } = useAuth();
+  const [inviteUserModalVisible, setInviteUserModalVisible] = useState(false);
 
-  const { user, projectData } = useAuth();
   useEffect(() => {
-    updateMemberOf(); //runs when data is manipulated
-    //call notification here
-  },[projectData])
+    updateMemberOf();
+    getAllNotifications();
+  }, [projectData]);
 
-  
-
-  // the onClickProject navigates to the InventoryList with the project name
-  // and project partition value
   const onClickProject = async (project) => {
     navigation.navigate("InventoryList", {
       name: project.name,
@@ -32,23 +30,45 @@ export function HomeScreenView() {
     try {
       const memberOf = await user.functions.updateMemberOf(user.id);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
+
+  const getAllNotifications = async () => {
+    try {
+      const myNotifications = await user.functions.getAllNotifications(user.id);
+      myNotifications.reverse();
+      setNotifications(myNotifications);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const clearNotificationsOnClick = () => {
+    Alert.alert("Clear All Notifications", null, [
+      {
+        text: "Yes",
+        style: "destructive",
+        onPress: () => {
+          setNotifications([]);
+          clearAllNotifications();
+        },
+      },
+      { text: "Cancel", style: "cancel" },
+    ]);
+  };
 
   const handleNotifications = (item) => {
-
-      PushNotification.localNotification({
-        channelId: "test-channel",
-        title: item,//"Fridge Alert, ",
-        message: "The milk in here stinks!",  
-        bigPictureUrl:"https://cdn-icons-png.flaticon.com/512/291/291893.png",
-        color:"white",
-        largeIcon:"ic_cart",
-        smallIcon:"ic_cart",
-        
-      })
-  }
+    PushNotification.localNotification({
+      channelId: "test-channel",
+      title: item, //"Fridge Alert, ",
+      message: "The milk in here stinks!",
+      bigPictureUrl: "https://cdn-icons-png.flaticon.com/512/291/291893.png",
+      color: "white",
+      largeIcon: "ic_cart",
+      smallIcon: "ic_cart",
+    });
+  };
   // this notification type is scheduled. Not currently used but might be usefull
   // const informUser = (item) => {
   //   PushNotification.localNotificationSchedule({
@@ -65,78 +85,113 @@ export function HomeScreenView() {
 
   var data;
   const sendData = () => {
-    {projectData.map((project)=> (
-      data = project.name
-    ))}
+    {
+      projectData.map((project) => (data = project.name));
+    }
     return data;
-  }
+  };
 
   return (
-    <TouchableOpacity onPress={()=>{handleNotifications(sendData())}}>
-      <Text>hello</Text>
-      {projectData.map((project)=> (
-        <View key = {project.name}>
-            <Text>{project.name}</Text>
+    <View style={myStyles.screen}>
+      {notifications ? (
+        notifications.length > 0 ? (
+          <View
+            style={{
+              marginVertical: 10,
+              alignContent: "center",
+              alignSelf: "center",
+              borderRadius: 35,
+              alignItems: "center",
+              elevation: 0,
+              ...styles.navBarShadow,
+            }}
+          >
+            <Text onPress={() => clearNotificationsOnClick()}>
+              <View>
+                <Text style={{ fontSize: 15, color: "red" }}>
+                  Clear All Notifications
+                </Text>
+              </View>
+            </Text>
+          </View>
+        ) : null
+      ) : null}
+      <View>
+        <ScrollView>
+          {notifications ? (
+            notifications.length > 0 ? (
+              notifications.map((notification) => (
+                <View key={notification.title}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      handleNotifications(sendData());
+                    }}
+                    style={[myStyles.cardView, styles.navBarShadow]}
+                  >
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <View>
+                        <View>
+                          <Text
+                            style={{
+                              fontWeight: "bold",
+                              fontSize: 18,
+                              justifyContent: "center",
+                              marginBottom: 5,
+                            }}
+                          >
+                            {notification.action} on {notification.date}
+                          </Text>
+                        </View>
 
-        </View>
-      ))}
-    </TouchableOpacity>
+                        <View>
+                          <Text style={{ color: "white", fontSize: 15 }}>
+                            {notification.title}
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              ))
+            ) : (
+              <View style={{ flex: 1, alignSelf: "center", marginTop: 5 }}>
+                <Text style={{ color: "gray" }}>No Notifications</Text>
+              </View>
+            )
+          ) : (
+            <View style={{ flex: 1, alignSelf: "center", marginTop: 5 }}>
+              <Text style={{ color: "gray" }}>No Notifications</Text>
+            </View>
+          )}
+        </ScrollView>
+      </View>
+    </View>
   );
 }
 
 const styless = StyleSheet.create({
   screen: {
     flex: 1,
-  }
+  },
 });
 
-/*
-return (
-    <View style={myStyles.screen}>
-      <View>
-        <ScrollView>
-          {projectData.map((project) => (
-            <View key={project.name}>
-
-              <TouchableOpacity onPress={() => onClickProject(project)} style={[myStyles.cardView, styles.navBarShadow]}>
-                <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-                  <View>
-                    <View >
-                      <Text style={{fontWeight: 'bold', fontSize: 20}}>
-                        {project.name}
-                      </Text>
-                    </View>
-
-                    <View >
-                      <Text style={{color: 'gray'}}>
-                        {"5"} items
-                      </Text>
-                    </View>
-                  </View>
-
-                  <View>
-                    <Text style={{fontSize: 20, color: 'gray'}}>
-                      {'>'}
-                    </Text>
-                  </View>
-
-
-                </View>
-              </TouchableOpacity>
-
-              {/* <ListItem
-                onPress={() => onClickProject(project)}
-                bottomDivider
-                key={project.name}
-              >
-                <ListItem.Content>
-                  <ListItem.Title>{project.name}</ListItem.Title>
-                </ListItem.Content>
-              </ListItem> *\/}
-              </View>
-              ))}
-            </ScrollView>
-          </View>
-        </View>
-      );
-   */
+const myStyles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  cardView: {
+    borderWidth: 0,
+    backgroundColor: "#4682b4",
+    padding: 20,
+    marginHorizontal: 10,
+    marginVertical: 5,
+    borderRadius: 20,
+  },
+});

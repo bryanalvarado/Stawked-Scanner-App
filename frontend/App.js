@@ -81,9 +81,6 @@ const App = () => {
                 
                 getHeaderRight(route, navigation)
               ),
-              // headerStyle: {
-              //   backgroundColor: 'royalblue',
-              // },
             })
           }
           />
@@ -102,6 +99,7 @@ const App = () => {
                   <InventoryList navigation={navigation} route={route} />
                 </ItemsProvider>
               );
+
             }}
           </Stack.Screen>
 

@@ -45,16 +45,8 @@ export function NavBottomBar() {
         keyboardHidesTabBar: true,
         showLabel: false,
         style: {
-          // position: "absolute",
-          // justifyContent: "flex-end", 
-          // alignItems: "center",
-          // flexDirection: "row",
-          // bottom: 25,
-          // left: 20,
-          // right: 20,
           elevation: 0,
           backgroundColor: "#ffffff",
-          // borderRadius: 15,
           height: 90,
           ...styles.navBarShadow,
         },
@@ -127,9 +119,9 @@ export function NavBottomBar() {
       <Tab.Screen
         name="Camera"
         children={() => {
-          return user ? (
+           return user ? (
             <ItemsProvider user={user} projectPartition={`project=${user.id}`}>
-              <Barcode />
+               <Barcode />
             </ItemsProvider>
           ) : null;
         }}

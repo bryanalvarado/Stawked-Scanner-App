@@ -6,14 +6,7 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
 export function InventoryView({ navigation }) {
   const { user, projectData } = useAuth();
-  const [newMemberOf, setNewMemberOf] = useState()
-
-  useEffect(() => {
-    updateMemberOf();
-    return function cleanup() {
-      updateMemberOf()
-  }
-  },[projectData])
+  const [newMemberOf, setNewMemberOf] = useState(); 
 
   // the onClickProject navigates to the InventoryList with the project name
   // and project partition value
@@ -26,14 +19,20 @@ export function InventoryView({ navigation }) {
 
   const updateMemberOf = async () => {
     try {
-      await user.functions.addToUniqueItems(user.id)
-      await user.functions.updateAllOtherInventorys(user.id)
       const memberOf = await user.functions.updateMemberOf(user.id);
       setNewMemberOf(memberOf)
     } catch (err) {
       console.log(err)
     }
   }
+
+  useEffect(() => {
+    console.log("InventoryList")
+    updateMemberOf();
+    return function cleanup() {
+      updateMemberOf()
+  }
+  },[projectData])
 
 
   return (
@@ -42,7 +41,7 @@ export function InventoryView({ navigation }) {
         <ScrollView>
           {newMemberOf ? (
           newMemberOf.map((project) => (
-            <View key={project.name}>
+            <View key={project.partition}>
 
               <TouchableOpacity onPress={() => onClickProject(project)} style={[myStyles.cardView, styles.navBarShadow]}>
                 <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>

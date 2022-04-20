@@ -32,6 +32,7 @@ export function UserSettingsView() {
   //const [aboutPressedVisible,setChangeAboutVisible] = useState(false);
   const nav = useNavigation();
   useEffect(() => {
+    console.log("Ran")
     setUserInfo();
   }, []);
 
@@ -74,6 +75,7 @@ export function UserSettingsView() {
     changeUserPassword(email)
     setChangePasswordModalVisible(false);
     Alert.alert(`We have sent an email to ${email}.`, "Please check your email!");
+
   };
 
   const changeNickname = () => {
@@ -179,7 +181,6 @@ export function UserSettingsView() {
           <View style={myStyles.settingCategory}>
             <Text style={myStyles.settingCategoryText}>Miscellanious</Text>
           </View>
-
           <SettingsCard style={myStyles.categoryView}>
             <Setting
               style={myStyles.topSetting}

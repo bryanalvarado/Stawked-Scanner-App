@@ -93,6 +93,23 @@ const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const updateProjectData = async () => {
+    try {
+      const memberOf = await user.functions.updateMemberOf(user.id);
+      setProjectData(memberOf)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const clearAllNotifications = async () => {
+    try {
+      await user.functions.clearAllNotifications(user.id);
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -101,7 +118,9 @@ const AuthProvider = ({ children }) => {
         signOut,
         user,
         changeUserPassword,
-        projectData, // list of projects the user is a memberOf
+        updateProjectData, 
+        clearAllNotifications,
+        projectData // list of projects the user is a memberOf
       }}
     >
       {children}
