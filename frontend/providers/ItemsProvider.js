@@ -11,7 +11,7 @@ const ItemsContext = React.createContext(null);
 const ItemsProvider = ({ children, projectPartition }) => {
   const [items, setItems] = useState([]);
   const { user, updateProjectData } = useAuth();
-  const tempArray = ["Deleted An Item", "Added An Item"]; 
+  const tempArray = ["Deleted An Item", "Added An Item"];
 
   // Use a Ref to store the realm rather than the state because it is not
   // directly rendered, so updating it should not trigger a re-render as using
@@ -46,20 +46,8 @@ const ItemsProvider = ({ children, projectPartition }) => {
       });
     });
 
-    // return () => {
-    //   console.log("cleanup");
-    //   cancelablePromise();
-    // };
-
     return () => {
-    //   // cleanup function
-    //   const projectRealm = realmRef.current;
-    //   console.log("cleanup #2");
-    //   if (projectRealm) {
-    //     projectRealm.close();
-    //     realmRef.current = null;
-        setItems([]);
-    //   }
+      setItems([]);
     };
   }, [user, projectPartition]);
 
@@ -67,12 +55,12 @@ const ItemsProvider = ({ children, projectPartition }) => {
     let itemExists = await user.functions.doesItemExist(name);
     if (itemExists) {
       await user.functions.addOneToQuantityAndTotalItems(name, user.id);
-      
+
       //notifyUsersOnAdd(item.name)
     } else {
       await user.functions.addOneToUniqueItems(user.id);
       await user.functions.addOneToTotalItems(user.id);
-      
+
       const projectRealm = realmRef.current;
       projectRealm.write(() => {
         projectRealm.create(
@@ -98,10 +86,16 @@ const ItemsProvider = ({ children, projectPartition }) => {
       user.id
     );
     if (isQuantityGreaterThanTwo) {
-      await user.functions.subtractOneFromQuantityAndTotalItems(item.name, user.id);
+      await user.functions.subtractOneFromQuantityAndTotalItems(
+        item.name,
+        user.id
+      );
       notifyUsersOnDelete(item.name);
     } else {
-      await user.functions.subtractOneFromQuantityAndTotalItems(item.name, user.id);
+      await user.functions.subtractOneFromQuantityAndTotalItems(
+        item.name,
+        user.id
+      );
       await user.functions.subtractOneFromUniqueItems(user.id);
       notifyUsersOnDelete(item.name);
       const projectRealm = realmRef.current;
@@ -117,8 +111,12 @@ const ItemsProvider = ({ children, projectPartition }) => {
     let objectId = new ObjectId();
     let idOfNotifications = objectId.toString();
     try {
-      await user.functions.notifyUsersOnAdd(user.id, itemName, idOfNotifications);
-      const nickname = await user.functions.getNickname(user.id)
+      await user.functions.notifyUsersOnAdd(
+        user.id,
+        itemName,
+        idOfNotifications
+      );
+      const nickname = await user.functions.getNickname(user.id);
       handleNotifications(itemName, nickname + " " + tempArray[1]);
     } catch (err) {
       console.log(err.message);
@@ -129,8 +127,12 @@ const ItemsProvider = ({ children, projectPartition }) => {
     let objectId = new ObjectId();
     let idOfNotifications = objectId.toString();
     try {
-      await user.functions.notifyUsersOnDelete(user.id, itemName, idOfNotifications);
-      const nickname = await user.functions.getNickname(user.id)
+      await user.functions.notifyUsersOnDelete(
+        user.id,
+        itemName,
+        idOfNotifications
+      );
+      const nickname = await user.functions.getNickname(user.id);
       handleNotifications(itemName, nickname + " " + tempArray[0]);
     } catch (err) {
       console.log(err.message);
@@ -138,8 +140,8 @@ const ItemsProvider = ({ children, projectPartition }) => {
   };
 
   const handleNotifications = (item, action) => {
-    console.log(item)
-    console.log(action)
+    console.log(item);
+    console.log(action);
     PushNotification.localNotification({
       channelId: "test-channel",
       title: item, //"Fridge Alert, ",
