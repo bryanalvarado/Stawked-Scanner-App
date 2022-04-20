@@ -66,9 +66,12 @@ const ItemsProvider = ({ children, projectPartition }) => {
     let itemExists = await user.functions.doesItemExist(name);
     if (itemExists) {
       await user.functions.addOneToQuantityAndTotalItems(name, user.id);
+      
+      //notifyUsersOnAdd(item.name)
     } else {
       await user.functions.addOneToUniqueItems(user.id);
       await user.functions.addOneToTotalItems(user.id);
+      
       const projectRealm = realmRef.current;
       projectRealm.write(() => {
         projectRealm.create(
@@ -85,7 +88,7 @@ const ItemsProvider = ({ children, projectPartition }) => {
       });
     }
     updateProjectData();
-    // notifyUsersOnAdd(name);
+    notifyUsersOnAdd(name);
   };
 
   const deleteItem = async (item) => {

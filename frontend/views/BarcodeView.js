@@ -5,6 +5,11 @@ import styles from "../barcodestyle";
 import { useItems } from "../providers/ItemsProvider";
 import { CameraScreen } from "react-native-camera-kit";
 import { useAuth } from "../providers/AuthProvider";
+
+import 'intl';
+import 'intl/locale-data/jsonp/en';
+
+
 import {
   SafeAreaView,
   Text,
