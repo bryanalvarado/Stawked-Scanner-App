@@ -38,7 +38,6 @@ export function HomeScreenView({ navigation }) {
     try {
       const myNotifications = await user.functions.getAllNotifications(user.id);
       myNotifications.reverse();
-      console.log(myNotifications);
       setNotifications(myNotifications);
     } catch (err) {
       console.log(err);
