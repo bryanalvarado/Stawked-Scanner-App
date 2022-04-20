@@ -2,7 +2,6 @@ import * as React from "react";
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../providers/AuthProvider";
-import styles from "../stylesheet";
 import SettingsCard from "./SettingsCard";
 import Setting from "./Setting";
 
