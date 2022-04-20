@@ -116,7 +116,7 @@ const ItemsProvider = ({ children, projectPartition }) => {
     try {
       await user.functions.notifyUsersOnAdd(user.id, itemName);
       const nickname = await user.functions.getNickname(user.id)
-      handleNotifications(itemName, nickname + " " + tempArray[1]);
+      //handleNotifications(itemName, nickname + " " + tempArray[1]);
     } catch (err) {
       console.log(err.message);
     }
@@ -126,25 +126,25 @@ const ItemsProvider = ({ children, projectPartition }) => {
     try {
       await user.functions.notifyUsersOnDelete(user.id, itemName);
       const nickname = await user.functions.getNickname(user.id)
-      handleNotifications(itemName, nickname + " " + tempArray[0]);
+      //handleNotifications(itemName, nickname + " " + tempArray[0]);
     } catch (err) {
       console.log(err.message);
     }
   };
 
-  const handleNotifications = (item, action) => {
-    console.log(item)
-    console.log(action)
-    PushNotification.localNotification({
-      channelId: "test-channel",
-      title: item, //"Fridge Alert, ",
-      message: action,
-      bigPictureUrl: "https://cdn-icons-png.flaticon.com/512/291/291893.png",
-      color: "white",
-      largeIcon: "ic_cart",
-      smallIcon: "ic_cart",
-    });
-  };
+  // const handleNotifications = (item, action) => {
+  //   console.log(item)
+  //   console.log(action)
+  //   PushNotification.localNotification({
+  //     channelId: "test-channel",
+  //     title: item, //"Fridge Alert, ",
+  //     message: action,
+  //     bigPictureUrl: "https://cdn-icons-png.flaticon.com/512/291/291893.png",
+  //     color: "white",
+  //     largeIcon: "ic_cart",
+  //     smallIcon: "ic_cart",
+  //   });
+  // };
 
   const setItemStatus = (item, status) => {
     // One advantage of centralizing the realm functionality in this provider is
