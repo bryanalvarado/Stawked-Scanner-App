@@ -93,23 +93,23 @@ export function HomeScreenView({ navigation }) {
 
   return (
     <View style={myStyles.screen}>
-    {notifications ? (
-      notifications.length > 0 ? (
-        <View
-          style={{
-            marginVertical: 10,
-            alignSelf: "center",
-          }}
-        >
-          <Text onPress={() => clearNotificationsOnClick()}>
-            <Text style={{ fontSize: 15, color: "red" }}>
-              Clear All Notifications
+      {notifications ? (
+        notifications.length > 0 ? (
+          <View
+            style={{
+              marginVertical: 10,
+              alignSelf: "center",
+            }}
+          >
+            <Text onPress={() => clearNotificationsOnClick()}>
+              <Text style={{ fontSize: 15, color: "red" }}>
+                Clear All Notifications
+              </Text>
             </Text>
-          </Text>
-        </View>
-      ) : null
-    ) : null}
-      <View>
+          </View>
+        ) : null
+      ) : null}
+      <View style={{ marginBottom: 45 }}>
         <ScrollView>
           {notifications ? (
             notifications.length > 0 ? (
