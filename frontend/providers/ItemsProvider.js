@@ -111,7 +111,6 @@ const ItemsProvider = ({ children, projectPartition }) => {
     let objectId = new ObjectId();
     let idOfNotifications = objectId.toString();
     try {
-<<<<<<< HEAD
       await user.functions.notifyUsersOnAdd(
         user.id,
         itemName,
@@ -119,11 +118,6 @@ const ItemsProvider = ({ children, projectPartition }) => {
       );
       const nickname = await user.functions.getNickname(user.id);
       handleNotifications(itemName, nickname + " " + tempArray[1]);
-=======
-      await user.functions.notifyUsersOnAdd(user.id, itemName, idOfNotifications);
-      const nickname = await user.functions.getNickname(user.id)
-      //handleNotifications(itemName, nickname + " " + tempArray[1]);
->>>>>>> 0999cee0c6aa82dbcee3a56e22dd41b4c78cd3b2
     } catch (err) {
       console.log(err.message);
     }
