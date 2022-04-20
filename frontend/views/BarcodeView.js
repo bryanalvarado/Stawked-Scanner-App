@@ -7,8 +7,10 @@ import {
   SafeAreaView,
   Text,
   View,
+  Image,
   Linking,
   TouchableHighlight,
+  TouchableOpacity,
   PermissionsAndroid,
   Platform,
 } from "react-native";
@@ -44,25 +46,31 @@ export function Barcode() {
     setOpenScanner(false);
   };
 
-  const apiCall = (apinumber) =>{
-    let apicallnumber = `https://api.barcodelookup.com/v3/products?barcode=${apinumber}&formatted=y&key=r2x1sx1l68x31921pn06vp3o195oph`
-    fetch(apicallnumber).then((resp) =>resp.json()).
-    then((data) => {
-      let [item] = data.products
-      let name = item['title'];
-      let image = item['images'][0];
-      let brand = item['brand']
-      let date = Date.now();
-      let formatDate = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit'}).format(date)
-      createItem(name, image, brand, formatDate)
-    }
-    ).catch(function(error) {
-      console.log('There has been a problem with your fetch operation: ' + error.message);
-       // ADD THIS THROW error
+  const apiCall = (apinumber) => {
+    let apicallnumber = `https://api.barcodelookup.com/v3/products?barcode=${apinumber}&formatted=y&key=r2x1sx1l68x31921pn06vp3o195oph`;
+    fetch(apicallnumber)
+      .then((resp) => resp.json())
+      .then((data) => {
+        let [item] = data.products;
+        let name = item["title"];
+        let image = item["images"][0];
+        let brand = item["brand"];
+        let date = Date.now();
+        let formatDate = new Intl.DateTimeFormat("en-US", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        }).format(date);
+        createItem(name, image, brand, formatDate);
+      })
+      .catch(function (error) {
+        console.log(
+          "There has been a problem with your fetch operation: " + error.message
+        );
+        // ADD THIS THROW error
         throw error;
       });
-
-  }
+  };
 
   const home = () => {
     setOpenScanner(false);
@@ -102,10 +110,14 @@ export function Barcode() {
 
   return (
     <>
-      <Overlay isVisible={overlayVisible}>
+      <Overlay
+        isVisible={overlayVisible}
+        fullScreen={true}
+        overlayStyle={{ padding: 0 }}
+      >
         <SafeAreaView style={{ flex: 1 }}>
           {openScanner ? (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, position: "relative" }}>
               <CameraScreen
                 showFrame={false}
                 // Show/hide scan frame
@@ -121,15 +133,21 @@ export function Barcode() {
                   onBarcodeScan(event.nativeEvent.codeStringValue)
                 }
               />
-              <TouchableHighlight
+              <TouchableOpacity
                 onPress={() => {
                   setOverlayVisible(false);
                   nav.goBack();
                 }}
                 style={styles.buttonStyle}
               >
-                <Text style={styles.buttonTextStyle}>Close Scanner</Text>
-              </TouchableHighlight>
+                <Image
+                  source={require("../assets/img/exit.png")}
+                  style={{
+                    width: 25,
+                    height: 25,
+                  }}
+                />
+              </TouchableOpacity>
             </View>
           ) : (
             <View style={styles.container}>

@@ -28,22 +28,21 @@ export function Signup({ navigation }) {
   useEffect(() => {
     // If there is a user logged in, go to the Projects page.
     if (user != null) {
-      addNickname()
+      addNickname();
       nav.reset({ index: 0, routes: [{ name: "Home" }] });
-
     }
   }, [user]);
 
   const nicknameError = () => {
-    if(invalidNickname){
+    if (invalidNickname) {
       return (
         <Text style={myStyles.failedLoginText}>
-          Invalid nickname, please try again
+          Invalid nickname, nicknames must be 3-16 characters
         </Text>
       );
     }
     return null;
-  }
+  };
 
   const signupErrors = () => {
     if (invalidEmail) {
@@ -52,12 +51,12 @@ export function Signup({ navigation }) {
           Invalid email, please try again
         </Text>
       );
-    } 
+    }
     return null;
   };
 
   const validateSignup = () => {
-    if(validateEmail(email) === false){
+    if (validateEmail(email) === false) {
       setEmail("");
       setInvalidEmail(true);
     } else if (validateNickname(nickname) === false) {
@@ -65,17 +64,17 @@ export function Signup({ navigation }) {
       setInvalidNickname(true);
     } else {
       // passed checks
-      onPressSignUp(); 
+      onPressSignUp();
     }
-  }
+  };
 
   // The onPressSignUp method calls AuthProvider.signUp with the
   // email/password in state and then signs in.
   const onPressSignUp = async () => {
     try {
       await signUp(email, password);
-      Alert.alert("Log in verification email has been sent!")
-      navigation.navigate("LoginView", {nick_name: nickname})
+      Alert.alert("Log in verification email has been sent!");
+      navigation.navigate("LoginView", { nick_name: nickname });
     } catch (error) {
       Alert.alert(`Failed to sign up: ${error.message}`);
     }

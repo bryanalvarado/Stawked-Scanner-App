@@ -20,11 +20,9 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   buttonStyle: {
-    fontSize: 16,
-    color: "white",
-    backgroundColor: "green",
-    padding: 5,
-    minWidth: 250,
+    position: "absolute",
+    top: 10,
+    left: 10,
   },
   buttonTextStyle: {
     padding: 5,
