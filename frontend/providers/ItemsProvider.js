@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
+import { ObjectId } from "bson";
 import Realm from "realm";
 import { Item } from "../schemas";
 import { useAuth } from "./AuthProvider";
@@ -85,7 +86,7 @@ const ItemsProvider = ({ children, projectPartition }) => {
       });
     }
     updateProjectData();
-    // notifyUsersOnAdd(name);
+    notifyUsersOnAdd(name);
   };
 
   const deleteItem = async (item) => {
@@ -110,8 +111,10 @@ const ItemsProvider = ({ children, projectPartition }) => {
   };
 
   const notifyUsersOnAdd = async (itemName) => {
+    let objectId = new ObjectId();
+    let idOfNotifications = objectId.toString();
     try {
-      await user.functions.notifyUsersOnAdd(user.id, itemName);
+      await user.functions.notifyUsersOnAdd(user.id, itemName, idOfNotifications);
       const nickname = await user.functions.getNickname(user.id)
       handleNotifications(itemName, nickname + " " + tempArray[1]);
     } catch (err) {
@@ -120,8 +123,10 @@ const ItemsProvider = ({ children, projectPartition }) => {
   };
 
   const notifyUsersOnDelete = async (itemName) => {
+    let objectId = new ObjectId();
+    let idOfNotifications = objectId.toString();
     try {
-      await user.functions.notifyUsersOnDelete(user.id, itemName);
+      await user.functions.notifyUsersOnDelete(user.id, itemName, idOfNotifications);
       const nickname = await user.functions.getNickname(user.id)
       handleNotifications(itemName, nickname + " " + tempArray[0]);
     } catch (err) {

@@ -38,6 +38,7 @@ export function HomeScreenView({ navigation }) {
     try {
       const myNotifications = await user.functions.getAllNotifications(user.id);
       myNotifications.reverse();
+      console.log(myNotifications);
       setNotifications(myNotifications);
     } catch (err) {
       console.log(err);
@@ -93,35 +94,28 @@ export function HomeScreenView({ navigation }) {
 
   return (
     <View style={myStyles.screen}>
-      {notifications ? (
-        notifications.length > 0 ? (
-          <View
-            style={{
-              marginVertical: 10,
-              alignContent: "center",
-              alignSelf: "center",
-              borderRadius: 35,
-              alignItems: "center",
-              elevation: 0,
-              ...styles.navBarShadow,
-            }}
-          >
-            <Text onPress={() => clearNotificationsOnClick()}>
-              <View>
-                <Text style={{ fontSize: 15, color: "red" }}>
-                  Clear All Notifications
-                </Text>
-              </View>
+    {notifications ? (
+      notifications.length > 0 ? (
+        <View
+          style={{
+            marginVertical: 10,
+            alignSelf: "center",
+          }}
+        >
+          <Text onPress={() => clearNotificationsOnClick()}>
+            <Text style={{ fontSize: 15, color: "red" }}>
+              Clear All Notifications
             </Text>
-          </View>
-        ) : null
-      ) : null}
+          </Text>
+        </View>
+      ) : null
+    ) : null}
       <View>
         <ScrollView>
           {notifications ? (
             notifications.length > 0 ? (
               notifications.map((notification) => (
-                <View key={notification.title}>
+                <View key={notification.id}>
                   <TouchableOpacity
                     onPress={() => {
                       handleNotifications(sendData());
