@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity} from 'react-native'
-import { Text, Image} from "react-native-elements";
+import { ListItem, Text, Image} from "react-native-elements";
 import { useItems } from "../providers/ItemsProvider";
 import { ActionSheet } from "./ActionSheet";
 import { Item } from "../schemas";

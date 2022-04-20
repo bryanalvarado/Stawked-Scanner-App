@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useAuth } from "../providers/AuthProvider";
+import { ListItem } from "react-native-elements";
 import styles from "../stylesheet";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
@@ -65,7 +66,7 @@ export function InventoryView({ navigation }) {
 
                   <View>
                     <Text style={{fontSize: 20, color: 'gray'}}>
-                      {<Image style={{height: 15, width: 15}} source={require("../assets/img/pointing-arrow.png")}></Image>}
+                      {'>'}
                     </Text>
                   </View>
 

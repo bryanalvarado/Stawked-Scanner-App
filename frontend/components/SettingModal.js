@@ -1,6 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native';
-import styles from '../stylesheet';
+import React, {useState} from 'react';
+import { View, Text, StyleSheet, Modal, Pressable, TouchableOpacity } from 'react-native';
 
 
 const SettingModal = props => {
@@ -11,18 +10,19 @@ const SettingModal = props => {
         transparent={true}
         visible={props.visible}
         onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
           setModalVisible(!props.visible);
         }}
       >
-        <View style={myStyles.centeredView}>
+        <View style={styles.centeredView}>
             
-          <View style={myStyles.modalView}>
-              <TouchableOpacity style={[myStyles.closeModalView, styles.navBarShadow]} onPress={() => {
+          <View style={styles.modalView}>
+              <TouchableOpacity style={styles.closeModalView} onPress={() => {
                   props.onClose()
               }}>
-                <Text style={myStyles.closeModalText}>X</Text>
+                <Text style={styles.closeModalText}>X</Text>
               </TouchableOpacity>
-            <Text style={myStyles.modalText}>{props.title}</Text>
+            <Text style={styles.modalText}>{props.title}</Text>
                 {props.children}
           </View>
         </View>
@@ -30,9 +30,10 @@ const SettingModal = props => {
   );
 };
 
-const myStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   closeModalText: {
     fontWeight: 'bold',
+
     color: 'white'
   },
   closeModalView: {
@@ -43,6 +44,7 @@ const myStyles = StyleSheet.create({
     borderRadius: 35,
     paddingHorizontal: 5,
     paddingVertical: 1,
+    
   },
   centeredView: {
     flex: 1,
@@ -54,7 +56,6 @@ const myStyles = StyleSheet.create({
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
-    borderWidth: 1,
     padding: 10,
     alignItems: "center",
     shadowColor: "#000",
@@ -65,6 +66,22 @@ const myStyles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
   },
   modalText: {
     marginBottom: 15,

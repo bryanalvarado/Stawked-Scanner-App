@@ -2,15 +2,20 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import {
   View,
+  TextInput,
+  Button,
   Alert,
   Text,
+  StyleSheet,
   StatusBar,
   Image,
+  ImageBackground,
   TouchableOpacity,
 } from "react-native";
 import AnimatedInput from "../components/AnimatedInput";
 import { useAuth } from "../providers/AuthProvider";
 import { myStyles } from "./LoginView";
+import styles from "../stylesheet";
 import { validateEmail, validateNickname } from "../providers/Validation";
 
 export function Signup({ navigation }) {
@@ -85,7 +90,12 @@ export function Signup({ navigation }) {
     <View style={myStyles.container}>
       <StatusBar barStyle="light-content" />
       <View style={myStyles.header}>
-        <Image source={require("../assets/img/Logo.png")}></Image>
+        <ImageBackground
+          source={require("../assets/img/header.png")}
+          style={myStyles.imageBG}
+        >
+          <Image source={require("../assets/img/Logo.png")}></Image>
+        </ImageBackground>
       </View>
 
       <View style={myStyles.footer}>
