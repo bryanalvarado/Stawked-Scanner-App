@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Alert,
-  Pressable,
-} from "react-native";
+import { View, Text, StyleSheet, Alert, Pressable } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Logout } from "../components/Logout";
 import { useAuth } from "../providers/AuthProvider";
@@ -27,12 +21,14 @@ export function UserSettingsView() {
   const [email, setEmail] = useState("");
 
   const [nicknameModalVisible, setNicknameModalVisible] = useState(false);
-  const [changePasswordModalVisible, setChangePasswordModalVisible] = useState(false);
+  const [changePasswordModalVisible, setChangePasswordModalVisible] = useState(
+    false
+  );
 
   //const [aboutPressedVisible,setChangeAboutVisible] = useState(false);
   const nav = useNavigation();
   useEffect(() => {
-    console.log("Ran")
+    console.log("Ran");
     setUserInfo();
   }, []);
 
@@ -49,7 +45,7 @@ export function UserSettingsView() {
       console.log(err);
     }
   };
-  
+
   const getEmail = async (userId) => {
     try {
       const temp = await user.functions.getEmail(userId);
@@ -70,12 +66,14 @@ export function UserSettingsView() {
   const alertFunction = (title) => {
     console.log(title);
   };
-  
-  const passwordChangingFunction = () => {
-    changeUserPassword(email)
-    setChangePasswordModalVisible(false);
-    Alert.alert(`We have sent an email to ${email}.`, "Please check your email!");
 
+  const passwordChangingFunction = () => {
+    changeUserPassword(email);
+    setChangePasswordModalVisible(false);
+    Alert.alert(
+      `We have sent an email to ${email}.`,
+      "Please check your email!"
+    );
   };
 
   const changeNickname = () => {
@@ -132,10 +130,12 @@ export function UserSettingsView() {
           setChangePasswordModalVisible(false);
         }}
       >
-        <View style={{marginHorizontal: 10}}>
-          <Text style={{fontWeight: "bold"}}>Would you like us to send an email?</Text>
+        <View style={{ marginHorizontal: 10 }}>
+          <Text style={{ fontWeight: "bold" }}>
+            Would you like us to send an email?
+          </Text>
         </View>
-        
+
         <Pressable
           style={[myStyles.button, myStyles.buttonClose, styles.navBarShadow]}
           onPress={() => {
@@ -168,13 +168,15 @@ export function UserSettingsView() {
               style={myStyles.topSetting}
               settingName="Nickname"
               onClick={() => setNicknameModalVisible(true)}
-              imageValue = {1}
+              imageValue={1}
             />
             <Setting
               style={myStyles.bottomSetting}
               settingName="Password"
-              onClick={() => {setChangePasswordModalVisible(true);}}
-              imageValue = {2}
+              onClick={() => {
+                setChangePasswordModalVisible(true);
+              }}
+              imageValue={2}
             />
           </SettingsCard>
 
@@ -183,17 +185,12 @@ export function UserSettingsView() {
           </View>
           <SettingsCard style={myStyles.categoryView}>
             <Setting
-              style={myStyles.topSetting}
-              settingName="Notifications"
-              onClick={() => alertFunction("Notifications")}
-              imageValue = {3}
-            />
-
-            <Setting
               style={myStyles.bottomSetting}
               settingName="About"
-              onClick={() => {nav.navigate("About")}}
-              imageValue = {4}
+              onClick={() => {
+                nav.navigate("About");
+              }}
+              imageValue={4}
             />
           </SettingsCard>
           <Logout />
