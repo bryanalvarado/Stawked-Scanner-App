@@ -51,21 +51,18 @@ export function LoginView({ route, navigation }) {
   useEffect(() => {
     // If there is a user logged in, go to the Projects page.
     if (user != null) {
-      if(route.params)
-      addNickname()
+      if (route.params) addNickname();
       nav.reset({ index: 0, routes: [{ name: "Home" }] });
     }
     createChannels(); //mess around with placement
   }, [user]);
 
   const createChannels = () => {
-    PushNotification.createChannel(
-      {
-        channelId: "test-channel",
-        channelName: "Test Channel"
-      }
-    )
-  }
+    PushNotification.createChannel({
+      channelId: "test-channel",
+      channelName: "Test Channel",
+    });
+  };
 
   // The onPressSignIn method calls AuthProvider.signIn with the
   // email/password in state.
@@ -77,17 +74,14 @@ export function LoginView({ route, navigation }) {
       loginAnimation(false);
       setTimeout(() => {
         setFailedSignin(true);
-        if(email === "" && password === ""){
-          setFailedSigninText("Please input an email and password")
-        }
-        else if(email === ""){
-          setFailedSigninText("Please input an email")
-        }
-        else if(password === ""){
-          setFailedSigninText("Please input a password")
-        }
-        else {
-          setFailedSigninText("Wrong email and password")
+        if (email === "" && password === "") {
+          setFailedSigninText("Please input an email and password");
+        } else if (email === "") {
+          setFailedSigninText("Please input an email");
+        } else if (password === "") {
+          setFailedSigninText("Please input a password");
+        } else {
+          setFailedSigninText("Wrong email or password");
         }
       }, 101);
     }
@@ -96,7 +90,7 @@ export function LoginView({ route, navigation }) {
   const addNickname = async () => {
     const { nick_name } = route.params;
     try {
-       const temp = await user.functions.addNickname(user.id, nick_name); // Change nickname attribute
+      const temp = await user.functions.addNickname(user.id, nick_name); // Change nickname attribute
     } catch (err) {
       console.log(err);
     }
@@ -108,9 +102,7 @@ export function LoginView({ route, navigation }) {
       <StatusBar barStyle="light-content" />
 
       <View style={myStyles.header}>
-        
         <Image source={require("../assets/img/Logo.png")}></Image>
-        
       </View>
 
       <View style={myStyles.footer}>
@@ -158,9 +150,7 @@ export function LoginView({ route, navigation }) {
           {typingPassword ? typing() : null}
         </View>
         {failedSignin ? (
-          <Text style={myStyles.failedLoginText}>
-            {failedSigninText}
-          </Text>
+          <Text style={myStyles.failedLoginText}>{failedSigninText}</Text>
         ) : null}
 
         <TouchableOpacity onPress={onPressSignIn} style={{ marginTop: 5 }}>
@@ -192,8 +182,8 @@ export const myStyles = StyleSheet.create({
   },
   header: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center",
   },
   footer: {
     flex: 1,
