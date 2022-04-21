@@ -1,30 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Alert } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import PushNotification from "react-native-push-notification";
 import { useAuth } from "../providers/AuthProvider";
-import { ListItem } from "react-native-elements";
 import styles from "../stylesheet";
-import { ScrollView, TouchableHighlight } from "react-native-gesture-handler";
-import { AddInventoryItem } from "../components/AddInventoryItem";
+import { ScrollView } from "react-native-gesture-handler";
+
 
 export function HomeScreenView({ navigation }) {
   const [notifications, setNotifications] = useState();
-  const [keys, setKeys] = useState();
   const { user, projectData, clearAllNotifications } = useAuth();
-  const [inviteUserModalVisible, setInviteUserModalVisible] = useState(false);
 
   useEffect(() => {
     updateMemberOf();
     getAllNotifications();
   }, [projectData]);
-
-  const onClickProject = async (project) => {
-    navigation.navigate("InventoryList", {
-      name: project.name,
-      projectPartition: project.partition,
-    });
-  };
 
   const updateMemberOf = async () => {
     try {
@@ -58,38 +46,6 @@ export function HomeScreenView({ navigation }) {
     ]);
   };
 
-  const handleNotifications = (item) => {
-    PushNotification.localNotification({
-      channelId: "test-channel",
-      title: item, //"Fridge Alert, ",
-      message: "The milk in here stinks!",
-      bigPictureUrl: "https://cdn-icons-png.flaticon.com/512/291/291893.png",
-      color: "white",
-      largeIcon: "ic_cart",
-      smallIcon: "ic_cart",
-    });
-  };
-  // this notification type is scheduled. Not currently used but might be usefull
-  // const informUser = (item) => {
-  //   PushNotification.localNotificationSchedule({
-  //     channelId: "test-channel",
-  //       title: item,//"Fridge Alert, ",
-  //       message: "The milk in here stinks!",
-  //       bigPictureUrl:"https://cdn-icons-png.flaticon.com/512/1198/1198284.png",
-  //       color:"black",
-  //       largeIcon:"ic_notification",
-  //       smallIcon:"ic_cart",
-  //       date: new Date(Date.now() + 5 * 1000),
-  //   })
-  // }
-
-  var data;
-  const sendData = () => {
-    {
-      projectData.map((project) => (data = project.name));
-    }
-    return data;
-  };
 
   return (
     <View style={myStyles.screen}>
@@ -115,12 +71,7 @@ export function HomeScreenView({ navigation }) {
             notifications.length > 0 ? (
               notifications.map((notification) => (
                 <View key={notification.id}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      handleNotifications(sendData());
-                    }}
-                    style={[myStyles.cardView, styles.navBarShadow]}
-                  >
+                  <View style={[myStyles.cardView, styles.navBarShadow]}>
                     <View
                       style={{
                         flexDirection: "row",
@@ -149,7 +100,7 @@ export function HomeScreenView({ navigation }) {
                         </View>
                       </View>
                     </View>
-                  </TouchableOpacity>
+                  </View>
                 </View>
               ))
             ) : (
@@ -167,12 +118,6 @@ export function HomeScreenView({ navigation }) {
     </View>
   );
 }
-
-const styless = StyleSheet.create({
-  screen: {
-    flex: 1,
-  },
-});
 
 const myStyles = StyleSheet.create({
   screen: {
