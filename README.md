@@ -35,9 +35,11 @@ Each user will be able to:
 
 ## Tech Stack
 
-**Client:** React Native
+**Client:** React Native and ReactJS
 
-**Server:** MongoDB
+**Server:** Serverless (MongoDB Realm) 
+
+**Database:** MongoDB Atlas
 
 
 ## Installation
