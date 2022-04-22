@@ -12,7 +12,7 @@ Each user will be able to:
 
 • Edit the inventory list
 
-• Add or remove family members from shared inventory list
+• Add or remove household members from shared inventory list
 
 • Search inventory to avoid duplicate purchases
 
