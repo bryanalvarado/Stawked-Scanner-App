@@ -23,6 +23,7 @@ Each user will be able to:
 
 - [@AlexFurmuzan](https://www.github.com/Alex-Furmuzan)
 - [@ArmenFesliyan](https://www.github.com/armenfesliyan)
+- [@BryanAlvarado](https://github.com/bryanalvarado)
 - [@NoordeenAbunamous](https://www.github.com/noorDino)
 - [@MominChoudhry](https://www.github.com/mochoudhry5)
 - [@JamesOchieng](https://www.github.com/JamesOchieng)
