@@ -4,7 +4,6 @@ import { useAuth } from "../providers/AuthProvider";
 import styles from "../stylesheet";
 import { ScrollView } from "react-native-gesture-handler";
 
-
 export function HomeScreenView({ navigation }) {
   const [notifications, setNotifications] = useState();
   const { user, projectData, clearAllNotifications } = useAuth();
@@ -25,8 +24,10 @@ export function HomeScreenView({ navigation }) {
   const getAllNotifications = async () => {
     try {
       const myNotifications = await user.functions.getAllNotifications(user.id);
-      myNotifications.reverse();
-      setNotifications(myNotifications);
+      if (myNotifications) {
+        myNotifications.reverse();
+        setNotifications(myNotifications);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -45,7 +46,6 @@ export function HomeScreenView({ navigation }) {
       { text: "Cancel", style: "cancel" },
     ]);
   };
-
 
   return (
     <View style={myStyles.screen}>
