@@ -67,6 +67,11 @@ Run the application using an android simulator
 ```bash
   npx react-native run-android
 ```
+
+Run the application using XCode 
+```bash
+  npx react-native run-ios
+```
 Metro will begin running and shortly after the android simulator 
 will automatically run the application.
 
