@@ -72,7 +72,7 @@ Run the application using XCode
 ```bash
   npx react-native run-ios
 ```
-Metro will begin running and shortly after the android simulator 
+Metro will begin running and shortly after the android/ios simulator 
 will automatically run the application.
 
 
