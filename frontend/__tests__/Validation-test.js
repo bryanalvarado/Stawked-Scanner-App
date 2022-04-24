@@ -4,6 +4,9 @@ test("validates email", () => {
   //true tests
   expect(validation.validateEmail("armenfes@gmail.com")).toBe(true);
   expect(validation.validateEmail("jared1@somecompany.com")).toBe(true);
+  expect(validation.validateEmail("jarviscampbell334321@somecompany.com")).toBe(
+    true
+  );
 
   //false tests
   expect(validation.validateEmail("sdf")).toBe(false);
