@@ -55,18 +55,6 @@ end folder.
   cd Stawked-Scanner-App\frontend
 ```
 
-## Setup backend
-
-Create a mongoDB account 
-
-https://account.mongodb.com/account/register
-
-To connect the app to the database, grab the realm app id
-from RealmApp.js
-```bash
-const app = new Realm.App({id: "scannerapp-wlugv"}); // Set Realm app ID here.
-```
-
 ## Run Locally
 Once in the frontend folder
 
