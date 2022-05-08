@@ -52,11 +52,9 @@ const ItemsProvider = ({ children, projectPartition }) => {
   }, [user, projectPartition]);
 
   const createItem = async (name, image, brand, date) => {
-    let itemExists = await user.functions.doesItemExist(name);
+    let itemExists = await user.functions.doesItemExist(name, user.id);
     if (itemExists) {
       await user.functions.addOneToQuantityAndTotalItems(name, user.id);
-
-      //notifyUsersOnAdd(item.name)
     } else {
       await user.functions.addOneToUniqueItems(user.id);
       await user.functions.addOneToTotalItems(user.id);
