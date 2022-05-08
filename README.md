@@ -54,6 +54,7 @@ end folder.
   git clone https://github.com/Alex-Furmuzan/Stawked-Scanner-App.git
   cd Stawked-Scanner-App\frontend
 ```
+
 ## Run Locally
 Once in the frontend folder
 
@@ -79,8 +80,12 @@ will automatically run the application.
 ## User Manual
 Consult the user manual to understand the functionality of the app and all of its individual screens.
 
-[User Manual](https://docs.google.com/document/d/1hGwVCUV4gt62U4rxCIxfzbSGjgCUGiOccmRYLW0UDqk/edit)
-## Documentation
+[User Manual](https://docs.google.com/document/d/1hGwVCUV4gt62U4rxCIxfzbSGjgCUGiOccmRYLW0UDqk/edit?usp=sharing)
+## User Test Report
+Consult the user test report to learn how to view and run the tests configured for this project.
 
-[System-test-report](https://docs.google.com/document/d/1jpvM-gdR4fof4NXlKeaZL3JX3EDpgx5c28u5rpJBc5s/edit)
+[System test report](https://docs.google.com/document/d/1jpvM-gdR4fof4NXlKeaZL3JX3EDpgx5c28u5rpJBc5s/edit?usp=sharing)
+## Maintenance Manual
+Consult the Maintenance manual to learn how to maintain the code and deploy the application.
 
+[Maintenance Manual](https://docs.google.com/document/d/1PWZPyqCnaLV_WZbwT23aGPO8GSzrwFUd/edit?usp=sharing&ouid=113084769777089438831&rtpof=true&sd=true)

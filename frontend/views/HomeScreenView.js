@@ -126,7 +126,7 @@ const myStyles = StyleSheet.create({
   },
   cardView: {
     borderWidth: 0,
-    backgroundColor: "#4682b4",
+    backgroundColor: "#6787e7",
     padding: 20,
     marginHorizontal: 10,
     marginVertical: 5,
